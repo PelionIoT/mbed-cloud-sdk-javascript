@@ -1,17 +1,17 @@
-import { Repository } from "../../../common/repository";
-import { apiWrapper } from "../../../legacy/common/functions";
-import { Device } from "./device";
-import { DeviceAddToGroupRequest } from "./types";
-import { DeviceAdapter } from "../../index";
-import { DeviceCreateRequest } from "./types";
+import { ListOptions } from "../../../common";
 import { extractFilter } from "../../../common/filters";
-import { DeviceListOptions } from "./types";
-import { DeviceRemoveFromGroupRequest } from "./types";
+import { Repository } from "../../../common/repository";
+import { Page, Paginator } from "../../../index";
+import { apiWrapper } from "../../../legacy/common/functions";
+import { DeviceAdapter } from "../../index";
 import { CertificateEnrollment } from "../../index";
 import { CertificateEnrollmentAdapter } from "../../index";
+import { Device } from "./device";
+import { DeviceRemoveFromGroupRequest } from "./types";
+import { DeviceAddToGroupRequest } from "./types";
 import { DeviceUpdateRequest } from "./types";
-import { Paginator, Page } from "../../../index";
-import { ListOptions } from "../../../common";
+import { DeviceCreateRequest } from "./types";
+import { DeviceListOptions } from "./types";
 /**
  *Device repository
  */
@@ -98,7 +98,7 @@ export class DeviceRepository extends Repository {
                         url: "/v3/devices/{id}/",
                         method: "DELETE",
                         pathParams: {
-                            id: id,
+                            id,
                         },
                     },
                     resultsFn
@@ -430,7 +430,7 @@ export class DeviceRepository extends Repository {
                         url: "/v3/devices/{id}/",
                         method: "GET",
                         pathParams: {
-                            id: id,
+                            id,
                         },
                     },
                     resultsFn
@@ -506,7 +506,7 @@ export class DeviceRepository extends Repository {
                         url: "/v3/devices/{id}/",
                         method: "PUT",
                         pathParams: {
-                            id: id,
+                            id,
                         },
                         body: {
                             auto_update: request.autoUpdate,

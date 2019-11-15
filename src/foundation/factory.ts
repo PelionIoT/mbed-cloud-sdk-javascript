@@ -1,5 +1,5 @@
-import { Config } from "../common/config";
-import { AccountRepository } from ".";
+import { FirmwareManifestRepository } from ".";
+import { UserInvitationRepository } from ".";
 import { ApiKeyRepository } from ".";
 import { CampaignDeviceMetadataRepository } from ".";
 import { CampaignStatisticsRepository } from ".";
@@ -18,7 +18,7 @@ import { DeviceEnrollmentDenialRepository } from ".";
 import { DeviceEventsRepository } from ".";
 import { DeviceGroupRepository } from ".";
 import { FirmwareImageRepository } from ".";
-import { FirmwareManifestRepository } from ".";
+import { AccountRepository } from ".";
 import { IdentityProviderRepository } from ".";
 import { LightThemeColorRepository } from ".";
 import { LightThemeImageRepository } from ".";
@@ -38,7 +38,7 @@ import { SubtenantUserInvitationRepository } from ".";
 import { TrustedCertificateRepository } from ".";
 import { UpdateCampaignRepository } from ".";
 import { UserRepository } from ".";
-import { UserInvitationRepository } from ".";
+import { Config } from "../common/config";
 
 export class Factory {
     private readonly _config: Config;

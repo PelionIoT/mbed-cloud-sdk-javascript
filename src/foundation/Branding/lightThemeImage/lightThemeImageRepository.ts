@@ -1,10 +1,10 @@
-import { Repository } from "../../../common/repository";
-import { apiWrapper } from "../../../legacy/common/functions";
-import { LightThemeImage } from "./lightThemeImage";
-import { LightThemeImageAdapter } from "../../index";
 import { ReadStream } from "fs";
-import { Paginator, Page } from "../../../index";
 import { ListOptions } from "../../../common";
+import { Repository } from "../../../common/repository";
+import { Page, Paginator } from "../../../index";
+import { apiWrapper } from "../../../legacy/common/functions";
+import { LightThemeImageAdapter } from "../../index";
+import { LightThemeImage } from "./lightThemeImage";
 /**
  *LightThemeImage repository
  */
@@ -21,7 +21,7 @@ export class LightThemeImageRepository extends Repository {
                         url: "/v3/branding-images/light/{reference}/clear",
                         method: "POST",
                         pathParams: {
-                            reference: reference,
+                            reference,
                         },
                     },
                     resultsFn
@@ -69,7 +69,7 @@ export class LightThemeImageRepository extends Repository {
                         url: "/v3/branding-images/light/{reference}",
                         method: "GET",
                         pathParams: {
-                            reference: reference,
+                            reference,
                         },
                     },
                     resultsFn
@@ -93,10 +93,10 @@ export class LightThemeImageRepository extends Repository {
                         url: "/v3/branding-images/light/{reference}/upload-multipart",
                         method: "POST",
                         pathParams: {
-                            reference: reference,
+                            reference,
                         },
                         formParams: {
-                            image: image,
+                            image,
                         },
                         contentTypes: ["multipart/form-data"],
                     },

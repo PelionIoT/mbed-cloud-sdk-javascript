@@ -1,5 +1,5 @@
-import { Config, ConfigOptions } from "./config";
 import { Client } from "../client/client";
+import { Config, ConfigOptions } from "./config";
 
 /**
  * Abstract base class for a repository

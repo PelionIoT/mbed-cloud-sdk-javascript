@@ -28,8 +28,8 @@ export const mapQuotaHistory = (from: ServicePackageQuotaHistoryItem): QuotaHist
         id: from.id,
         createdAt: from.added,
         delta: from.amount,
-        accountId: (from.reservation !== null) ? from.reservation.account_id : null,
-        campaignName: (from.reservation !== null) ? from.reservation.campaign_name : null,
+        accountId: from.reservation !== null ? from.reservation.account_id : null,
+        campaignName: from.reservation !== null ? from.reservation.campaign_name : null,
         servicePackage: mapQuotaHistoryServicePackage(from.service_package),
         reason: from.reason,
     });

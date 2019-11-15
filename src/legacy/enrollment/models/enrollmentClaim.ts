@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 
-import { AddEnrollmentClaim } from "../types";
-import { EnrollmentApi } from "../enrollmentApi";
-import { CallbackFn } from "../../common/interfaces";
 import { asyncStyle } from "../../common/functions";
+import { CallbackFn } from "../../common/interfaces";
+import { EnrollmentApi } from "../enrollmentApi";
+import { AddEnrollmentClaim } from "../types";
 
 export class EnrollmentClaim {
     /**
@@ -47,7 +47,7 @@ export class EnrollmentClaim {
     public readonly expiresAt: Date;
 
     constructor(init: Partial<EnrollmentClaim>, private readonly _api: EnrollmentApi) {
-        Object.keys(init).forEach( key => {
+        Object.keys(init).forEach(key => {
             this[key] = init[key];
         });
     }
@@ -63,10 +63,10 @@ export class EnrollmentClaim {
      */
     public delete(callback: CallbackFn<void>): void;
     public delete(callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle( done => {
+        return asyncStyle(done => {
             this._api.deleteEnrollmentClaim(this.id, done);
         }, callback);
     }
 }
 
-export interface EnrollmentClaim extends AddEnrollmentClaim { }
+export interface EnrollmentClaim extends AddEnrollmentClaim {}

@@ -1,15 +1,15 @@
-import { Repository } from "../../../common/repository";
-import { apiWrapper } from "../../../legacy/common/functions";
-import { ApiKey } from "./apiKey";
-import { ApiKeyAdapter } from "../../index";
-import { ApiKeyCreateRequest } from "./types";
+import { ListOptions } from "../../../common";
 import { extractFilter } from "../../../common/filters";
-import { ApiKeyListOptions } from "./types";
+import { Repository } from "../../../common/repository";
+import { Page, Paginator } from "../../../index";
+import { apiWrapper } from "../../../legacy/common/functions";
+import { ApiKeyAdapter } from "../../index";
 import { PolicyGroup } from "../../index";
 import { PolicyGroupAdapter } from "../../index";
+import { ApiKey } from "./apiKey";
+import { ApiKeyCreateRequest } from "./types";
 import { ApiKeyUpdateRequest } from "./types";
-import { Paginator, Page } from "../../../index";
-import { ListOptions } from "../../../common";
+import { ApiKeyListOptions } from "./types";
 /**
  *ApiKey repository
  */

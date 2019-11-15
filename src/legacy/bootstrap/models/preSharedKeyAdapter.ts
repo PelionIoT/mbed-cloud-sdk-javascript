@@ -14,21 +14,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { PreSharedKey as ConnectorPSKFull, PreSharedKeyWithoutSecret as ConnectorPSKPartial } from "../../_api/connector_bootstrap";
+import {
+    PreSharedKey as ConnectorPSKFull,
+    PreSharedKeyWithoutSecret as ConnectorPSKPartial,
+} from "../../_api/connector_bootstrap";
 import { BootstrapApi } from "../bootstrapApi";
-import { PreSharedKey } from "./preSharedKey";
 import { AddPreSharedKey } from "../types";
+import { PreSharedKey } from "./preSharedKey";
 
 /**
  * Internal
  * @ignore
  */
 export const mapToSDK = (from: ConnectorPSKPartial, api: BootstrapApi): PreSharedKey => {
-    return new PreSharedKey({
-        endpointName: from.endpoint_name,
-        createdAt:    from.created_at,
-        secretHex:    null,
-    }, api);
+    return new PreSharedKey(
+        {
+            endpointName: from.endpoint_name,
+            createdAt: from.created_at,
+            secretHex: null,
+        },
+        api
+    );
 };
 
 /**
@@ -36,10 +42,13 @@ export const mapToSDK = (from: ConnectorPSKPartial, api: BootstrapApi): PreShare
  * @ignore
  */
 export const mapFrom = (from: AddPreSharedKey, api: BootstrapApi): PreSharedKey => {
-    return new PreSharedKey({
-        endpointName: from.endpointName,
-        secretHex:    from.secretHex,
-    }, api);
+    return new PreSharedKey(
+        {
+            endpointName: from.endpointName,
+            secretHex: from.secretHex,
+        },
+        api
+    );
 };
 
 /**

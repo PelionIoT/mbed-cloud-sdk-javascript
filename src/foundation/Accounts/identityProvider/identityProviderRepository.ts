@@ -1,12 +1,12 @@
+import { ListOptions } from "../../../common";
 import { Repository } from "../../../common/repository";
+import { Page, Paginator } from "../../../index";
 import { apiWrapper } from "../../../legacy/common/functions";
-import { IdentityProvider } from "./identityProvider";
 import { IdentityProviderAdapter } from "../../index";
+import { IdentityProvider } from "./identityProvider";
 import { IdentityProviderCreateRequest } from "./types";
 import { IdentityProviderGenerateServiceProviderCertificateRequest } from "./types";
 import { IdentityProviderUpdateRequest } from "./types";
-import { Paginator, Page } from "../../../index";
-import { ListOptions } from "../../../common";
 /**
  *IdentityProvider repository
  */
@@ -24,7 +24,7 @@ export class IdentityProviderRepository extends Repository {
                         url: "/v3/identity-providers",
                         method: "POST",
                         query: {
-                            discovery: discovery,
+                            discovery,
                         },
                         body: {
                             description: request.description,
@@ -211,7 +211,7 @@ export class IdentityProviderRepository extends Repository {
                         url: "/v3/identity-providers/{identity_provider_id}",
                         method: "PUT",
                         query: {
-                            discovery: discovery,
+                            discovery,
                         },
                         pathParams: {
                             identity_provider_id: id,

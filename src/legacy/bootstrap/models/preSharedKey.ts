@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 
-import { AddPreSharedKey } from "../types";
-import { BootstrapApi } from "../bootstrapApi";
-import { CallbackFn } from "../../common/interfaces";
 import { asyncStyle } from "../../common/functions";
+import { CallbackFn } from "../../common/interfaces";
+import { BootstrapApi } from "../bootstrapApi";
+import { AddPreSharedKey } from "../types";
 
 export class PreSharedKey {
     /**
@@ -27,7 +27,7 @@ export class PreSharedKey {
     public readonly createdAt?: Date;
 
     constructor(init: Partial<PreSharedKey>, private readonly _api: BootstrapApi) {
-        Object.keys(init).forEach( key => {
+        Object.keys(init).forEach(key => {
             this[key] = init[key];
         });
     }
@@ -43,10 +43,10 @@ export class PreSharedKey {
      */
     public delete(callback: CallbackFn<void>): void;
     public delete(callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle( done => {
+        return asyncStyle(done => {
             this._api.deletePsk(this.endpointName, done);
         }, callback);
     }
 }
 
-export interface PreSharedKey extends AddPreSharedKey { }
+export interface PreSharedKey extends AddPreSharedKey {}

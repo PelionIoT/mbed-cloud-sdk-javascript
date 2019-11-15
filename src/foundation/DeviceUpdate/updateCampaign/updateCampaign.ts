@@ -1,5 +1,5 @@
 import { Entity } from "../../../common/entity";
-import { UpdateCampaignStrategy, UpdateCampaignPhase } from "./types";
+import { UpdateCampaignPhase, UpdateCampaignStrategy } from "./types";
 /**
  *UpdateCampaign
  */

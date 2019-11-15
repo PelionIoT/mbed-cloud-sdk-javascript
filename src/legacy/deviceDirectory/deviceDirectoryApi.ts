@@ -1,34 +1,42 @@
 /*
-* Pelion Device Management JavaScript SDK
-* Copyright Arm Limited 2017
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-* http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Pelion Device Management JavaScript SDK
+ * Copyright Arm Limited 2017
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-import { asyncStyle, apiWrapper, encodeInclude, encodeFilter } from "../common/functions";
+import { ConfigOptions } from "../../common/config";
+import { ApiMetadata } from "../common/apiMetadata";
+import { apiWrapper, asyncStyle, encodeFilter, encodeInclude } from "../common/functions";
 import { CallbackFn } from "../common/interfaces";
 import { ListResponse } from "../common/listResponse";
-import { AddDeviceObject, UpdateDeviceObject, AddQueryObject, UpdateQueryObject, DeviceListOptions, QueryListOptions, DeviceEventListOptions } from "./types";
-import { Device } from "./models/device";
-import { DeviceAdapter } from "./models/deviceAdapter";
-import { Query } from "./models/query";
-import { QueryAdapter } from "./models/queryAdapter";
-import { DeviceEvent } from "./models/deviceEvent";
-import { DeviceEventAdapter } from "./models/deviceEventAdapter";
 import { Endpoints } from "./endpoints";
 import { Filters } from "./filters";
-import { ApiMetadata } from "../common/apiMetadata";
-import { ConfigOptions } from "../../common/config";
+import { Device } from "./models/device";
+import { DeviceAdapter } from "./models/deviceAdapter";
+import { DeviceEvent } from "./models/deviceEvent";
+import { DeviceEventAdapter } from "./models/deviceEventAdapter";
+import { Query } from "./models/query";
+import { QueryAdapter } from "./models/queryAdapter";
+import {
+    AddDeviceObject,
+    AddQueryObject,
+    DeviceEventListOptions,
+    DeviceListOptions,
+    QueryListOptions,
+    UpdateDeviceObject,
+    UpdateQueryObject,
+} from "./types";
 
 /**
  * ## Device Directory API
@@ -67,7 +75,6 @@ import { ConfigOptions } from "../../common/config";
  * ```
  */
 export class DeviceDirectoryApi {
-
     private _endpoints: Endpoints;
 
     /**
@@ -129,16 +136,27 @@ export class DeviceDirectoryApi {
             options = {};
         }
 
-        return apiWrapper( resultsFn => {
-            const { limit, after, order, include, filter } = options;
-            this._endpoints.directory.deviceList(limit, order, after, encodeFilter(filter, Filters.DEVICE_FILTER_MAP, Filters.NESTED_FILTERS), encodeInclude(include), resultsFn);
-        }, (data, done) => {
-            const devices = data.data.map( device => {
-                return DeviceAdapter.map(device, this);
-            });
+        return apiWrapper(
+            resultsFn => {
+                const { limit, after, order, include, filter } = options;
+                this._endpoints.directory.deviceList(
+                    limit,
+                    order,
+                    after,
+                    encodeFilter(filter, Filters.DEVICE_FILTER_MAP, Filters.NESTED_FILTERS),
+                    encodeInclude(include),
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                const devices = data.data.map(device => {
+                    return DeviceAdapter.map(device, this);
+                });
 
-            done(null, new ListResponse<Device>(data, devices));
-        }, callback);
+                done(null, new ListResponse<Device>(data, devices));
+            },
+            callback
+        );
     }
 
     /**
@@ -175,12 +193,16 @@ export class DeviceDirectoryApi {
      */
     public getDevice(deviceId: string, callback: CallbackFn<Device>): void;
     public getDevice(deviceId: string, callback?: CallbackFn<Device>): Promise<Device> {
-        return apiWrapper( resultsFn => {
-            this._endpoints.directory.deviceRetrieve(deviceId, resultsFn);
-        }, (data, done) => {
-            const device = DeviceAdapter.map(data, this);
-            done(null, device);
-        }, callback);
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.directory.deviceRetrieve(deviceId, resultsFn);
+            },
+            (data, done) => {
+                const device = DeviceAdapter.map(data, this);
+                done(null, device);
+            },
+            callback
+        );
     }
 
     /**
@@ -225,12 +247,16 @@ export class DeviceDirectoryApi {
      */
     public addDevice(device: AddDeviceObject, callback: CallbackFn<Device>): void;
     public addDevice(device: AddDeviceObject, callback?: CallbackFn<Device>): Promise<Device> {
-        return apiWrapper( resultsFn => {
-            this._endpoints.directory.deviceCreate(DeviceAdapter.addMap(device), resultsFn);
-        }, (data, done) => {
-            const result = DeviceAdapter.map(data, this);
-            done(null, result);
-        }, callback);
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.directory.deviceCreate(DeviceAdapter.addMap(device), resultsFn);
+            },
+            (data, done) => {
+                const result = DeviceAdapter.map(data, this);
+                done(null, result);
+            },
+            callback
+        );
     }
 
     /**
@@ -283,12 +309,16 @@ export class DeviceDirectoryApi {
      */
     public updateDevice(device: UpdateDeviceObject, callback: CallbackFn<Device>): void;
     public updateDevice(device: UpdateDeviceObject, callback?: CallbackFn<Device>): Promise<Device> {
-        return apiWrapper( resultsFn => {
-            this._endpoints.directory.deviceUpdate(device.id, DeviceAdapter.updateMap(device), resultsFn);
-        }, (data, done) => {
-            const result = DeviceAdapter.map(data, this);
-            done(null, result);
-        }, callback);
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.directory.deviceUpdate(device.id, DeviceAdapter.updateMap(device), resultsFn);
+            },
+            (data, done) => {
+                const result = DeviceAdapter.map(data, this);
+                done(null, result);
+            },
+            callback
+        );
     }
 
     /**
@@ -321,11 +351,15 @@ export class DeviceDirectoryApi {
      */
     public deleteDevice(deviceId: string, callback: CallbackFn<void>): void;
     public deleteDevice(deviceId: string, callback?: CallbackFn<void>): Promise<void> {
-        return apiWrapper( resultsFn => {
-            this._endpoints.directory.deviceDestroy(deviceId, resultsFn);
-        }, (data, done) => {
-            done(null, data);
-        }, callback);
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.directory.deviceDestroy(deviceId, resultsFn);
+            },
+            (data, done) => {
+                done(null, data);
+            },
+            callback
+        );
     }
 
     /**
@@ -370,20 +404,31 @@ export class DeviceDirectoryApi {
             options = {};
         }
 
-        return apiWrapper( resultsFn => {
-            const { limit, order, after, include, filter } = options;
-            this._endpoints.directory.deviceQueryList(limit, order, after, encodeFilter(filter, Filters.EMPTY_FILTER_MAP), encodeInclude(include), resultsFn);
-        }, (data, done) => {
-            let queries: Array<Query>;
-            if (data.data && data.data.length) {
-                queries = data.data.map( query => {
-                    return QueryAdapter.map(query, this);
-                });
-            }
+        return apiWrapper(
+            resultsFn => {
+                const { limit, order, after, include, filter } = options;
+                this._endpoints.directory.deviceQueryList(
+                    limit,
+                    order,
+                    after,
+                    encodeFilter(filter, Filters.EMPTY_FILTER_MAP),
+                    encodeInclude(include),
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                let queries: Array<Query>;
+                if (data.data && data.data.length) {
+                    queries = data.data.map(query => {
+                        return QueryAdapter.map(query, this);
+                    });
+                }
 
-            const response = new ListResponse(data, queries);
-            done(null, response);
-        }, callback);
+                const response = new ListResponse(data, queries);
+                done(null, response);
+            },
+            callback
+        );
     }
 
     /**
@@ -422,12 +467,16 @@ export class DeviceDirectoryApi {
      */
     public getQuery(queryId: string, callback: CallbackFn<Query>): void;
     public getQuery(queryId: string, callback?: CallbackFn<Query>): Promise<Query> {
-        return apiWrapper( resultsFn => {
-            this._endpoints.directory.deviceQueryRetrieve(queryId, resultsFn);
-        }, (data, done) => {
-            const query = QueryAdapter.map(data, this);
-            done(null, query);
-        }, callback);
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.directory.deviceQueryRetrieve(queryId, resultsFn);
+            },
+            (data, done) => {
+                const query = QueryAdapter.map(data, this);
+                done(null, query);
+            },
+            callback
+        );
     }
 
     /**
@@ -480,12 +529,16 @@ export class DeviceDirectoryApi {
      */
     public addQuery(query: AddQueryObject, callback: CallbackFn<Query>): void;
     public addQuery(query: AddQueryObject, callback?: CallbackFn<Query>): Promise<Query> {
-        return apiWrapper( resultsFn => {
-            this._endpoints.directory.deviceQueryCreate(QueryAdapter.addMap(query), resultsFn);
-        }, (data, done) => {
-            const result = QueryAdapter.map(data, this);
-            done(null, result);
-        }, callback);
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.directory.deviceQueryCreate(QueryAdapter.addMap(query), resultsFn);
+            },
+            (data, done) => {
+                const result = QueryAdapter.map(data, this);
+                done(null, result);
+            },
+            callback
+        );
     }
 
     /**
@@ -538,12 +591,16 @@ export class DeviceDirectoryApi {
      */
     public updateQuery(query: UpdateQueryObject, callback: CallbackFn<Query>): void;
     public updateQuery(query: UpdateQueryObject, callback?: CallbackFn<Query>): Promise<Query> {
-        return apiWrapper( resultsFn => {
-            this._endpoints.directory.deviceQueryUpdate(query.id, QueryAdapter.updateMap(query), resultsFn);
-        }, (data, done) => {
-            const result = QueryAdapter.map(data, this);
-            done(null, result);
-        }, callback);
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.directory.deviceQueryUpdate(query.id, QueryAdapter.updateMap(query), resultsFn);
+            },
+            (data, done) => {
+                const result = QueryAdapter.map(data, this);
+                done(null, result);
+            },
+            callback
+        );
     }
 
     /**
@@ -576,11 +633,15 @@ export class DeviceDirectoryApi {
      */
     public deleteQuery(queryId: string, callback: CallbackFn<void>): void;
     public deleteQuery(queryId: string, callback?: CallbackFn<void>): Promise<void> {
-        return apiWrapper( resultsFn => {
-            this._endpoints.directory.deviceQueryDestroy(queryId, resultsFn);
-        }, (data, done) => {
-            done(null, data);
-        }, callback);
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.directory.deviceQueryDestroy(queryId, resultsFn);
+            },
+            (data, done) => {
+                done(null, data);
+            },
+            callback
+        );
     }
 
     /**
@@ -628,26 +689,40 @@ export class DeviceDirectoryApi {
      * @param callback A function that is passed the return arguments (error, listResponse)
      */
     public listDeviceEvents(options?: DeviceEventListOptions, callback?: CallbackFn<ListResponse<DeviceEvent>>): void;
-    public listDeviceEvents(options?: any, callback?: CallbackFn<ListResponse<DeviceEvent>>): Promise<ListResponse<DeviceEvent>> {
+    public listDeviceEvents(
+        options?: any,
+        callback?: CallbackFn<ListResponse<DeviceEvent>>
+    ): Promise<ListResponse<DeviceEvent>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
             options = {};
         }
 
-        return apiWrapper( resultsFn => {
-            const { limit, order, after, include, filter } = options as DeviceEventListOptions;
-            this._endpoints.directory.deviceLogList(limit, order, after, encodeFilter(filter, Filters.DEVICE_EVENT_FILTER_MAP), encodeInclude(include), resultsFn);
-        }, (data, done) => {
-            let list: Array<DeviceEvent>;
-            if (data.data && data.data.length) {
-                list = data.data.map( event => {
-                    return DeviceEventAdapter.map(event);
-                });
-            }
+        return apiWrapper(
+            resultsFn => {
+                const { limit, order, after, include, filter } = options as DeviceEventListOptions;
+                this._endpoints.directory.deviceLogList(
+                    limit,
+                    order,
+                    after,
+                    encodeFilter(filter, Filters.DEVICE_EVENT_FILTER_MAP),
+                    encodeInclude(include),
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                let list: Array<DeviceEvent>;
+                if (data.data && data.data.length) {
+                    list = data.data.map(event => {
+                        return DeviceEventAdapter.map(event);
+                    });
+                }
 
-            done(null, new ListResponse<DeviceEvent>(data, list));
-        }, callback);
+                done(null, new ListResponse<DeviceEvent>(data, list));
+            },
+            callback
+        );
     }
 
     /**
@@ -684,12 +759,16 @@ export class DeviceDirectoryApi {
      */
     public getDeviceEvent(deviceEventId: string, callback: CallbackFn<DeviceEvent>): void;
     public getDeviceEvent(deviceEventId: string, callback?: CallbackFn<DeviceEvent>): Promise<DeviceEvent> {
-        return apiWrapper( resultsFn => {
-            this._endpoints.directory.deviceLogRetrieve(deviceEventId, resultsFn);
-        }, (data, done) => {
-            const event = DeviceEventAdapter.map(data);
-            done(null, event);
-        }, callback);
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.directory.deviceLogRetrieve(deviceEventId, resultsFn);
+            },
+            (data, done) => {
+                const event = DeviceEventAdapter.map(data);
+                done(null, event);
+            },
+            callback
+        );
     }
 
     /**
@@ -703,7 +782,7 @@ export class DeviceDirectoryApi {
      */
     public getLastApiMetadata(callback: CallbackFn<ApiMetadata>): void;
     public getLastApiMetadata(callback?: CallbackFn<ApiMetadata>): Promise<ApiMetadata> {
-        return asyncStyle( done => {
+        return asyncStyle(done => {
             done(null, this._endpoints.getLastMeta());
         }, callback);
     }

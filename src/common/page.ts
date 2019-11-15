@@ -2,11 +2,12 @@ import { Order } from "../legacy/common/interfaces";
 import { ListOptions } from "./listOptions";
 
 export class Page<T> implements IterableIterator<T> {
-    private currentIndex: number = 0;
-
-    private listOptions: ListOptions;
-
-    private _data: Array<T>;
+    /**
+     * The data in the page
+     */
+    public get data(): Array<T> {
+        return this._data;
+    }
 
     /**
      * Whether there are more results to display
@@ -37,19 +38,17 @@ export class Page<T> implements IterableIterator<T> {
      *  Entity id for fetch after it
      */
     public readonly continuationMarker?: string;
+    private currentIndex: number = 0;
 
-    /**
-     * The data in the page
-     */
-    public get data(): Array<T> {
-        return this._data;
-    }
+    private listOptions: ListOptions;
+
+    private _data: Array<T>;
 
     constructor(from: any, data?: Array<T>, apiMapper?: (key: T, index?: number) => T, listOptions?: ListOptions) {
         this.listOptions = listOptions || {};
         this.hasMore = from.has_more || from.hasMore;
         this.continuationMarker = from.continuation_marker || from.continuationMarker;
-        this.pageSize = ("limit" in from) ? from.limit : ("pageSize" in from) ? from.pageSize : undefined;
+        this.pageSize = "limit" in from ? from.limit : "pageSize" in from ? from.pageSize : undefined;
         this.order = from.order;
         // default to 0 if either is undefined
         this.totalCount = from.total_count || from.totalCount || 0;
@@ -68,7 +67,7 @@ export class Page<T> implements IterableIterator<T> {
         }
 
         // change this stupid line
-        this.after = this.continuationMarker || (this.hasMore ? ((((this.last() as any) || {}).id) || null) : null) || null;
+        this.after = this.continuationMarker || (this.hasMore ? ((this.last() as any) || {}).id || null : null) || null;
     }
 
     public first(): T {

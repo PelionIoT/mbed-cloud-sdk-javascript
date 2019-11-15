@@ -1,12 +1,12 @@
-import { Repository } from "../../../common/repository";
-import { apiWrapper } from "../../../legacy/common/functions";
-import { FirmwareImage } from "./firmwareImage";
-import { FirmwareImageAdapter } from "../../index";
-import { extractFilter } from "../../../common/filters";
-import { FirmwareImageListOptions } from "./types";
 import { ReadStream } from "fs";
-import { Paginator, Page } from "../../../index";
 import { ListOptions } from "../../../common";
+import { extractFilter } from "../../../common/filters";
+import { Repository } from "../../../common/repository";
+import { Page, Paginator } from "../../../index";
+import { apiWrapper } from "../../../legacy/common/functions";
+import { FirmwareImageAdapter } from "../../index";
+import { FirmwareImage } from "./firmwareImage";
+import { FirmwareImageListOptions } from "./types";
 /**
  *FirmwareImage repository
  */

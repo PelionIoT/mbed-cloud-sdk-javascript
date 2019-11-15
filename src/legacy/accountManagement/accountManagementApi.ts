@@ -1,35 +1,44 @@
 /*
-* Pelion Device Management JavaScript SDK
-* Copyright Arm Limited 2017
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-* http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Pelion Device Management JavaScript SDK
+ * Copyright Arm Limited 2017
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-import { asyncStyle, apiWrapper, encodeInclude, extractFilter } from "../common/functions";
+import { ConfigOptions } from "../../common/config";
+import { ApiMetadata } from "../common/apiMetadata";
+import { apiWrapper, asyncStyle, encodeInclude, extractFilter } from "../common/functions";
 import { CallbackFn, ListOptions } from "../common/interfaces";
 import { ListResponse } from "../common/listResponse";
 import { Endpoints } from "./endpoints";
-import { UpdateAccountObject, AddApiKeyObject, UpdateApiKeyObject, AddUserObject, UpdateUserObject, ApiKeyListOptions, UserListOptions, GroupListOptions } from "./types";
 import { Account } from "./models/account";
 import { AccountAdapter } from "./models/accountAdapter";
 import { ApiKey } from "./models/apiKey";
 import { ApiKeyAdapter } from "./models/apiKeyAdapter";
-import { User } from "./models/user";
-import { UserAdapter } from "./models/userAdapter";
 import { Group } from "./models/group";
 import { GroupAdapter } from "./models/groupAdapter";
-import { ApiMetadata } from "../common/apiMetadata";
-import { ConfigOptions } from "../../common/config";
+import { User } from "./models/user";
+import { UserAdapter } from "./models/userAdapter";
+import {
+    AddApiKeyObject,
+    AddUserObject,
+    ApiKeyListOptions,
+    GroupListOptions,
+    UpdateAccountObject,
+    UpdateApiKeyObject,
+    UpdateUserObject,
+    UserListOptions,
+} from "./types";
 
 /**
  * ## Account Management API
@@ -67,7 +76,6 @@ import { ConfigOptions } from "../../common/config";
  * ```
  */
 export class AccountManagementApi {
-
     private _endpoints: Endpoints;
 
     /**
@@ -111,11 +119,15 @@ export class AccountManagementApi {
      */
     public getAccount(callback?: CallbackFn<Account>): void;
     public getAccount(callback?: CallbackFn<Account>): Promise<Account> {
-        return apiWrapper( resultsFn => {
-            this._endpoints.developer.getMyAccountInfo("limits, policies", "", resultsFn);
-        }, (data, done) => {
-            done(null, AccountAdapter.map(data, this));
-        }, callback);
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.developer.getMyAccountInfo("limits, policies", "", resultsFn);
+            },
+            (data, done) => {
+                done(null, AccountAdapter.map(data, this));
+            },
+            callback
+        );
     }
 
     /**
@@ -160,11 +172,15 @@ export class AccountManagementApi {
      */
     public updateAccount(account: UpdateAccountObject, callback?: CallbackFn<Account>): void;
     public updateAccount(account: UpdateAccountObject, callback?: CallbackFn<Account>): Promise<Account> {
-        return apiWrapper( resultsFn => {
-            this._endpoints.admin.updateMyAccount(AccountAdapter.reverseMap(account), resultsFn);
-        }, (data, done) => {
-            done(null, AccountAdapter.map(data, this));
-        }, callback);
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.admin.updateMyAccount(AccountAdapter.reverseMap(account), resultsFn);
+            },
+            (data, done) => {
+                done(null, AccountAdapter.map(data, this));
+            },
+            callback
+        );
     }
 
     /**
@@ -217,19 +233,31 @@ export class AccountManagementApi {
             options = {};
         }
 
-        return apiWrapper( resultsFn => {
-            const { limit, after, order, include, filter } = options as ApiKeyListOptions;
-            this._endpoints.developer.getAllApiKeys(limit, after, order, encodeInclude(include), extractFilter(filter, "apiKey"), extractFilter(filter, "ownerId"), resultsFn);
-        }, (data, done) => {
-            let keys: Array<ApiKey>;
-            if (data && data.data && data.data.length) {
-                keys = data.data.map( key => {
-                    return ApiKeyAdapter.map(key, this);
-                });
-            }
+        return apiWrapper(
+            resultsFn => {
+                const { limit, after, order, include, filter } = options as ApiKeyListOptions;
+                this._endpoints.developer.getAllApiKeys(
+                    limit,
+                    after,
+                    order,
+                    encodeInclude(include),
+                    extractFilter(filter, "apiKey"),
+                    extractFilter(filter, "ownerId"),
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                let keys: Array<ApiKey>;
+                if (data && data.data && data.data.length) {
+                    keys = data.data.map(key => {
+                        return ApiKeyAdapter.map(key, this);
+                    });
+                }
 
-            done(null, new ListResponse(data, keys));
-        }, callback);
+                done(null, new ListResponse(data, keys));
+            },
+            callback
+        );
     }
 
     /**
@@ -273,11 +301,19 @@ export class AccountManagementApi {
             apiKeyId = null;
         }
 
-        return apiWrapper( resultsFn => {
-            if (apiKeyId) { this._endpoints.developer.getApiKey(apiKeyId, resultsFn); } else { this._endpoints.developer.getMyApiKey(resultsFn); }
-        }, (data, done) => {
-            done(null, ApiKeyAdapter.map(data, this));
-        }, callback);
+        return apiWrapper(
+            resultsFn => {
+                if (apiKeyId) {
+                    this._endpoints.developer.getApiKey(apiKeyId, resultsFn);
+                } else {
+                    this._endpoints.developer.getMyApiKey(resultsFn);
+                }
+            },
+            (data, done) => {
+                done(null, ApiKeyAdapter.map(data, this));
+            },
+            callback
+        );
     }
 
     /**
@@ -316,11 +352,15 @@ export class AccountManagementApi {
      */
     public addApiKey(apiKey: AddApiKeyObject, callback: CallbackFn<ApiKey>): void;
     public addApiKey(apiKey: AddApiKeyObject, callback?: CallbackFn<ApiKey>): Promise<ApiKey> {
-        return apiWrapper( resultsFn => {
-            this._endpoints.developer.createApiKey(ApiKeyAdapter.addMap(apiKey), resultsFn);
-        }, (data, done) => {
-            done(null, ApiKeyAdapter.map(data, this));
-        }, callback);
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.developer.createApiKey(ApiKeyAdapter.addMap(apiKey), resultsFn);
+            },
+            (data, done) => {
+                done(null, ApiKeyAdapter.map(data, this));
+            },
+            callback
+        );
     }
 
     /**
@@ -363,11 +403,15 @@ export class AccountManagementApi {
      */
     public updateApiKey(apiKey: UpdateApiKeyObject, callback: CallbackFn<ApiKey>): void;
     public updateApiKey(apiKey: UpdateApiKeyObject, callback?: CallbackFn<ApiKey>): Promise<ApiKey> {
-        return apiWrapper( resultsFn => {
-            this._endpoints.developer.updateApiKey(apiKey.id, ApiKeyAdapter.updateMap(apiKey), resultsFn);
-        }, (data, done) => {
-            done(null, ApiKeyAdapter.map(data, this));
-        }, callback);
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.developer.updateApiKey(apiKey.id, ApiKeyAdapter.updateMap(apiKey), resultsFn);
+            },
+            (data, done) => {
+                done(null, ApiKeyAdapter.map(data, this));
+            },
+            callback
+        );
     }
 
     /**
@@ -400,11 +444,15 @@ export class AccountManagementApi {
      */
     public deleteApiKey(apiKeyId: string, callback: CallbackFn<void>): void;
     public deleteApiKey(apiKeyId: string, callback?: CallbackFn<void>): Promise<void> {
-        return apiWrapper( resultsFn => {
-            this._endpoints.developer.deleteApiKey(apiKeyId, resultsFn);
-        }, (data, done) => {
-            done(null, data);
-        }, callback);
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.developer.deleteApiKey(apiKeyId, resultsFn);
+            },
+            (data, done) => {
+                done(null, data);
+            },
+            callback
+        );
     }
 
     /**
@@ -457,19 +505,33 @@ export class AccountManagementApi {
             options = {};
         }
 
-        return apiWrapper( resultsFn => {
-            const { limit, after, order, include, filter } = options as UserListOptions;
-            this._endpoints.admin.getAllUsers(limit, after, order, encodeInclude(include), extractFilter(filter, "email"), extractFilter(filter, "status"), extractFilter(filter, "status", "$in"), extractFilter(filter, "status", "$nin"), resultsFn);
-        }, (data, done) => {
-            let users: Array<User>;
-            if (data.data && data.data.length) {
-                users = data.data.map( user => {
-                    return UserAdapter.map(user, this);
-                });
-            }
+        return apiWrapper(
+            resultsFn => {
+                const { limit, after, order, include, filter } = options as UserListOptions;
+                this._endpoints.admin.getAllUsers(
+                    limit,
+                    after,
+                    order,
+                    encodeInclude(include),
+                    extractFilter(filter, "email"),
+                    extractFilter(filter, "status"),
+                    extractFilter(filter, "status", "$in"),
+                    extractFilter(filter, "status", "$nin"),
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                let users: Array<User>;
+                if (data.data && data.data.length) {
+                    users = data.data.map(user => {
+                        return UserAdapter.map(user, this);
+                    });
+                }
 
-            done(null, new ListResponse(data, users));
-        }, callback);
+                done(null, new ListResponse(data, users));
+            },
+            callback
+        );
     }
 
     /**
@@ -506,11 +568,15 @@ export class AccountManagementApi {
      */
     public getUser(userId: string, callback?: CallbackFn<User>): void;
     public getUser(userId: string, callback?: CallbackFn<User>): Promise<User> {
-        return apiWrapper( resultsFn => {
-            this._endpoints.admin.getUser(userId, "", resultsFn);
-        }, (data, done) => {
-            done(null, UserAdapter.map(data, this));
-        }, callback);
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.admin.getUser(userId, "", resultsFn);
+            },
+            (data, done) => {
+                done(null, UserAdapter.map(data, this));
+            },
+            callback
+        );
     }
 
     /**
@@ -555,11 +621,15 @@ export class AccountManagementApi {
      */
     public addUser(user: AddUserObject, callback: CallbackFn<User>): void;
     public addUser(user: AddUserObject, callback?: CallbackFn<User>): Promise<User> {
-        return apiWrapper( resultsFn => {
-            this._endpoints.admin.createUser(UserAdapter.addMap(user), "create", resultsFn);
-        }, (data, done) => {
-            done(null, UserAdapter.map(data, this));
-        }, callback);
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.admin.createUser(UserAdapter.addMap(user), "create", resultsFn);
+            },
+            (data, done) => {
+                done(null, UserAdapter.map(data, this));
+            },
+            callback
+        );
     }
 
     /**
@@ -604,11 +674,15 @@ export class AccountManagementApi {
      */
     public updateUser(user: UpdateUserObject, callback: CallbackFn<User>): void;
     public updateUser(user: UpdateUserObject, callback?: CallbackFn<User>): Promise<User> {
-        return apiWrapper( resultsFn => {
-            this._endpoints.admin.updateUser(user.id, UserAdapter.updateMap(user), resultsFn);
-        }, (data, done) => {
-            done(null, UserAdapter.map(data, this));
-        }, callback);
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.admin.updateUser(user.id, UserAdapter.updateMap(user), resultsFn);
+            },
+            (data, done) => {
+                done(null, UserAdapter.map(data, this));
+            },
+            callback
+        );
     }
 
     /**
@@ -641,11 +715,15 @@ export class AccountManagementApi {
      */
     public deleteUser(userId: string, callback: CallbackFn<void>): void;
     public deleteUser(userId: string, callback?: CallbackFn<void>): Promise<void> {
-        return apiWrapper( resultsFn => {
-            this._endpoints.admin.deleteUser(userId, resultsFn);
-        }, (data, done) => {
-            done(null, data);
-        }, callback);
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.admin.deleteUser(userId, resultsFn);
+            },
+            (data, done) => {
+                done(null, data);
+            },
+            callback
+        );
     }
 
     /**
@@ -688,19 +766,30 @@ export class AccountManagementApi {
             options = {};
         }
 
-        return apiWrapper( resultsFn => {
-            const { limit, after, order, include, filter } = options as GroupListOptions;
-            this._endpoints.developer.getAllGroups(limit, after, order, encodeInclude(include), extractFilter(filter, "name"), resultsFn);
-        }, (data, done) => {
-            let groups: Array<Group>;
-            if (data.data && data.data.length) {
-                groups = data.data.map( group => {
-                    return GroupAdapter.map(group, this);
-                });
-            }
+        return apiWrapper(
+            resultsFn => {
+                const { limit, after, order, include, filter } = options as GroupListOptions;
+                this._endpoints.developer.getAllGroups(
+                    limit,
+                    after,
+                    order,
+                    encodeInclude(include),
+                    extractFilter(filter, "name"),
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                let groups: Array<Group>;
+                if (data.data && data.data.length) {
+                    groups = data.data.map(group => {
+                        return GroupAdapter.map(group, this);
+                    });
+                }
 
-            done(null, new ListResponse(data, groups));
-        }, callback);
+                done(null, new ListResponse(data, groups));
+            },
+            callback
+        );
     }
 
     /**
@@ -737,11 +826,15 @@ export class AccountManagementApi {
      */
     public getGroup(groupId: string, callback: CallbackFn<Group>): void;
     public getGroup(groupId: string, callback?: CallbackFn<Group>): Promise<Group> {
-        return apiWrapper( resultsFn => {
-            this._endpoints.developer.getGroupSummary(groupId, resultsFn);
-        }, (data, done) => {
-            done(null, GroupAdapter.map(data, this));
-        }, callback);
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.developer.getGroupSummary(groupId, resultsFn);
+            },
+            (data, done) => {
+                done(null, GroupAdapter.map(data, this));
+            },
+            callback
+        );
     }
 
     /**
@@ -779,26 +872,44 @@ export class AccountManagementApi {
      * @param callback A function that is passed the arguments (error, listResponse)
      */
     public listGroupUsers(groupId: string, options?: GroupListOptions, callback?: CallbackFn<ListResponse<User>>): void;
-    public listGroupUsers(groupId: string, options?: GroupListOptions, callback?: CallbackFn<ListResponse<User>>): Promise<ListResponse<User>> {
+    public listGroupUsers(
+        groupId: string,
+        options?: GroupListOptions,
+        callback?: CallbackFn<ListResponse<User>>
+    ): Promise<ListResponse<User>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
             options = {};
         }
 
-        return apiWrapper( resultsFn => {
-            const { limit, after, order, include, filter } = options as GroupListOptions;
-            this._endpoints.admin.getUsersOfGroup(groupId, limit, after, order, encodeInclude(include), extractFilter(filter, "status"), extractFilter(filter, "status", "$in"), extractFilter(filter, "status", "$nin"), resultsFn);
-        }, (data, done) => {
-            let users: Array<User>;
-            if (data.data && data.data.length) {
-                users = data.data.map( user => {
-                    return UserAdapter.map(user, this);
-                });
-            }
+        return apiWrapper(
+            resultsFn => {
+                const { limit, after, order, include, filter } = options as GroupListOptions;
+                this._endpoints.admin.getUsersOfGroup(
+                    groupId,
+                    limit,
+                    after,
+                    order,
+                    encodeInclude(include),
+                    extractFilter(filter, "status"),
+                    extractFilter(filter, "status", "$in"),
+                    extractFilter(filter, "status", "$nin"),
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                let users: Array<User>;
+                if (data.data && data.data.length) {
+                    users = data.data.map(user => {
+                        return UserAdapter.map(user, this);
+                    });
+                }
 
-            done(null, new ListResponse(data, users));
-        }, callback);
+                done(null, new ListResponse(data, users));
+            },
+            callback
+        );
     }
 
     /**
@@ -836,26 +947,41 @@ export class AccountManagementApi {
      * @param callback A function that is passed the arguments (error, listResponse)
      */
     public listGroupApiKeys(groupId: string, options?: ListOptions, callback?: CallbackFn<ListResponse<ApiKey>>): void;
-    public listGroupApiKeys(groupId: string, options?: ListOptions, callback?: CallbackFn<ListResponse<ApiKey>>): Promise<ListResponse<ApiKey>> {
+    public listGroupApiKeys(
+        groupId: string,
+        options?: ListOptions,
+        callback?: CallbackFn<ListResponse<ApiKey>>
+    ): Promise<ListResponse<ApiKey>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
             options = {};
         }
 
-        return apiWrapper( resultsFn => {
-            const { limit, after, order, include } = options as ListOptions;
-            this._endpoints.developer.getApiKeysOfGroup(groupId, limit, after, order, encodeInclude(include), resultsFn);
-        }, (data, done) => {
-            let keys: Array<ApiKey>;
-            if (data.data && data.data.length) {
-                keys = data.data.map( key => {
-                    return ApiKeyAdapter.map(key, this);
-                });
-            }
+        return apiWrapper(
+            resultsFn => {
+                const { limit, after, order, include } = options as ListOptions;
+                this._endpoints.developer.getApiKeysOfGroup(
+                    groupId,
+                    limit,
+                    after,
+                    order,
+                    encodeInclude(include),
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                let keys: Array<ApiKey>;
+                if (data.data && data.data.length) {
+                    keys = data.data.map(key => {
+                        return ApiKeyAdapter.map(key, this);
+                    });
+                }
 
-            done(null, new ListResponse(data, keys));
-        }, callback);
+                done(null, new ListResponse(data, keys));
+            },
+            callback
+        );
     }
 
     /**
@@ -869,7 +995,7 @@ export class AccountManagementApi {
      */
     public getLastApiMetadata(callback: CallbackFn<ApiMetadata>): void;
     public getLastApiMetadata(callback?: CallbackFn<ApiMetadata>): Promise<ApiMetadata> {
-        return asyncStyle( done => {
+        return asyncStyle(done => {
             done(null, this._endpoints.getLastMeta());
         }, callback);
     }

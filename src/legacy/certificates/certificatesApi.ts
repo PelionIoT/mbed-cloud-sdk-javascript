@@ -1,30 +1,35 @@
 /*
-* Pelion Device Management JavaScript SDK
-* Copyright Arm Limited 2017
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-* http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Pelion Device Management JavaScript SDK
+ * Copyright Arm Limited 2017
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-import { asyncStyle, apiWrapper, encodeInclude, extractFilter } from "../common/functions";
+import { ConfigOptions } from "../../common/config";
+import { TrustedCertificateResp as iamCertificate } from "../_api/iam";
+import { ApiMetadata } from "../common/apiMetadata";
+import { apiWrapper, asyncStyle, encodeInclude, extractFilter } from "../common/functions";
 import { CallbackFn } from "../common/interfaces";
 import { ListResponse } from "../common/listResponse";
-import { TrustedCertificateResp as iamCertificate } from "../_api/iam";
 import { Endpoints } from "./endpoints";
-import { AddDeveloperCertificateObject, AddCertificateObject, UpdateCertificateObject, CertificateListOptions } from "./types";
 import { Certificate } from "./models/certificate";
 import { CertificateAdapter } from "./models/certificateAdapter";
-import { ApiMetadata } from "../common/apiMetadata";
-import { ConfigOptions } from "../../common/config";
+import {
+    AddCertificateObject,
+    AddDeveloperCertificateObject,
+    CertificateListOptions,
+    UpdateCertificateObject,
+} from "./types";
 
 /**
  * ## Certificates API
@@ -63,7 +68,6 @@ import { ConfigOptions } from "../../common/config";
  * ```
  */
 export class CertificatesApi {
-
     private _endpoints: Endpoints;
 
     /**
@@ -71,31 +75,6 @@ export class CertificatesApi {
      */
     constructor(options?: ConfigOptions) {
         this._endpoints = new Endpoints(options);
-    }
-
-    private extendCertificate(iamCert: iamCertificate, done: (error: any, certificate: any) => any) {
-        if (iamCert.device_execution_mode === 1) {
-            // Developer certificate
-            this._endpoints.connector.getDeveloperCertificate(iamCert.id, "", (error, data) => {
-                if (error) { return done(error, null); }
-
-                const certificate = CertificateAdapter.mapDeveloperCertificate(iamCert, this, data);
-                done(null, certificate);
-            });
-
-            return;
-        }
-
-        let credentials = null;
-        this._endpoints.serverCredentials.getAllServerCredentials("", (error, data) => {
-            if (error) { return done(error, null); }
-
-            if (iamCert.service === "bootstrap") { credentials = data.bootstrap; }
-            if (iamCert.service === "lwm2m") { credentials = data.lwm2m; }
-
-            const certificate = CertificateAdapter.mapServerCertificate(iamCert, this, credentials);
-            done(null, certificate);
-        });
     }
 
     /**
@@ -149,32 +128,54 @@ export class CertificatesApi {
      * @param callback A function that is passed the arguments (error, listResponse)
      */
     public listCertificates(options?: CertificateListOptions, callback?: CallbackFn<ListResponse<Certificate>>): void;
-    public listCertificates(options?: CertificateListOptions, callback?: CallbackFn<ListResponse<Certificate>>): Promise<ListResponse<Certificate>> {
+    public listCertificates(
+        options?: CertificateListOptions,
+        callback?: CallbackFn<ListResponse<Certificate>>
+    ): Promise<ListResponse<Certificate>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
             options = {};
         }
 
-        return apiWrapper( resultsFn => {
-            const { limit, after, order, include, filter } = options as CertificateListOptions;
-            const type = extractFilter(filter, "type");
-            const serviceEq = type === "developer" ? "bootstrap" : type;
-            const executionMode = type === "developer" ? 1 : null;
-            const typeNeq = extractFilter(filter, "typeNeq");
-            const executionModeNeq = typeNeq === "developer" ? 0 : 1;
+        return apiWrapper(
+            resultsFn => {
+                const { limit, after, order, include, filter } = options as CertificateListOptions;
+                const type = extractFilter(filter, "type");
+                const serviceEq = type === "developer" ? "bootstrap" : type;
+                const executionMode = type === "developer" ? 1 : null;
+                const typeNeq = extractFilter(filter, "typeNeq");
+                const executionModeNeq = typeNeq === "developer" ? 0 : 1;
 
-            this._endpoints.accountDeveloper.getAllCertificates(limit, after, order, encodeInclude(include), extractFilter(filter, "name"), serviceEq, extractFilter(filter, "expires"), executionMode, executionModeNeq, extractFilter(filter, "ownerId"), extractFilter(filter, "enrollmentMode"), extractFilter(filter, "issuer"), extractFilter(filter, "subject"), resultsFn);
-        }, (data, done) => {
-            let certificates: Array<Certificate>;
-            if (data.data && data.data.length) {
-                certificates = data.data.map( certificate => {
-                    return CertificateAdapter.mapCertificate(certificate, this);
-                });
-            }
+                this._endpoints.accountDeveloper.getAllCertificates(
+                    limit,
+                    after,
+                    order,
+                    encodeInclude(include),
+                    extractFilter(filter, "name"),
+                    serviceEq,
+                    extractFilter(filter, "expires"),
+                    executionMode,
+                    executionModeNeq,
+                    extractFilter(filter, "ownerId"),
+                    extractFilter(filter, "enrollmentMode"),
+                    extractFilter(filter, "issuer"),
+                    extractFilter(filter, "subject"),
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                let certificates: Array<Certificate>;
+                if (data.data && data.data.length) {
+                    certificates = data.data.map(certificate => {
+                        return CertificateAdapter.mapCertificate(certificate, this);
+                    });
+                }
 
-            done(null, new ListResponse(data, certificates));
-        }, callback);
+                done(null, new ListResponse(data, certificates));
+            },
+            callback
+        );
     }
 
     /**
@@ -210,12 +211,19 @@ export class CertificatesApi {
      * @param callback A function that is passed the return arguments (error, certificate)
      */
     public getCertificate(certificateId: string, callback: CallbackFn<Certificate>): void;
-    public getCertificate(certificateId: string, callback?: (err: any, data?: Certificate) => any): Promise<Certificate> {
-        return apiWrapper( resultsFn => {
-            this._endpoints.accountDeveloper.getCertificate(certificateId, resultsFn);
-        }, (data, done) => {
-            this.extendCertificate(data, done);
-        }, callback);
+    public getCertificate(
+        certificateId: string,
+        callback?: (err: any, data?: Certificate) => any
+    ): Promise<Certificate> {
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.accountDeveloper.getCertificate(certificateId, resultsFn);
+            },
+            (data, done) => {
+                this.extendCertificate(data, done);
+            },
+            callback
+        );
     }
 
     /**
@@ -257,17 +265,30 @@ export class CertificatesApi {
      * @param callback A function that is passed the return arguments (error, certificate)
      */
     public addDeveloperCertificate(certificate: AddDeveloperCertificateObject, callback: CallbackFn<Certificate>): void;
-    public addDeveloperCertificate(certificate: AddDeveloperCertificateObject, callback?: CallbackFn<Certificate>): Promise<Certificate> {
-        return apiWrapper( resultsFn => {
-            this._endpoints.connector.createDeveloperCertificate("", CertificateAdapter.reverseDeveloperMap(certificate), resultsFn);
-        }, (data, done) => {
-            this._endpoints.accountDeveloper.getCertificate(data.id, (error, certData) => {
-                if (error) { return done(error, null); }
+    public addDeveloperCertificate(
+        certificate: AddDeveloperCertificateObject,
+        callback?: CallbackFn<Certificate>
+    ): Promise<Certificate> {
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.connector.createDeveloperCertificate(
+                    "",
+                    CertificateAdapter.reverseDeveloperMap(certificate),
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                this._endpoints.accountDeveloper.getCertificate(data.id, (error, certData) => {
+                    if (error) {
+                        return done(error, null);
+                    }
 
-                const cert = CertificateAdapter.mapDeveloperCertificate(certData, this, data);
-                done(null, cert);
-            });
-        }, callback);
+                    const cert = CertificateAdapter.mapDeveloperCertificate(certData, this, data);
+                    done(null, cert);
+                });
+            },
+            callback
+        );
     }
 
     /**
@@ -318,11 +339,15 @@ export class CertificatesApi {
      */
     public addCertificate(certificate: AddCertificateObject, callback: CallbackFn<Certificate>): void;
     public addCertificate(certificate: AddCertificateObject, callback?: CallbackFn<Certificate>): Promise<Certificate> {
-        return apiWrapper( resultsFn => {
-            this._endpoints.admin.addCertificate(CertificateAdapter.reverseMap(certificate), resultsFn);
-        }, (data, done) => {
-            this.extendCertificate(data, done);
-        }, callback);
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.admin.addCertificate(CertificateAdapter.reverseMap(certificate), resultsFn);
+            },
+            (data, done) => {
+                this.extendCertificate(data, done);
+            },
+            callback
+        );
     }
 
     /**
@@ -372,12 +397,23 @@ export class CertificatesApi {
      * @param callback A function that is passed the return arguments (error, certificate)
      */
     public updateCertificate(certificate: UpdateCertificateObject, callback: CallbackFn<Certificate>): void;
-    public updateCertificate(certificate: UpdateCertificateObject, callback?: CallbackFn<Certificate>): Promise<Certificate> {
-        return apiWrapper( resultsFn => {
-            this._endpoints.accountDeveloper.updateCertificate(certificate.id, CertificateAdapter.reverseUpdateMap(certificate), resultsFn);
-        }, (data, done) => {
-            this.extendCertificate(data, done);
-        }, callback);
+    public updateCertificate(
+        certificate: UpdateCertificateObject,
+        callback?: CallbackFn<Certificate>
+    ): Promise<Certificate> {
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.accountDeveloper.updateCertificate(
+                    certificate.id,
+                    CertificateAdapter.reverseUpdateMap(certificate),
+                    resultsFn
+                );
+            },
+            (data, done) => {
+                this.extendCertificate(data, done);
+            },
+            callback
+        );
     }
 
     /**
@@ -410,11 +446,15 @@ export class CertificatesApi {
      */
     public deleteCertificate(certificateId: string, callback: CallbackFn<void>): void;
     public deleteCertificate(certificateId: string, callback?: CallbackFn<void>): Promise<void> {
-        return apiWrapper( resultsFn => {
-            this._endpoints.accountDeveloper.deleteCertificate(certificateId, resultsFn);
-        }, (data, done) => {
-            done(null, data);
-        }, callback);
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.accountDeveloper.deleteCertificate(certificateId, resultsFn);
+            },
+            (data, done) => {
+                done(null, data);
+            },
+            callback
+        );
     }
 
     /**
@@ -428,8 +468,41 @@ export class CertificatesApi {
      */
     public getLastApiMetadata(callback: CallbackFn<ApiMetadata>): void;
     public getLastApiMetadata(callback?: CallbackFn<ApiMetadata>): Promise<ApiMetadata> {
-        return asyncStyle( done => {
+        return asyncStyle(done => {
             done(null, this._endpoints.getLastMeta());
         }, callback);
+    }
+
+    private extendCertificate(iamCert: iamCertificate, done: (error: any, certificate: any) => any) {
+        if (iamCert.device_execution_mode === 1) {
+            // Developer certificate
+            this._endpoints.connector.getDeveloperCertificate(iamCert.id, "", (error, data) => {
+                if (error) {
+                    return done(error, null);
+                }
+
+                const certificate = CertificateAdapter.mapDeveloperCertificate(iamCert, this, data);
+                done(null, certificate);
+            });
+
+            return;
+        }
+
+        let credentials = null;
+        this._endpoints.serverCredentials.getAllServerCredentials("", (error, data) => {
+            if (error) {
+                return done(error, null);
+            }
+
+            if (iamCert.service === "bootstrap") {
+                credentials = data.bootstrap;
+            }
+            if (iamCert.service === "lwm2m") {
+                credentials = data.lwm2m;
+            }
+
+            const certificate = CertificateAdapter.mapServerCertificate(iamCert, this, credentials);
+            done(null, certificate);
+        });
     }
 }

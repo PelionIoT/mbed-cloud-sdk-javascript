@@ -1,25 +1,25 @@
 /*
-* Pelion Device Management JavaScript SDK
-* Copyright Arm Limited 2017
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-* http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Pelion Device Management JavaScript SDK
+ * Copyright Arm Limited 2017
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-import { asyncStyle, apiWrapper } from "../../common/functions";
+import { apiWrapper, asyncStyle } from "../../common/functions";
 import { CallbackFn, ListOptions } from "../../common/interfaces";
 import { ListResponse } from "../../common/listResponse";
-import { UpdateUserObject, UserStatusEnum } from "../types";
 import { AccountManagementApi } from "../accountManagementApi";
+import { UpdateUserObject, UserStatusEnum } from "../types";
 import { ApiKey } from "./apiKey";
 import { Group } from "./group";
 import { LoginHistory } from "./loginHistory";
@@ -28,7 +28,6 @@ import { LoginHistory } from "./loginHistory";
  * User
  */
 export class User {
-
     /**
      * A list of group IDs this user belongs to.
      */
@@ -89,7 +88,7 @@ export class User {
      */
     public update(callback: CallbackFn<User>): void;
     public update(callback?: CallbackFn<User>): Promise<User> {
-        return asyncStyle( done => {
+        return asyncStyle(done => {
             this._api.updateUser(this, done);
         }, callback);
     }
@@ -105,18 +104,22 @@ export class User {
      */
     public listGroups(callback: CallbackFn<Array<Group>>): void;
     public listGroups(callback?: CallbackFn<Array<Group>>): Promise<Array<Group>> {
-        return apiWrapper( resultsFn => {
-            this._api.listGroups(null, resultsFn);
-        }, (data, done) => {
-            let groups = [];
-            if (data.data && data.data.length) {
-                groups = data.data.filter( group => {
-                    return this.groups.indexOf(group.id) > -1;
-                });
-            }
+        return apiWrapper(
+            resultsFn => {
+                this._api.listGroups(null, resultsFn);
+            },
+            (data, done) => {
+                let groups = [];
+                if (data.data && data.data.length) {
+                    groups = data.data.filter(group => {
+                        return this.groups.indexOf(group.id) > -1;
+                    });
+                }
 
-            done(null, groups);
-        }, callback);
+                done(null, groups);
+            },
+            callback
+        );
     }
 
     /**
@@ -136,7 +139,7 @@ export class User {
             options = {};
         }
 
-        return asyncStyle( done => {
+        return asyncStyle(done => {
             options.filter = {
                 ownerId: { $eq: this.id },
             };
@@ -156,7 +159,7 @@ export class User {
      */
     public delete(callback: CallbackFn<void>): void;
     public delete(callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle( done => {
+        return asyncStyle(done => {
             this._api.deleteUser(this.id, done);
         }, callback);
     }

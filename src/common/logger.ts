@@ -1,4 +1,4 @@
-import { LoggerFactoryOptions, LFService, LogGroupRule, LogLevel } from "typescript-logging";
+import { LFService, LoggerFactoryOptions, LogGroupRule, LogLevel } from "typescript-logging";
 
 /**
  * Get a new instance of a logger

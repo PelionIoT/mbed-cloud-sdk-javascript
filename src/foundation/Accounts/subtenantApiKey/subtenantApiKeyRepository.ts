@@ -1,13 +1,13 @@
+import { ListOptions } from "../../../common";
 import { Repository } from "../../../common/repository";
+import { Page, Paginator } from "../../../index";
 import { apiWrapper } from "../../../legacy/common/functions";
-import { SubtenantApiKey } from "./subtenantApiKey";
 import { SubtenantApiKeyAdapter } from "../../index";
-import { SubtenantApiKeyCreateRequest } from "./types";
 import { SubtenantPolicyGroup } from "../../index";
 import { SubtenantPolicyGroupAdapter } from "../../index";
+import { SubtenantApiKey } from "./subtenantApiKey";
+import { SubtenantApiKeyCreateRequest } from "./types";
 import { SubtenantApiKeyUpdateRequest } from "./types";
-import { Paginator, Page } from "../../../index";
-import { ListOptions } from "../../../common";
 /**
  *SubtenantApiKey repository
  */

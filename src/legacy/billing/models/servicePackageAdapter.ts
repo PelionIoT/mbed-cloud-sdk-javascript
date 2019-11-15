@@ -15,7 +15,12 @@
  * limitations under the License.
  */
 
-import { ActiveServicePackage, PreviousServicePackage, PendingServicePackage, ServicePackageQuotaHistoryServicePackage } from "../../_api/billing";
+import {
+    ActiveServicePackage,
+    PendingServicePackage,
+    PreviousServicePackage,
+    ServicePackageQuotaHistoryServicePackage,
+} from "../../_api/billing";
 import { ServicePackage } from "./servicePackage";
 
 /**
@@ -75,7 +80,9 @@ export const mapQuotaHistoryServicePackage = (from: ServicePackageQuotaHistorySe
  * Internal
  * @ignore
  */
-const mapCommon = (from: ActiveServicePackage | PreviousServicePackage | PendingServicePackage): Partial<ServicePackage> => {
+const mapCommon = (
+    from: ActiveServicePackage | PreviousServicePackage | PendingServicePackage
+): Partial<ServicePackage> => {
     return new ServicePackage({
         createdAt: from.created,
         expiresAt: from.expires,

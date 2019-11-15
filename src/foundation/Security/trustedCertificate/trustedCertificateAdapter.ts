@@ -1,6 +1,6 @@
 import { Adapter } from "../../../common/adapter";
-import { TrustedCertificate } from "./trustedCertificate";
 import { isDeveloperCertificateGetter } from "../../../common/privateFunctions";
+import { TrustedCertificate } from "./trustedCertificate";
 /**
  *TrustedCertificate adapter
  */

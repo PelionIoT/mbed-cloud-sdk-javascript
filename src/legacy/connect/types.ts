@@ -1,23 +1,29 @@
 /*
-* Pelion Device Management JavaScript SDK
-* Copyright Arm Limited 2017
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-* http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Pelion Device Management JavaScript SDK
+ * Copyright Arm Limited 2017
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-import { CallbackFn, Order } from "../common/interfaces";
-import { TlvValue } from "../../common/tlv";
+import { SDKError } from "..";
+import { TlvParser } from "../../common";
 import { ConfigOptions } from "../../common/config";
+import { arraysEqual } from "../../common/utils";
+import { AsyncIDResponse as AsyncResponse, NotificationMessage as NotificationObject } from "../_api/mds";
+import { CallbackFn, Order } from "../common/interfaces";
+import { Resource } from "./models/resource";
+
+export { NotificationObject, AsyncResponse };
 
 export interface ConnectOptions extends ConfigOptions {
     /**
@@ -37,34 +43,40 @@ export interface ConnectOptions extends ConfigOptions {
      */
     skipCleanup?: boolean;
 }
-export type DeliveryMethod = "SERVER_INITIATED" | "CLIENT_INITIATED";
 
-export interface NotificationObject {
+export enum ConnectEvents {
     /**
-     * Notifications
+     * Resource notification event
+     * @event
      */
-    notifications?: Array<any>;
+    EVENT_NOTIFICATION = "notification",
+
     /**
-     * New device registration notifications
+     * List of new devices that have registered (with resources)
+     * @event
      */
-    registrations?: Array<any>;
+    EVENT_REGISTRATION = "registration",
+
     /**
-     * Device registration update notifications
+     * List of devices that have updated registration
+     * @event
      */
-    "reg-updates"?: Array<any>;
+    EVENT_REREGISTRATION = "reregistration",
+
     /**
-     * Device deregistration notifications
+     * List of devices that were removed in a controlled manner
+     * @event
      */
-    "de-registrations"?: Array<any>;
+    EVENT_DEREGISTRATION = "deregistration",
+
     /**
-     * Device registration expiry notifications
+     * List of devices that were removed because the registration has expired
+     * @event
      */
-    "registrations-expired"?: Array<any>;
-    /**
-     * Asynchronous resoonse notifications
-     */
-    "async-responses"?: Array<any>;
+    EVENT_EXPIRED = "expired",
 }
+
+export type DeliveryMethod = "SERVER_INITIATED" | "CLIENT_INITIATED";
 
 /**
  * The types of device event
@@ -122,36 +134,14 @@ export interface ResourceValuesFilter {
 export interface NotificationData {
     path?: string;
     maxAge?: string;
-    payload?: string | number | IterableIterator<TlvValue>;
+    payload?: string | number | LatLong;
     deviceId?: string;
     contentType?: string;
 }
 
-export interface AsyncResponse {
-    /**
-     * Asynchronous response unique ID.
-     */
-    id?: string;
-    /**
-     * HTTP status code, for example 200 for OK.
-     */
-    status?: number;
-    /**
-     * Content type
-     */
-    ct?: string;
-    /**
-     * Requested data, base64 encoded.
-     */
-    payload?: string;
-    /**
-     * Determines how long this value will be valid in cache, in seconds. 0 means that value is not stored in cache.
-     */
-    "max-age"?: string;
-    /**
-     * Optional error message, describing the error.
-     */
-    error?: string;
+export interface LatLong {
+    latitude: number;
+    longitude: number;
 }
 
 export interface NotificationOptions {
@@ -184,7 +174,27 @@ export interface PresubscriptionObject {
     resourcePaths?: Array<string>;
 }
 
-export type MetricsIncludeEnum = "handshakes" | "transactions" | "observations" | "successfulApiCalls" | "failedApiCalls" | "successfulProxyRequests" | "failedProxyRequests" | "successfulSubscriptionRequests" | "failedSubscriptionRequests" | "successfulBootstraps" | "failedBootstraps" | "pendingBootstraps" | "fullRegistrations" | "updatedRegistrations" | "expiredRegistrations" | "deletedRegistrations";
+export const presubscriptionsEqual = (a: PresubscriptionObject, b: PresubscriptionObject) => {
+    return a.deviceId === b.deviceId && arraysEqual(a.resourcePaths, b.resourcePaths);
+};
+
+export type MetricsIncludeEnum =
+    | "handshakes"
+    | "transactions"
+    | "observations"
+    | "successfulApiCalls"
+    | "failedApiCalls"
+    | "successfulProxyRequests"
+    | "failedProxyRequests"
+    | "successfulSubscriptionRequests"
+    | "failedSubscriptionRequests"
+    | "successfulBootstraps"
+    | "failedBootstraps"
+    | "pendingBootstraps"
+    | "fullRegistrations"
+    | "updatedRegistrations"
+    | "expiredRegistrations"
+    | "deletedRegistrations";
 
 export type UnitType = "minutes" | "hours" | "days" | "weeks";
 
@@ -238,4 +248,23 @@ export interface MetricsPeriodListOptions extends MetricsListOptions {
      * Fetch data for this period until now
      */
     period: TimePeriod;
+}
+
+export enum AsyncResponseStatus {
+    SUCCEEDED = 200,
+    "Error: cannot read value" = 400,
+    NOT_FOUND = 404,
+    PRECONDITION_FAILED = 412,
+    ENTITY_TOO_LARGE = 413,
+    UNSUPORTED_MEDIA = 415,
+    REQUEST_EXPIRED = 429,
+    REQUEST_FAILED = 502,
+    NOT_CONNECTED = 503,
+    TIMEOUT = 504,
+}
+
+export interface AsyncResponseItem {
+    fn: (error: SDKError, data: any) => any;
+    tlvParser?: TlvParser;
+    resource?: Resource;
 }

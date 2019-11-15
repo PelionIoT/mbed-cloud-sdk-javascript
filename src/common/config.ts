@@ -5,12 +5,6 @@ import { SDKLogLevel } from "./logger";
  * Configuration class for the SDK
  */
 export class Config {
-    private static readonly ENV_API_KEY = "MBED_CLOUD_SDK_API_KEY";
-    private static readonly ENV_HOST = "MBED_CLOUD_SDK_HOST";
-    private static readonly ENV_LOG_LEVEL = "MBED_CLOUD_SDK_LOG_LEVEL";
-
-    private _apiKey: string | (() => string);
-
     /**
      * The Pelion Device Management Api Key
      */
@@ -21,6 +15,9 @@ export class Config {
 
         return this._apiKey;
     }
+    private static readonly ENV_API_KEY = "MBED_CLOUD_SDK_API_KEY";
+    private static readonly ENV_HOST = "MBED_CLOUD_SDK_HOST";
+    private static readonly ENV_LOG_LEVEL = "MBED_CLOUD_SDK_LOG_LEVEL";
 
     /**
      * The host, will default to "https://api.us-east-1.mbedcloud.com"
@@ -32,17 +29,23 @@ export class Config {
      */
     public readonly logLevel?: SDKLogLevel;
 
+    private _apiKey: string | (() => string);
+
     /**
      * Initalise a new isntance of Config
      * @param options The connection options
      */
     constructor(options?: ConfigOptions) {
-        options = options || {} as ConfigOptions;
-        if (dotenv && typeof dotenv.config === "function") { dotenv.config(); }
+        options = options || ({} as ConfigOptions);
+        if (dotenv && typeof dotenv.config === "function") {
+            dotenv.config();
+        }
         this._apiKey = this.ensureBearer(options.apiKey || (process && process.env[Config.ENV_API_KEY]) || "default");
         this.host = options.host || (process && process.env[Config.ENV_HOST]) || "https://api.us-east-1.mbedcloud.com";
-        this.logLevel = options.logLevel || (process && (process.env[Config.ENV_LOG_LEVEL]) as SDKLogLevel) || "WARN";
-        if (!this.host.startsWith("https")) this.host = `https://${this.host}`;
+        this.logLevel = options.logLevel || (process && (process.env[Config.ENV_LOG_LEVEL] as SDKLogLevel)) || "WARN";
+        if (!this.host.startsWith("https")) {
+            this.host = `https://${this.host}`;
+        }
     }
 
     private ensureBearer(key: string | (() => string)): string | (() => string) {
@@ -64,7 +67,7 @@ export interface ConfigOptions {
      */
     host?: string;
     /**
-    * configure the log level for this api instance
-    */
+     * configure the log level for this api instance
+     */
     logLevel?: SDKLogLevel;
 }

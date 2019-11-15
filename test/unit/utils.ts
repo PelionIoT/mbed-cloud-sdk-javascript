@@ -1,4 +1,4 @@
-import { isObject, isJwt } from "../../src/common/utils";
+import { isObject, isJwt, union, arraysEqual } from "../../src/common/utils";
 
 describe("tests for isObject utility function", () => {
 
@@ -44,4 +44,68 @@ describe("tests for isJwt utility function", () => {
         expect(isJwt(null)).toBeFalsy();
     });
 
+});
+
+describe("tests for union of two arrays", () => {
+    it("should return true if arrays are equal", () => {
+        const equal = arraysEqual([1, 2, 3], [1, 2, 3]);
+        expect(equal).toBeTruthy();
+    });
+
+    it("should return false if arrays not of same length", () => {
+        const equal = arraysEqual([1, 2], [1, 2, 3]);
+        expect(equal).toBeFalsy();
+    });
+
+    it("should return false if arrays are same lenght but values are unequal", () => {
+        const equal = arraysEqual([1, 2], [3, 4]);
+        expect(equal).toBeFalsy();
+    });
+
+    it("should return true if arrays have same items out of order", () => {
+        const equal = arraysEqual([1, 2], [2,1]);
+        expect(equal).toBeTruthy();
+    });
+
+    it("should return union of number array", () => {
+        const numberUnion = union([1, 2, 3, 4, 5, 6, 7], [5, 6, 7, 8]);
+        expect(numberUnion).toEqual([1, 2, 3, 4, 5, 6, 7, 8]);
+    });
+
+    it("should return union of object array", () => {
+        const numberUnion = union(
+            [
+                {
+                    x: "1"
+                },
+                {
+                    x: "2"
+                },
+                {
+                    x: "3"
+                }
+            ],
+            [
+                {
+                    x: "3"
+                },
+                {
+                    x: "4"
+                }
+            ], (x, y) => x.x === y.x);
+        expect(numberUnion).toEqual([
+            {
+                x: "1"
+            },
+            {
+                x: "2"
+            },
+            {
+                x: "3"
+            },
+            {
+                x: "4"
+            }
+        ]);
+    });
 });

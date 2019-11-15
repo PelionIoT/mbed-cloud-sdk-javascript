@@ -1,32 +1,31 @@
 /*
-* Pelion Device Management JavaScript SDK
-* Copyright Arm Limited 2017
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-* http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Pelion Device Management JavaScript SDK
+ * Copyright Arm Limited 2017
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 import { asyncStyle } from "../../common/functions";
 import { CallbackFn, ListOptions } from "../../common/interfaces";
 import { ListResponse } from "../../common/listResponse";
 import { AccountManagementApi } from "../accountManagementApi";
-import { User } from "./user";
 import { ApiKey } from "./apiKey";
+import { User } from "./user";
 
 /**
  * Group
  */
 export class Group {
-
     /**
      * The UUID of the group.
      */
@@ -79,7 +78,7 @@ export class Group {
             options = {};
         }
 
-        return asyncStyle( done => {
+        return asyncStyle(done => {
             this._api.listGroupUsers(this.id, options, done);
         }, callback);
     }
@@ -96,14 +95,17 @@ export class Group {
      * @param callback A function that is passed the arguments (error, listResponse)
      */
     public listApiKeys(options?: ListOptions, callback?: CallbackFn<ListResponse<ApiKey>>): void;
-    public listApiKeys(options?: ListOptions, callback?: CallbackFn<ListResponse<ApiKey>>): Promise<ListResponse<ApiKey>> {
+    public listApiKeys(
+        options?: ListOptions,
+        callback?: CallbackFn<ListResponse<ApiKey>>
+    ): Promise<ListResponse<ApiKey>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
             options = {};
         }
 
-        return asyncStyle( done => {
+        return asyncStyle(done => {
             this._api.listGroupApiKeys(this.id, options, done);
         }, callback);
     }

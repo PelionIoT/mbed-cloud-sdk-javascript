@@ -1,15 +1,15 @@
+import { ListOptions } from "../../../common";
+import { extractFilter } from "../../../common/filters";
 import { Repository } from "../../../common/repository";
+import { Page, Paginator } from "../../../index";
 import { apiWrapper } from "../../../legacy/common/functions";
-import { TrustedCertificate } from "./trustedCertificate";
 import { TrustedCertificateAdapter } from "../../index";
-import { TrustedCertificateCreateRequest } from "./types";
 import { DeveloperCertificate } from "../../index";
 import { DeveloperCertificateAdapter } from "../../index";
-import { extractFilter } from "../../../common/filters";
+import { TrustedCertificate } from "./trustedCertificate";
+import { TrustedCertificateCreateRequest } from "./types";
 import { TrustedCertificateListOptions } from "./types";
 import { TrustedCertificateUpdateRequest } from "./types";
-import { Paginator, Page } from "../../../index";
-import { ListOptions } from "../../../common";
 /**
  *TrustedCertificate repository
  */

@@ -14,24 +14,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { EnrollmentIdentity as ApiEnrollmentIdentity, EnrollmentId as ApiEnrollmentId } from "../../_api/enrollment";
+import { EnrollmentId as ApiEnrollmentId, EnrollmentIdentity as ApiEnrollmentIdentity } from "../../_api/enrollment";
 import { EnrollmentApi } from "../enrollmentApi";
-import { EnrollmentClaim } from "./enrollmentClaim";
 import { AddEnrollmentClaim } from "../types";
+import { EnrollmentClaim } from "./enrollmentClaim";
 
 /**
  * Internal
  * @ignore
  */
 export const map = (from: ApiEnrollmentIdentity, api: EnrollmentApi): EnrollmentClaim => {
-    return new EnrollmentClaim({
-        accountId: from.account_id,
-        claimId: from.enrollment_identity,
-        createdAt: from.created_at,
-        deviceId: from.enrolled_device_id,
-        expiresAt: from.expires_at,
-        id: from.id,
-    }, api);
+    return new EnrollmentClaim(
+        {
+            accountId: from.account_id,
+            claimId: from.enrollment_identity,
+            createdAt: from.created_at,
+            deviceId: from.enrolled_device_id,
+            expiresAt: from.expires_at,
+            id: from.id,
+        },
+        api
+    );
 };
 
 /**

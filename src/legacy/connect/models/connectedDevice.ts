@@ -1,32 +1,32 @@
 /*
-* Pelion Device Management JavaScript SDK
-* Copyright Arm Limited 2017
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-* http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Pelion Device Management JavaScript SDK
+ * Copyright Arm Limited 2017
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-import { CallbackFn } from "../../common/interfaces";
 import { asyncStyle } from "../../common/functions";
-import { ConnectApi } from "../connectApi";
-import { Resource } from "./resource";
+import { CallbackFn } from "../../common/interfaces";
 import { Device } from "../../deviceDirectory/models/device";
+import { ConnectApi } from "../connectApi";
 import { AsyncResponse } from "../types";
+import { Resource } from "./resource";
+import { ResourceValue } from "./resourceValue";
 
 /**
  * Connected Device
  */
 export class ConnectedDevice extends Device {
-
     constructor(init?: Partial<Device>, private _connectApi?: ConnectApi) {
         super();
         for (const key in init) {
@@ -47,7 +47,7 @@ export class ConnectedDevice extends Device {
      */
     public listResources(callback: CallbackFn<Array<Resource>>): void;
     public listResources(callback?: CallbackFn<Array<Resource>>): Promise<Array<Resource>> {
-        return asyncStyle( done => {
+        return asyncStyle(done => {
             this._connectApi.listResources(this.id, done);
         }, callback);
     }
@@ -67,8 +67,7 @@ export class ConnectedDevice extends Device {
      */
     public getResource(resourcePath: string, callback?: CallbackFn<Resource>): void;
     public getResource(resourcePath: string, callback?: CallbackFn<Resource>): Promise<Resource> {
-
-        return asyncStyle( done => {
+        return asyncStyle(done => {
             this._connectApi.getResource(this.id, resourcePath, done);
         }, callback);
     }
@@ -84,7 +83,7 @@ export class ConnectedDevice extends Device {
      */
     public listSubscriptions(callback: CallbackFn<string>): void;
     public listSubscriptions(callback?: CallbackFn<string>): Promise<string> {
-        return asyncStyle( done => {
+        return asyncStyle(done => {
             this._connectApi.listDeviceSubscriptions(this.id, done);
         }, callback);
     }
@@ -100,7 +99,7 @@ export class ConnectedDevice extends Device {
      */
     public deleteSubscriptions(callback: CallbackFn<void>): void;
     public deleteSubscriptions(callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle( done => {
+        return asyncStyle(done => {
             this._connectApi.deleteDeviceSubscriptions(this.id, done);
         }, callback);
     }
@@ -114,7 +113,7 @@ export class ConnectedDevice extends Device {
      * @param mimeType The requested mime type format of the value
      * @returns Promise of resource value
      */
-    public getResourceValue(resourcePath: string, timeout?: number, mimeType?: string): Promise<string | number | void>;
+    public getResourceValue(resourcePath: string, timeout?: number, mimeType?: string): Promise<ResourceValue>;
     /**
      * Gets the value of a resource
      *
@@ -124,8 +123,18 @@ export class ConnectedDevice extends Device {
      * @param mimeType The requested mime type format of the value
      * @param callback A function that is passed the arguments (error, value) where value is the resource value
      */
-    public getResourceValue(resourcePath: string, timeout?: number, mimeType?: string, callback?: CallbackFn<string | number | void>): void;
-    public getResourceValue(resourcePath: string, timeout?: number, mimeType?: any, callback?: CallbackFn<string | number | void>): Promise<string | number | void> {
+    public getResourceValue(
+        resourcePath: string,
+        timeout?: number,
+        mimeType?: string,
+        callback?: CallbackFn<ResourceValue>
+    ): void;
+    public getResourceValue(
+        resourcePath: string,
+        timeout?: number,
+        mimeType?: any,
+        callback?: CallbackFn<ResourceValue>
+    ): Promise<ResourceValue> {
         if (typeof timeout === "function") {
             callback = timeout;
             timeout = null;
@@ -136,7 +145,7 @@ export class ConnectedDevice extends Device {
         }
 
         return asyncStyle(done => {
-            this._connectApi.getResourceValue(this.id, resourcePath, timeout, mimeType, done);
+            this._connectApi.getResourceValue(this.id, resourcePath, timeout, mimeType, null, null, done);
         }, callback);
     }
 
@@ -150,7 +159,12 @@ export class ConnectedDevice extends Device {
      * @param mimeType The mime type format of the value
      * @returns the AsyncResponse
      */
-    public setResourceValue(resourcePath: string, value: string, timeout?: number, mimeType?: string): Promise<AsyncResponse>;
+    public setResourceValue(
+        resourcePath: string,
+        value: string,
+        timeout?: number,
+        mimeType?: string
+    ): Promise<AsyncResponse>;
     /**
      * Sets the value of a resource
      *
@@ -161,8 +175,20 @@ export class ConnectedDevice extends Device {
      * @param mimeType The mime type format of the value
      * @param callback A function that is passed any error
      */
-    public setResourceValue(resourcePath: string, value: string, timeout?: number, mimeType?: string, callback?: CallbackFn<AsyncResponse>): void;
-    public setResourceValue(resourcePath: string, value: string, timeout?: number, mimeType?: any, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
+    public setResourceValue(
+        resourcePath: string,
+        value: string,
+        timeout?: number,
+        mimeType?: string,
+        callback?: CallbackFn<AsyncResponse>
+    ): void;
+    public setResourceValue(
+        resourcePath: string,
+        value: string,
+        timeout?: number,
+        mimeType?: any,
+        callback?: CallbackFn<AsyncResponse>
+    ): Promise<AsyncResponse> {
         if (typeof timeout === "function") {
             callback = timeout;
             timeout = null;
@@ -188,7 +214,13 @@ export class ConnectedDevice extends Device {
      * @param accepts The content type of an accepted response
      * @returns the AsyncResponse
      */
-    public executeResource(resourcePath: string, payload?: any, timeout?: number, mimeType?: string, accepts?: string): Promise<AsyncResponse>;
+    public executeResource(
+        resourcePath: string,
+        payload?: any,
+        timeout?: number,
+        mimeType?: string,
+        accepts?: string
+    ): Promise<AsyncResponse>;
     /**
      * Execute a function on a resource
      *
@@ -200,8 +232,22 @@ export class ConnectedDevice extends Device {
      * @param accepts The content type of an accepted response
      * @param callback A function that is passed any error
      */
-    public executeResource(resourcePath: string, payload?: any, timeout?: number, mimeType?: string, accepts?: string, callback?: CallbackFn<AsyncResponse>): void;
-    public executeResource(resourcePath: string, payload?: any, timeout?: number, mimeType?: any, accepts?: string, callback?: CallbackFn<AsyncResponse>): Promise<AsyncResponse> {
+    public executeResource(
+        resourcePath: string,
+        payload?: any,
+        timeout?: number,
+        mimeType?: string,
+        accepts?: string,
+        callback?: CallbackFn<AsyncResponse>
+    ): void;
+    public executeResource(
+        resourcePath: string,
+        payload?: any,
+        timeout?: number,
+        mimeType?: any,
+        accepts?: string,
+        callback?: CallbackFn<AsyncResponse>
+    ): Promise<AsyncResponse> {
         if (typeof payload === "function") {
             callback = payload;
             payload = null;
@@ -237,7 +283,7 @@ export class ConnectedDevice extends Device {
      */
     public getResourceSubscription(resourcePath: string, callback: CallbackFn<boolean>): void;
     public getResourceSubscription(resourcePath: string, callback?: CallbackFn<boolean>): Promise<boolean> {
-        return asyncStyle( done => {
+        return asyncStyle(done => {
             this._connectApi.getResourceSubscription(this.id, resourcePath, done);
         }, callback);
     }
@@ -260,8 +306,12 @@ export class ConnectedDevice extends Device {
      * @param callback A function that is passed any error
      */
     public addResourceSubscription(resourcePath: string, notifyFn?: (any) => any, callback?: CallbackFn<void>): void;
-    public addResourceSubscription(resourcePath: string, notifyFn?: (any) => any, callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle( done => {
+    public addResourceSubscription(
+        resourcePath: string,
+        notifyFn?: (any) => any,
+        callback?: CallbackFn<void>
+    ): Promise<void> {
+        return asyncStyle(done => {
             this._connectApi.addResourceSubscription(this.id, resourcePath, notifyFn, done);
         }, callback);
     }
@@ -283,7 +333,7 @@ export class ConnectedDevice extends Device {
      */
     public deleteResourceSubscription(resourcePath: string, callback: CallbackFn<void>): void;
     public deleteResourceSubscription(resourcePath: string, callback?: CallbackFn<void>): Promise<void> {
-        return asyncStyle( done => {
+        return asyncStyle(done => {
             this._connectApi.deleteResourceSubscription(this.id, resourcePath, done);
         }, callback);
     }

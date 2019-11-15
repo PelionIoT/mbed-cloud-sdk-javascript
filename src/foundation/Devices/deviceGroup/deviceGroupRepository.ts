@@ -1,18 +1,18 @@
-import { Repository } from "../../../common/repository";
-import { apiWrapper } from "../../../legacy/common/functions";
-import { DeviceGroup } from "./deviceGroup";
-import { DeviceGroupAddDeviceRequest } from "./types";
-import { DeviceGroupAdapter } from "../../index";
-import { DeviceGroupCreateRequest } from "./types";
-import { Device } from "../../index";
-import { DeviceAdapter } from "../../index";
+import { ListOptions } from "../../../common";
 import { extractFilter } from "../../../common/filters";
-import { DeviceGroupDeviceListOptions } from "./types";
+import { Repository } from "../../../common/repository";
+import { Page, Paginator } from "../../../index";
+import { apiWrapper } from "../../../legacy/common/functions";
+import { DeviceAdapter } from "../../index";
+import { Device } from "../../index";
+import { DeviceGroupAdapter } from "../../index";
+import { DeviceGroup } from "./deviceGroup";
+import { DeviceGroupCreateRequest } from "./types";
 import { DeviceGroupListOptions } from "./types";
 import { DeviceGroupRemoveDeviceRequest } from "./types";
 import { DeviceGroupUpdateRequest } from "./types";
-import { Paginator, Page } from "../../../index";
-import { ListOptions } from "../../../common";
+import { DeviceGroupAddDeviceRequest } from "./types";
+import { DeviceGroupDeviceListOptions } from "./types";
 /**
  *DeviceGroup repository
  */

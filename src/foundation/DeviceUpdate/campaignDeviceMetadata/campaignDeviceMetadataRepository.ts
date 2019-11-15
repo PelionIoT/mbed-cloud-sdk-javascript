@@ -1,7 +1,7 @@
 import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../legacy/common/functions";
-import { CampaignDeviceMetadata } from "./campaignDeviceMetadata";
 import { CampaignDeviceMetadataAdapter } from "../../index";
+import { CampaignDeviceMetadata } from "./campaignDeviceMetadata";
 /**
  *CampaignDeviceMetadata repository
  */

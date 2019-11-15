@@ -15,15 +15,15 @@
  * limitations under the License.
  */
 
-import { apiWrapper, asyncStyle } from "../common/functions";
-import { Endpoints } from "./endpoints";
-import { CallbackFn } from "../common/interfaces";
-import { AddPreSharedKey, PskListOptions } from "./types";
-import { PreSharedKey } from "./models/preSharedKey";
-import { mapToSDK, mapToSpec, mapFrom } from "./models/preSharedKeyAdapter";
-import { ApiMetadata } from "../common/apiMetadata";
-import { ListResponse } from "../common/listResponse";
 import { ConfigOptions } from "../../common/config";
+import { ApiMetadata } from "../common/apiMetadata";
+import { apiWrapper, asyncStyle } from "../common/functions";
+import { CallbackFn } from "../common/interfaces";
+import { ListResponse } from "../common/listResponse";
+import { Endpoints } from "./endpoints";
+import { PreSharedKey } from "./models/preSharedKey";
+import { mapFrom, mapToSDK, mapToSpec } from "./models/preSharedKeyAdapter";
+import { AddPreSharedKey, PskListOptions } from "./types";
 
 export class BootstrapApi {
     private readonly _endpoints: Endpoints;
@@ -67,23 +67,23 @@ export class BootstrapApi {
         this._endpoints = new Endpoints(options);
     }
 
-     /**
-      * List Psks
-      *
-      * Example:
-      * ```JavaScript
-      * bootstrap.listPsks()
-      * .then(psks => {
-      *     // Utilize psks here
-      * })
-      * .catch(error => {
-      *     console.log(error);
-      * });
-      * ```
-      *
-      * @param options options
-      * @returns Promise of listResponse
-      */
+    /**
+     * List Psks
+     *
+     * Example:
+     * ```JavaScript
+     * bootstrap.listPsks()
+     * .then(psks => {
+     *     // Utilize psks here
+     * })
+     * .catch(error => {
+     *     console.log(error);
+     * });
+     * ```
+     *
+     * @param options options
+     * @returns Promise of listResponse
+     */
     public listPsks(options?: PskListOptions): Promise<ListResponse<PreSharedKey>>;
     /**
      * List Psks
@@ -100,26 +100,33 @@ export class BootstrapApi {
      * @param callback A function that is passed the arguments (error, listResponse)
      */
     public listPsks(options?: PskListOptions, callback?: CallbackFn<ListResponse<PreSharedKey>>): void;
-    public listPsks(options?: any, callback?: CallbackFn<ListResponse<PreSharedKey>>): Promise<ListResponse<PreSharedKey>> {
+    public listPsks(
+        options?: any,
+        callback?: CallbackFn<ListResponse<PreSharedKey>>
+    ): Promise<ListResponse<PreSharedKey>> {
         options = options || {};
         if (typeof options === "function") {
             callback = options;
             options = {};
         }
 
-        return apiWrapper( resultsFn => {
-            const { limit, after } = options as PskListOptions;
-            this._endpoints.bootstrap.listPreSharedKeys(limit, after, resultsFn);
-        }, (data, done) => {
-            let keys: Array<PreSharedKey>;
-            if (data && data.data && data.data.length) {
-                keys = data.data.map( key => {
-                    return mapToSDK(key, this);
-                });
-            }
+        return apiWrapper(
+            resultsFn => {
+                const { limit, after } = options as PskListOptions;
+                this._endpoints.bootstrap.listPreSharedKeys(limit, after, resultsFn);
+            },
+            (data, done) => {
+                let keys: Array<PreSharedKey>;
+                if (data && data.data && data.data.length) {
+                    keys = data.data.map(key => {
+                        return mapToSDK(key, this);
+                    });
+                }
 
-            done(null, new ListResponse(data, keys));
-        }, callback);
+                done(null, new ListResponse(data, keys));
+            },
+            callback
+        );
     }
 
     /**
@@ -157,11 +164,15 @@ export class BootstrapApi {
      */
     public addPsk(preSharedKey: AddPreSharedKey, callback: CallbackFn<PreSharedKey>): void;
     public addPsk(preSharedKey: AddPreSharedKey, callback?: CallbackFn<PreSharedKey>): Promise<PreSharedKey> {
-        return apiWrapper( resultsFn => {
-            this._endpoints.bootstrap.uploadPreSharedKey(mapToSpec(preSharedKey), resultsFn);
-        }, (_data, done) => {
-            done(null, mapFrom(preSharedKey, this));
-        }, callback);
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.bootstrap.uploadPreSharedKey(mapToSpec(preSharedKey), resultsFn);
+            },
+            (_data, done) => {
+                done(null, mapFrom(preSharedKey, this));
+            },
+            callback
+        );
     }
 
     /**
@@ -203,11 +214,15 @@ export class BootstrapApi {
      */
     public getPsk(preSharedKey: string, callback: CallbackFn<PreSharedKey>): void;
     public getPsk(preSharedKey: string, callback?: CallbackFn<PreSharedKey>): Promise<PreSharedKey> {
-        return apiWrapper( resultsFn => {
-            this._endpoints.bootstrap.getPreSharedKey(preSharedKey, resultsFn);
-        }, (data, done) => {
-            done(null, mapToSDK(data, this));
-        }, callback);
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.bootstrap.getPreSharedKey(preSharedKey, resultsFn);
+            },
+            (data, done) => {
+                done(null, mapToSDK(data, this));
+            },
+            callback
+        );
     }
 
     /**
@@ -245,11 +260,15 @@ export class BootstrapApi {
      */
     public deletePsk(preSharedKey: string, callback: CallbackFn<void>): void;
     public deletePsk(preSharedKey: string, callback?: CallbackFn<void>): Promise<void> {
-        return apiWrapper( resultsFn => {
-            this._endpoints.bootstrap.deletePreSharedKey(preSharedKey, resultsFn);
-        }, (_data, done) => {
-            done(null, null);
-        }, callback);
+        return apiWrapper(
+            resultsFn => {
+                this._endpoints.bootstrap.deletePreSharedKey(preSharedKey, resultsFn);
+            },
+            (_data, done) => {
+                done(null, null);
+            },
+            callback
+        );
     }
 
     /**
@@ -263,7 +282,7 @@ export class BootstrapApi {
      */
     public getLastApiMetadata(callback: CallbackFn<ApiMetadata>): void;
     public getLastApiMetadata(callback?: CallbackFn<ApiMetadata>): Promise<ApiMetadata> {
-        return asyncStyle( done => {
+        return asyncStyle(done => {
             done(null, this._endpoints.getLastMeta());
         }, callback);
     }

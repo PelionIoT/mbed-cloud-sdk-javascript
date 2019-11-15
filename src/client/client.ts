@@ -1,12 +1,11 @@
 import * as superagent from "superagent";
-import { SdkApiBase } from "./sdkApiBase";
 import { Config } from "../common/config";
+import { SdkApiBase } from "./sdkApiBase";
 
 /**
  * Client, gives access to http client with supplied credentials
  */
 export class Client extends SdkApiBase {
-
     /**
      * Initalise new instance of Client
      * @param config The configuration for the Client api calls
@@ -34,21 +33,26 @@ export class Client extends SdkApiBase {
     /**
      * @ignore used for internal api calls
      */
-    public _CallApi(options: CallApiOptions, callback?: (error: any, data?: any, response?: superagent.Response) => any): superagent.SuperAgentRequest {
-
+    public _CallApi(
+        options: CallApiOptions,
+        callback?: (error: any, data?: any, response?: superagent.Response) => any
+    ): superagent.SuperAgentRequest {
         const { url, method, pathParams, headers, query, formParams, body, contentTypes, acceptTypes } = options;
 
-        return this.request({
-            url: url,
-            method: method,
-            headers: headers,
-            query: query,
-            formParams: formParams,
-            contentTypes: contentTypes || [ "application/json" ],
-            acceptTypes: acceptTypes || [ "application/json" ],
-            body: body,
-            pathParams: pathParams,
-        }, callback);
+        return this.request(
+            {
+                url,
+                method,
+                headers,
+                query,
+                formParams,
+                contentTypes: contentTypes || ["application/json"],
+                acceptTypes: acceptTypes || ["application/json"],
+                body,
+                pathParams,
+            },
+            callback
+        );
     }
 }
 

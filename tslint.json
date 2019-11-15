@@ -3,31 +3,104 @@
         "tslint:recommended",
         "tslint-eslint-rules"
     ],
+    "rulesDirectory": [
+        "tslint-plugin-prettier"
+    ],
     "rules": {
-        "array-bracket-spacing": [false, "always"],
-        "arrow-parens": [true, "ban-single-arg-parens"],
-        "array-type": [true, "generic"],
-        "block-spacing": [true, "always"],
-        "brace-style": [true, "1tbs", { "allowSingleLine": true }],
-        "curly": [true, "ignore-same-line"],
-        "interface-name": [true, "never-prefix"],
-        "linebreak-style": [true, "LF"],
-        "max-line-length": [false],
-        "member-ordering": [true, { "order": ["static-field", "instance-field", "constructor", "static-method", "instance-method"] }],
+        "prettier": true,
+        "array-bracket-spacing": [
+            false,
+            "always"
+        ],
+        "arrow-parens": [
+            true,
+            "ban-single-arg-parens"
+        ],
+        "array-type": [
+            true,
+            "generic"
+        ],
+        "block-spacing": [
+            true,
+            "always"
+        ],
+        "brace-style": [
+            true,
+            "1tbs",
+            {
+                "allowSingleLine": true
+            }
+        ],
+        "curly": [
+            true,
+            "ignore-same-line"
+        ],
+        "interface-name": [
+            true,
+            "never-prefix"
+        ],
+        "linebreak-style": [
+            true,
+            "LF"
+        ],
+        "max-line-length": [
+            false
+        ],
+        "member-ordering": [
+            true,
+            {
+                "order": [
+                    "static-field",
+                    "instance-field",
+                    "constructor",
+                    "static-method",
+                    "instance-method"
+                ]
+            }
+        ],
         "no-bitwise": false,
-        "no-console": [true],
+        "no-console": [
+            true
+        ],
         "no-empty-interface": false,
-        "no-trailing-whitespace": [true],
-        "object-curly-spacing": [true, "always"],
+        "no-trailing-whitespace": [
+            true
+        ],
+        "object-curly-spacing": [
+            true,
+            "always"
+        ],
+        "object-literal-key-quotes": [
+            true,
+            "as-needed"
+        ],
         "object-literal-shorthand": false,
         "object-literal-sort-keys": false,
-        "ordered-imports": [true, { "import-sources-order": "any", "named-imports-order": "any" }],
-        "semicolon": [true, "always"],
-        "ter-indent": [true, 4, { "SwitchCase": 1}],
-        "ter-no-irregular-whitespace": [true],
-        "trailing-comma": [true, "never"],
-        "triple-equals": [true],
-        "variable-name": [true, "allow-leading-underscore"],
-        "jsdoc-format": false //TODO revert to true when formatting fixed
+        "ordered-imports": [
+            true,
+            {
+                "import-sources-order": "any",
+                "named-imports-order": "any"
+            }
+        ],
+        "semicolon": [
+            true,
+            "always"
+        ],
+        "ter-no-irregular-whitespace": [
+            true
+        ],
+        "trailing-comma": [
+            true,
+            "never"
+        ],
+        "triple-equals": [
+            true
+        ],
+        "variable-name": [
+            true,
+            "allow-leading-underscore"
+        ],
+        "jsdoc-format": false
     }
 }

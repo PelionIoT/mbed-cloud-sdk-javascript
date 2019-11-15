@@ -208,7 +208,9 @@ export function int32ToBytes(value: number) {
 export function float64ToBytes(value: number) {
     // There is not int64_t in JS...
     const bytes = Array.from(new Uint8Array(new Float64Array([value]).buffer));
-    if (isHostLittleEndian()) return bytes.reverse();
+    if (isHostLittleEndian()) {
+        return bytes.reverse();
+    }
 
     return bytes;
 }

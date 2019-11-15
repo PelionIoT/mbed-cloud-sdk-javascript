@@ -1,18 +1,18 @@
+import { ListOptions } from "../../../common";
+import { extractFilter } from "../../../common/filters";
 import { Repository } from "../../../common/repository";
+import { Page, Paginator } from "../../../index";
 import { apiWrapper } from "../../../legacy/common/functions";
-import { SubtenantPolicyGroup } from "./subtenantPolicyGroup";
-import { SubtenantApiKey } from "../../index";
 import { SubtenantApiKeyAdapter } from "../../index";
 import { SubtenantPolicyGroupAdapter } from "../../index";
-import { SubtenantPolicyGroupCreateRequest } from "./types";
-import { extractFilter } from "../../../common/filters";
-import { SubtenantPolicyGroupListOptions } from "./types";
-import { SubtenantPolicyGroupUpdateRequest } from "./types";
-import { SubtenantUser } from "../../index";
+import { SubtenantApiKey } from "../../index";
 import { SubtenantUserAdapter } from "../../index";
+import { SubtenantUser } from "../../index";
+import { SubtenantPolicyGroup } from "./subtenantPolicyGroup";
+import { SubtenantPolicyGroupUpdateRequest } from "./types";
 import { SubtenantPolicyGroupSubtenantUserListOptions } from "./types";
-import { Paginator, Page } from "../../../index";
-import { ListOptions } from "../../../common";
+import { SubtenantPolicyGroupCreateRequest } from "./types";
+import { SubtenantPolicyGroupListOptions } from "./types";
 /**
  *SubtenantPolicyGroup repository
  */

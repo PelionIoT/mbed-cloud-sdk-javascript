@@ -1,27 +1,27 @@
 /*
-* Pelion Device Management JavaScript SDK
-* Copyright Arm Limited 2017
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-* http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Pelion Device Management JavaScript SDK
+ * Copyright Arm Limited 2017
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 import * as superagent from "superagent";
 
-import { SDKError } from "../legacy/common/sdkError";
 import { Config } from "../common/config";
-import { Version } from "../version";
-import { isThisNode } from "../legacy/common/functions";
 import { objectKeysToSnakeCase } from "../common/transform";
+import { isThisNode } from "../legacy/common/functions";
+import { SDKError } from "../legacy/common/sdkError";
+import { Version } from "../version";
 
 // tslint:disable-next-line:no-var-requires
 const DATE_REGEX = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
@@ -34,7 +34,6 @@ const userAgent = `${Version.packageName}-javascript / ${VERSION}`;
  * @ignore internal base class for the Client
  */
 export class SdkApiBase {
-
     private config: Config;
 
     constructor(config: Config) {
@@ -76,10 +75,12 @@ export class SdkApiBase {
      */
     private static isFileParam(param: any) {
         // fs.ReadStream in Node.js (but not in runtime like browserify)
-        if (typeof window === "undefined" &&
+        if (
+            typeof window === "undefined" &&
             typeof require === "function" &&
             require("fs") &&
-            param instanceof require("fs").ReadStream) {
+            param instanceof require("fs").ReadStream
+        ) {
             return true;
         }
 
@@ -120,13 +121,15 @@ export class SdkApiBase {
 
     private static chooseType(types: Array<string>, defaultType: string = null): string {
         // No type
-        if (!types.length) { return defaultType; }
+        if (!types.length) {
+            return defaultType;
+        }
 
         // Default to first entry or default
         let result = types[0] || defaultType;
 
         // Find first preferred type
-        types.some( type => {
+        types.some(type => {
             if (MIME_REGEX.test(type)) {
                 result = type;
                 return true;
@@ -146,7 +149,7 @@ export class SdkApiBase {
 
     private static buildUrl(url: string, pathParams: { [key: string]: string }): string {
         if (pathParams) {
-            Object.keys(pathParams).forEach( param => {
+            Object.keys(pathParams).forEach(param => {
                 url = url.replace(`{${param}}`, pathParams[param]);
             });
         }
@@ -154,7 +157,21 @@ export class SdkApiBase {
         return url;
     }
 
-    protected request(options: { url: string, method: string, headers: { [key: string]: string }, pathParams: {}, query: {}, formParams: {}, contentTypes: Array<string>, acceptTypes: Array<string>, body?: any, file?: boolean }, callback?: (sdkError: SDKError, data: any) => any): superagent.SuperAgentRequest {
+    protected request(
+        options: {
+            url: string;
+            method: string;
+            headers: { [key: string]: string };
+            pathParams: {};
+            query: {};
+            formParams: {};
+            contentTypes: Array<string>;
+            acceptTypes: Array<string>;
+            body?: any;
+            file?: boolean;
+        },
+        callback?: (sdkError: SDKError, data: any) => any
+    ): superagent.SuperAgentRequest {
         const requestOptions: { [key: string]: any } = {};
         requestOptions.timeout = 60000;
         requestOptions.method = options.method;
@@ -202,11 +219,11 @@ export class SdkApiBase {
                 }
             }
         } else if (options.body) {
-
             body = options.body;
 
             // set content type header
-            requestOptions.contentType = requestOptions.contentType || SdkApiBase.chooseType(options.contentTypes, "application/json");
+            requestOptions.contentType =
+                requestOptions.contentType || SdkApiBase.chooseType(options.contentTypes, "application/json");
             request.type(requestOptions.contentType);
 
             // Remove empty or undefined json parameters
@@ -217,7 +234,9 @@ export class SdkApiBase {
             request.send(body);
         }
 
-        if (body) { SdkApiBase.debugLog("body", body); }
+        if (body) {
+            SdkApiBase.debugLog("body", body);
+        }
 
         request.end((error, response) => {
             this.complete(error, response, requestOptions.acceptHeader, callback);
@@ -235,10 +254,14 @@ export class SdkApiBase {
             let details = "";
 
             if (response) {
-                if (response.error) { message = response.error.message; }
+                if (response.error) {
+                    message = response.error.message;
+                }
                 if (response.body && response.body.message) {
                     message = response.body.message;
-                    if (message.error) { message = message.error; }
+                    if (message.error) {
+                        message = message.error;
+                    }
                 }
                 innerError = response.error || error;
                 details = response.body || response.text;
@@ -258,7 +281,9 @@ export class SdkApiBase {
             if (data && data.constructor === {}.constructor && JSON_REGEX.test(acceptHeader)) {
                 data = JSON.parse(JSON.stringify(data), (_key, value) => {
                     // revive a date object
-                    if (DATE_REGEX.test(value)) { return new Date(value); }
+                    if (DATE_REGEX.test(value)) {
+                        return new Date(value);
+                    }
                     return value;
                 });
             }

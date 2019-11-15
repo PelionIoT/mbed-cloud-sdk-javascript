@@ -17,6 +17,7 @@
 
 import { Subscribe } from "../../src/primary/subscribe/subscribe";
 import { PresubscriptionObject, NotificationData } from "../../src/legacy/connect/types";
+import { ResourceValuesObserver } from "../../src/primary/subscribe/observers/resourceValuesObserver";
 
 describe("resourceValues", () => {
 
@@ -131,6 +132,39 @@ describe("resourceValues", () => {
         expect(items).toHaveLength(3);
         mockNotify(subscribe);
         expect(items).toHaveLength(6);
+    });
+
+    test("should return union of presubscriptions", () => {
+        // tslint:disable-next-line: no-string-literal
+        const unionOfPresubscriptions = new ResourceValuesObserver()["unionOfPresubscriptions"];
+
+        const server: Array<PresubscriptionObject> = [
+            {
+                deviceId: "12345",
+                resourcePaths: [
+                    "3303/*"
+                ]
+            },
+            {
+                deviceId: "1234567",
+                resourcePaths: [
+                    "33303/*"
+                ]
+            },
+        ];
+
+        const local: Array<PresubscriptionObject> = [
+            {
+                deviceId: "12345",
+                resourcePaths: [
+                    "3303/*"
+                ]
+            }
+        ];
+
+        const union = unionOfPresubscriptions(server, local);
+
+        expect(union).toHaveLength(2);
     });
 });
 

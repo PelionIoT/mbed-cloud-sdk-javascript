@@ -8,19 +8,17 @@ import { ListResponse } from "./listResponse";
  */
 export const executeForAll = <T extends { id: string }>(
     getPage: (options: { after?: string }) => Promise<ListResponse<T>>,
-    execute: (id: string) => Promise<void>,
+    execute: (id: string) => Promise<void>
 ) => {
     const recur = (after?: string): Promise<void> => {
-        return getPage({ after })
-            .then(({ data, hasMore }) => {
-                const executePromises = data.map(({ id }) => execute(id));
+        return getPage({ after }).then(({ data, hasMore }) => {
+            const executePromises = data.map(({ id }) => execute(id));
 
-                // Execute for all items in current page, then recur
-                return Promise.all(executePromises)
-                    .then(() => {
-                        return hasMore ? recur(data[data.length - 1].id) : null;
-                    });
+            // Execute for all items in current page, then recur
+            return Promise.all(executePromises).then(() => {
+                return hasMore ? recur(data[data.length - 1].id) : null;
             });
+        });
     };
 
     return recur();
