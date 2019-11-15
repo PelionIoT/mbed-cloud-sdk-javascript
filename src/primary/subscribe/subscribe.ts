@@ -67,6 +67,7 @@ export class Subscribe {
         const observer = new ResourceValuesObserver(filter, this.connect, immediacy);
         this.resourceValueObservers.push(observer);
         this.startNotifications();
+
         return observer;
     }
 
@@ -75,6 +76,7 @@ export class Subscribe {
      */
     public allNotifications(): MasterObserver {
         this.startNotifications();
+
         return this.masterObserver;
     }
 
@@ -107,7 +109,7 @@ export class Subscribe {
      * @param data
      */
     private startNotifications(): void {
-        if (this.connect) {
+        if (this.connect && this.connect.autostartNotifications) {
             this.connect.startNotifications();
         }
     }

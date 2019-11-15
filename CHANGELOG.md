@@ -11,6 +11,14 @@ a list of versions that have been released on **npm**.
 
 [//]: # (begin_release_notes)
 
+2.5.1 (2019-10-31)
+==================
+
+### Bugfixes
+
+- Prevent start notifications being called if autostart is false (#3110191104)
+
+
 2.5.0 (2019-10-25)
 ==================
 
