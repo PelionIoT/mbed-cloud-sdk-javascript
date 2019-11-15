@@ -17,12 +17,13 @@
 
 import { apiWrapper, asyncStyle } from "../common/functions";
 import { Endpoints } from "./endpoints";
-import { CallbackFn, ConnectionOptions } from "../common/interfaces";
+import { CallbackFn } from "../common/interfaces";
 import { AddPreSharedKey, PskListOptions } from "./types";
 import { PreSharedKey } from "./models/preSharedKey";
 import { mapToSDK, mapToSpec, mapFrom } from "./models/preSharedKeyAdapter";
 import { ApiMetadata } from "../common/apiMetadata";
 import { ListResponse } from "../common/listResponse";
+import { ConfigOptions } from "../../common/config";
 
 export class BootstrapApi {
     private readonly _endpoints: Endpoints;
@@ -62,7 +63,7 @@ export class BootstrapApi {
      * ```
      * @param options Connection objects
      */
-    constructor(options?: ConnectionOptions) {
+    constructor(options?: ConfigOptions) {
         this._endpoints = new Endpoints(options);
     }
 

@@ -16,6 +16,7 @@ export class ActiveSessionAdapter extends Adapter {
         const mappedEntity = ActiveSessionAdapter.assignDefined(instance || {}, {
             _discriminator: "ACTIVE_SESSION",
             accountId: data.account_id,
+            createdAt: data.created_at,
             ipAddress: data.ip_address,
             loginTime: data.login_time,
             referenceToken: data.reference_token,

@@ -76,8 +76,9 @@ describe("test paginator", () => {
         expect(paginator.pageSize).toBe(50);
         expect(paginator.totalPages).toBe(1);
         expect(paginator.currentPageIndex).toBe(-1);
-        expect(paginator.currentPage).toBeUndefined();
+        expect(paginator.currentPage).toBeNull();
         expect(paginator.afters).toEqual([]);
+        expect(paginator.currentTotalCount).toBe(0);
     });
 
     it("should fetch one page", async () => {
@@ -94,6 +95,7 @@ describe("test paginator", () => {
 
         expect(page).not.toBeUndefined();
         expect(await paginator.totalCount()).toBe(12);
+        expect(paginator.currentTotalCount).toBe(12);
         checkPage(page, paginator, "AAAC", 0);
 
         expect(paginator.hasNextPage()).toBeTruthy();
@@ -153,7 +155,7 @@ describe("test paginator", () => {
         paginator.reset();
 
         expect(paginator.currentPageIndex).toBe(-1);
-        expect(paginator.currentPage).toBeUndefined();
+        expect(paginator.currentPage).toBeNull();
         expect(paginator.afters).toEqual([]);
         expect(paginator.listOptions.after).toBeNull();
     });

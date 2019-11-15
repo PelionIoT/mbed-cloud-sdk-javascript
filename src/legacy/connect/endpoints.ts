@@ -15,7 +15,6 @@
 * limitations under the License.
 */
 
-import { ConnectionOptions } from "../common/interfaces";
 import { AccountApi, StatisticsApi } from "../_api/statistics";
 import { EndpointsBase } from "../common/endpointsBase";
 import {
@@ -25,6 +24,7 @@ import {
     ResourcesApi,
     SubscriptionsApi,
 } from "../_api/mds";
+import { ConfigOptions } from "../../common/config";
 
 export class Endpoints extends EndpointsBase {
 
@@ -36,7 +36,7 @@ export class Endpoints extends EndpointsBase {
     public account: AccountApi;
     public statistics: StatisticsApi;
 
-    constructor(options?: ConnectionOptions) {
+    constructor(options?: ConfigOptions) {
         super();
         this.endpoints = new EndpointsApi(options, this.responseHandler.bind(this));
         this.deviceRequests = new DeviceRequestsApi(options, this.responseHandler.bind(this));

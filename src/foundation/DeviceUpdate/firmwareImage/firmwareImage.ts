@@ -4,19 +4,19 @@ import { Entity } from "../../../common/entity";
  */
 export interface FirmwareImage extends Entity {
     /**
-     *The time the object was created
+     *The time the entity was created.
      *@example 2017-05-22T12:37:55.576563Z
      */
     readonly createdAt?: Date;
 
     /**
-     *The checksum (sha256) generated for the datafile
+     *The checksum (sha256) generated for the datafile.
      *@example 0000000000000000000000000000000000000000000000000000000000000000
      */
     readonly datafileChecksum?: string;
 
     /**
-     *The size of the datafile in bytes
+     *The size of the datafile in bytes.
      */
     readonly datafileSize?: number;
 
@@ -27,17 +27,18 @@ export interface FirmwareImage extends Entity {
     readonly datafileUrl?: string;
 
     /**
-     *The description of the object
+     *The description of the object.
+     *@example a description
      */
     description?: string;
 
     /**
-     *The firmware image name
+     *The firmware image name.
      */
     name?: string;
 
     /**
-     *The time the object was updated
+     *The time the entity was updated.
      *@example 2017-05-22T12:37:55.576563Z
      */
     readonly updatedAt?: Date;

@@ -1,69 +1,111 @@
 import { ListOptions } from "../../../common";
+export type UpdateCampaignStrategy = "one-shot" | "continuous";
+export type UpdateCampaignPhase =
+    | "draft"
+    | "awaiting_approval"
+    | "timed"
+    | "starting"
+    | "active"
+    | "stopping"
+    | "stopped"
+    | "deleted"
+    | "archived";
 /**
  *UpdateCampaignCreateRequest
  */
 export interface UpdateCampaignCreateRequest {
     /**
-     *An optional description of the campaign
+     *Flag indicating whether approval is needed to start the campaign.
+     *@example false
+     */
+    readonly approvalRequired?: boolean;
+
+    /**
+     *Flag indicating whether the campaign should be auto-stopped on reaching a threshold.
+     *@example false
+     */
+    readonly autostop?: boolean;
+
+    /**
+     *Percent of successful device updates to auto stop the campaign.
+     *@example 85.00
+     */
+    readonly autostopSuccessPercent?: number;
+
+    /**
+     *How the campaign adds devices. A `one-shot` campaign does not add new devices after it has started. A `continuous` campaign means that devices may be added to the campaign after it has started. The default is `one-shot`.
+     */
+    readonly campaignStrategy?: UpdateCampaignStrategy;
+
+    /**
+     *An optional description of the campaign.
+     *@example This campaign updates Class XX devices to version 1.34
      */
     readonly description?: string;
 
     /**
-     *The filter for the devices the campaign is targeting at
+     *The filter for the devices the campaign is targeting at.
      *@example id__eq=00000000000000000000000000000000
      */
     readonly deviceFilter?: string;
 
     /**
-     *The campaign name
+     *The campaign name.
      *@example campaign
      */
     readonly name?: string;
 
     /**
-     *rootManifestId
+     *The ID of the manifest that will be sent to the device as part of the campaign.
      *@example 00000000000000000000000000000000
      */
     readonly rootManifestId?: string;
-
-    /**
-     *The scheduled start time for the campaign. The campaign will start within 1 minute when then start time has elapsed.
-     *@example 2017-05-22T12:37:55.576563Z
-     */
-    readonly when?: Date;
 }
 /**
  *UpdateCampaignUpdateRequest
  */
 export interface UpdateCampaignUpdateRequest {
     /**
-     *An optional description of the campaign
+     *Flag indicating whether approval is needed to start the campaign.
+     *@example false
+     */
+    readonly approvalRequired?: boolean;
+
+    /**
+     *Flag indicating whether the campaign should be auto-stopped on reaching a threshold.
+     *@example false
+     */
+    readonly autostop?: boolean;
+
+    /**
+     *Percent of successful device updates to auto stop the campaign.
+     *@example 85.00
+     */
+    readonly autostopSuccessPercent?: number;
+
+    /**
+     *An optional description of the campaign.
+     *@example This campaign updates Class XX devices to version 1.34
      */
     readonly description?: string;
 
     /**
-     *The filter for the devices the campaign is targeting at
+     *The filter for the devices the campaign is targeting at.
      *@example id__eq=00000000000000000000000000000000
      */
     readonly deviceFilter?: string;
 
     /**
-     *The campaign name
+     *The campaign name.
      *@example campaign
      */
     readonly name?: string;
 
     /**
-     *rootManifestId
+     *The ID of the manifest that will be sent to the device as part of the campaign.
      *@example 00000000000000000000000000000000
      */
     readonly rootManifestId?: string;
-
-    /**
-     *The scheduled start time for the campaign. The campaign will start within 1 minute when then start time has elapsed.
-     *@example 2017-05-22T12:37:55.576563Z
-     */
-    readonly when?: Date;
 }
 /**
  *UpdateCampaignCreatedAtFilter

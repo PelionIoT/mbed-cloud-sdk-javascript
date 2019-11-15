@@ -16,7 +16,7 @@
 */
 
 import { asyncStyle, apiWrapper, encodeInclude, extractFilter } from "../common/functions";
-import { ConnectionOptions, CallbackFn } from "../common/interfaces";
+import { CallbackFn } from "../common/interfaces";
 import { ListResponse } from "../common/listResponse";
 import { TrustedCertificateResp as iamCertificate } from "../_api/iam";
 import { Endpoints } from "./endpoints";
@@ -24,6 +24,7 @@ import { AddDeveloperCertificateObject, AddCertificateObject, UpdateCertificateO
 import { Certificate } from "./models/certificate";
 import { CertificateAdapter } from "./models/certificateAdapter";
 import { ApiMetadata } from "../common/apiMetadata";
+import { ConfigOptions } from "../../common/config";
 
 /**
  * ## Certificates API
@@ -68,7 +69,7 @@ export class CertificatesApi {
     /**
      * @param options connection options
      */
-    constructor(options?: ConnectionOptions) {
+    constructor(options?: ConfigOptions) {
         this._endpoints = new Endpoints(options);
     }
 

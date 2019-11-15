@@ -20,9 +20,9 @@ import * as superagent from "superagent";
 import * as dotenv from "dotenv";
 
 import { SDKError } from "./sdkError";
-import { ConnectionOptions } from "./interfaces";
 import { Version } from "../../version";
 import { isThisNode } from "./functions";
+import { ConfigOptions } from "../../common/config";
 
 const DATE_REGEX = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
 const JSON_REGEX = /^application\/json(;.*)?$/i;
@@ -41,7 +41,7 @@ export class ApiBase {
     private readonly apiKey;
     private readonly host;
 
-    constructor(options?: ConnectionOptions, private responseHandler: (sdkError: SDKError, response: superagent.Response) => any = null) {
+    constructor(options?: ConfigOptions, private responseHandler: (sdkError: SDKError, response: superagent.Response) => any = null) {
         options = options || {};
         if (dotenv && typeof dotenv.config === "function") { dotenv.config(); }
         this.apiKey = options.apiKey || (process && process.env[this.ENV_API_KEY]);

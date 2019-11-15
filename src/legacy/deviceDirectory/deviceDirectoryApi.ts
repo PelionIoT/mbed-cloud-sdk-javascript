@@ -16,7 +16,7 @@
 */
 
 import { asyncStyle, apiWrapper, encodeInclude, encodeFilter } from "../common/functions";
-import { ConnectionOptions, CallbackFn } from "../common/interfaces";
+import { CallbackFn } from "../common/interfaces";
 import { ListResponse } from "../common/listResponse";
 import { AddDeviceObject, UpdateDeviceObject, AddQueryObject, UpdateQueryObject, DeviceListOptions, QueryListOptions, DeviceEventListOptions } from "./types";
 import { Device } from "./models/device";
@@ -28,6 +28,7 @@ import { DeviceEventAdapter } from "./models/deviceEventAdapter";
 import { Endpoints } from "./endpoints";
 import { Filters } from "./filters";
 import { ApiMetadata } from "../common/apiMetadata";
+import { ConfigOptions } from "../../common/config";
 
 /**
  * ## Device Directory API
@@ -72,7 +73,7 @@ export class DeviceDirectoryApi {
     /**
      * @param options connection objects
      */
-    constructor(options?: ConnectionOptions) {
+    constructor(options?: ConfigOptions) {
         this._endpoints = new Endpoints(options);
     }
 

@@ -1,15 +1,15 @@
 import { SDKError } from "../../../src/legacy/common/sdkError";
 import { ServerError } from "../server/error";
-import { ConnectionOptions } from "../../../src/legacy/common/interfaces";
+import { ConfigOptions } from "../../../src/common/config";
 
 export class TestStubApi {
 
-    public options: ConnectionOptions | undefined;
+    public options: ConfigOptions | undefined;
 
     /**
      * @param options connection options
      */
-    constructor(options: ConnectionOptions | undefined) {
+    constructor(options: ConfigOptions | undefined) {
         this.options = options;
 
     }

@@ -42,6 +42,7 @@ import { Subscribe } from "../../primary/subscribe/subscribe";
 import { loggerFactory } from "../../common/logger";
 import { Logger } from "typescript-logging";
 import { isJwt } from "../../common/utils";
+import { Config } from "../..";
 
 /**
  * ## Connect API
@@ -145,7 +146,7 @@ export class ConnectApi extends EventEmitter {
      */
     public readonly handleNotifications?: boolean;
 
-    private _config: ConnectOptions;
+    private _config: Config;
     private _pollRequest: superagent.SuperAgentRequest | boolean;
     // private readonly _websockerUrl: string = "";
     private _instanceId: string;
@@ -173,8 +174,8 @@ export class ConnectApi extends EventEmitter {
      */
     constructor(options?: ConnectOptions) {
         super();
-        options = options || {};
-        this._config = options;
+        options = options || {} as ConnectOptions;
+        this._config = new Config(options);
         this._instanceId = generateId();
         // this._connectOptions = options;
         this._endpoints = new Endpoints(options);
@@ -378,7 +379,8 @@ export class ConnectApi extends EventEmitter {
         return asyncStyle(async done => {
             // cannot call start notifications if using webhooks
             if (this._deliveryMethod === "SERVER_INITIATED") {
-                return done(new SDKError("cannot call start notifications if delivery method is server initiated"), null);
+                this._log.warn("cannot call start notifications if delivery method is server initiated");
+                return done(null, null);
             }
 
             this._log.debug("starting notifications...");
@@ -1543,10 +1545,14 @@ export class ConnectApi extends EventEmitter {
         resourcePath = this.normalizePath(resourcePath);
 
         return apiWrapper(resultsFn => {
-            this.startNotifications(null, error => {
-                if (error) { return resultsFn(error, null); }
+            if (this.autostartNotifications) {
+                this.startNotifications(null, error => {
+                    if (error) { return resultsFn(error, null); }
+                    this._endpoints.subscriptions.addResourceSubscription(deviceId, resourcePath, resultsFn);
+                });
+            } else {
                 this._endpoints.subscriptions.addResourceSubscription(deviceId, resourcePath, resultsFn);
-            });
+            }
         }, (data, done) => {
             if (notifyFn) {
                 // Record the function at this path for notifications
@@ -1603,10 +1609,14 @@ export class ConnectApi extends EventEmitter {
         resourcePath = this.normalizePath(resourcePath);
 
         return apiWrapper(resultsFn => {
-            this.startNotifications(null, error => {
-                if (error) { return resultsFn(error, null); }
+            if (this.autostartNotifications) {
+                this.startNotifications(null, error => {
+                    if (error) { return resultsFn(error, null); }
+                    this._endpoints.subscriptions.deleteResourceSubscription(deviceId, resourcePath, resultsFn);
+                });
+            } else {
                 this._endpoints.subscriptions.deleteResourceSubscription(deviceId, resourcePath, resultsFn);
-            });
+            }
         }, (_data, done) => {
             // no-one is listening :'(
             delete this._notifyFns[`${deviceId}/${resourcePath}`];
