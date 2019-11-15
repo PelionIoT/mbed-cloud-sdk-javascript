@@ -11,6 +11,14 @@ a list of versions that have been released on **npm**.
 
 [//]: # (begin_release_notes)
 
+2.6.0 (2019-11-15)
+==================
+
+### Features
+
+- getResourceValue now returns a ResourceValue object (#1511191609)
+
+
 2.5.1 (2019-10-31)
 ==================
 

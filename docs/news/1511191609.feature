@@ -1,1 +1,0 @@
-getResourceValue now returns a ResourceValue object 
