@@ -8,9 +8,23 @@ export class ResourceValue {
     private tlvParser: TlvParser;
     private stringValue: string;
     private jsonValue: any;
+
+    /**
+     * The value of the resource in human readable form
+     * Can be a string, number, pair of lat long values or a iterator of tlv values
+     */
     public readonly value: string | number | LatLong | IterableIterator<TlvValue>;
+
+    /**
+     * The resource this resource value was read from
+     */
     public readonly resource: Resource;
+
+    /**
+     * The raw base64 encoded payload
+     */
     public readonly payload: string;
+
     constructor({
         payload,
         resource = {},
@@ -29,6 +43,10 @@ export class ResourceValue {
             this.getTlvValue(this.resource) ||
             this.getDefaultValue(this.resource, this.payload);
     }
+
+    /**
+     * Return the value of the resource as a string
+     */
     public toString() {
         if (!this.stringValue) {
             if (this.resource.contentType && this.resource.contentType.indexOf("tlv") > -1) {
@@ -42,6 +60,10 @@ export class ResourceValue {
 
         return this.stringValue;
     }
+
+    /**
+     * Will return the json representation of the resource value, if it is a tlv value
+     */
     public toJson() {
         if (this.jsonValue) {
             return this.jsonValue;

@@ -2,8 +2,7 @@
 import { DeviceRepository, SDK } from "../../../src";
 
 describe("hello world examples", () => {
-
-    test("hello world", async () => {
+    test("hello world", () => {
         // an example: hello_world
         // cloak
         /*
@@ -13,7 +12,7 @@ describe("hello world examples", () => {
         */
         // uncloak
 
-        const main = async () => {
+        (async () => {
             // create an instance of a device repository
             const deviceList = new DeviceRepository()
                 // List the first 10 devices in your Pelion DM account
@@ -22,13 +21,11 @@ describe("hello world examples", () => {
             for await (const device of deviceList) {
                 console.log(`Hello device ${device.name}`);
             }
-        };
-
-        main();
+        })();
         // end of example
     });
 
-    test("hello world with sdk instance", async () => {
+    test("hello world with sdk instance", () => {
         // an example: hello_world_with_sdk_instance
         // cloak
         /*
@@ -38,7 +35,7 @@ describe("hello world examples", () => {
         */
         // uncloak
 
-        const main = async () => {
+        (async () => {
             // create an instance of the Pelion Device Management SDK
             const deviceList = new SDK()
                 .foundation()
@@ -49,18 +46,16 @@ describe("hello world examples", () => {
             for await (const device of deviceList) {
                 console.log(`Hello device ${device.name}`);
             }
-        };
-
-        main();
+        })();
         // end of example
     });
 
-    test("hello world with multiple api keys", async () => {
+    test("hello world with multiple api keys", () => {
         const sdk = new SDK();
         process.env.account_one_api_key = sdk.config.apiKey;
         process.env.account_two_api_key = sdk.config.apiKey;
         // an example: hello_world_with_multiple_api_keys
-         // cloak
+        // cloak
         /*
         // uncloak
         import { SDK } from "mbed-cloud-sdk";
@@ -68,7 +63,7 @@ describe("hello world examples", () => {
         */
         // uncloak
 
-        const main = async () => {
+        (async () => {
             const accountOne = new SDK({ apiKey: process.env.account_one_api_key });
             const deviceList = accountOne
                 .foundation()
@@ -88,10 +83,7 @@ describe("hello world examples", () => {
             for await (const device of deviceList) {
                 console.log(`account two device ${device.name}`);
             }
-        };
-
-        main();
+        })();
         // end of example
     });
-
 });
