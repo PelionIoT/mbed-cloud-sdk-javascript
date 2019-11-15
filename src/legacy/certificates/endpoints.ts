@@ -15,13 +15,13 @@
 * limitations under the License.
 */
 
-import { ConnectionOptions } from "../common/interfaces";
 import { EndpointsBase } from "../common/endpointsBase";
 import {
     AccountAdminApi as AdminApi,
     DeveloperApi as AccountDeveloperApi,
 } from "../_api/iam";
 import { DeveloperCertificateApi as ConnectorApi, ServerCredentialsApi } from "../_api/connector_ca";
+import { ConfigOptions } from "../../common/config";
 
 export class Endpoints extends EndpointsBase {
 
@@ -30,7 +30,7 @@ export class Endpoints extends EndpointsBase {
     public admin: AdminApi;
     public serverCredentials: ServerCredentialsApi;
 
-    constructor(options?: ConnectionOptions) {
+    constructor(options?: ConfigOptions) {
         super();
         this.accountDeveloper = new AccountDeveloperApi(options, this.responseHandler.bind(this));
         this.connector = new ConnectorApi(options, this.responseHandler.bind(this));

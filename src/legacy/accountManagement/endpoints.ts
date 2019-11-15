@@ -15,19 +15,19 @@
 * limitations under the License.
 */
 
-import { ConnectionOptions } from "../common/interfaces";
 import { EndpointsBase } from "../common/endpointsBase";
 import {
     DeveloperApi,
     AccountAdminApi,
 } from "../_api/iam";
+import { ConfigOptions } from "../../common/config";
 
 export class Endpoints extends EndpointsBase {
 
     public developer: DeveloperApi;
     public admin: AccountAdminApi;
 
-    constructor(options?: ConnectionOptions) {
+    constructor(options?: ConfigOptions) {
         super();
         this.developer = new DeveloperApi(options, this.responseHandler.bind(this));
         this.admin = new AccountAdminApi(options, this.responseHandler.bind(this));

@@ -5,9 +5,39 @@ export const updateCampaignSchema = (): Schema => {
         name: "UpdateCampaign",
         fields: [
             {
+                name: "activeAt",
+                apiName: "active_at",
+                type: "Date",
+            },
+            {
+                name: "approvalRequired",
+                apiName: "approval_required",
+                type: "boolean",
+            },
+            {
+                name: "archivedAt",
+                apiName: "archived_at",
+                type: "Date",
+            },
+            {
+                name: "autostop",
+                apiName: "autostop",
+                type: "boolean",
+            },
+            {
                 name: "autostopReason",
                 apiName: "autostop_reason",
                 type: "string",
+            },
+            {
+                name: "autostopSuccessPercent",
+                apiName: "autostop_success_percent",
+                type: "number",
+            },
+            {
+                name: "campaignStrategy",
+                apiName: "campaign_strategy",
+                type: "UpdateCampaignStrategy",
             },
             {
                 name: "createdAt",
@@ -42,7 +72,7 @@ export const updateCampaignSchema = (): Schema => {
             {
                 name: "phase",
                 apiName: "phase",
-                type: "string",
+                type: "UpdateCampaignPhase",
             },
             {
                 name: "rootManifestId",
@@ -57,6 +87,21 @@ export const updateCampaignSchema = (): Schema => {
             {
                 name: "startedAt",
                 apiName: "started_at",
+                type: "Date",
+            },
+            {
+                name: "startingAt",
+                apiName: "starting_at",
+                type: "Date",
+            },
+            {
+                name: "stoppedAt",
+                apiName: "stopped_at",
+                type: "Date",
+            },
+            {
+                name: "stoppingAt",
+                apiName: "stopping_at",
                 type: "Date",
             },
             {
@@ -93,6 +138,22 @@ export const updateCampaignSchema = (): Schema => {
                         type: "Object",
                         subParams: [
                             {
+                                name: "approvalRequired",
+                                type: "boolean",
+                            },
+                            {
+                                name: "autostop",
+                                type: "boolean",
+                            },
+                            {
+                                name: "autostopSuccessPercent",
+                                type: "number",
+                            },
+                            {
+                                name: "campaignStrategy",
+                                type: "UpdateCampaignStrategy",
+                            },
+                            {
                                 name: "description",
                                 type: "string",
                             },
@@ -107,10 +168,6 @@ export const updateCampaignSchema = (): Schema => {
                             {
                                 name: "rootManifestId",
                                 type: "string",
-                            },
-                            {
-                                name: "when",
-                                type: "Date",
                             },
                         ],
                     },
@@ -245,6 +302,18 @@ export const updateCampaignSchema = (): Schema => {
                         type: "Object",
                         subParams: [
                             {
+                                name: "approvalRequired",
+                                type: "boolean",
+                            },
+                            {
+                                name: "autostop",
+                                type: "boolean",
+                            },
+                            {
+                                name: "autostopSuccessPercent",
+                                type: "number",
+                            },
+                            {
                                 name: "description",
                                 type: "string",
                             },
@@ -259,10 +328,6 @@ export const updateCampaignSchema = (): Schema => {
                             {
                                 name: "rootManifestId",
                                 type: "string",
-                            },
-                            {
-                                name: "when",
-                                type: "Date",
                             },
                         ],
                     },

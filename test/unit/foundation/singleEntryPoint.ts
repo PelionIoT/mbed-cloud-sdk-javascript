@@ -25,6 +25,42 @@ describe("singleEntryPoint", () => {
         expect("Bearer ak_1").toEqual(user.config.apiKey);
     });
 
+    test("config with callback for key", () => {
+        const sdk = new SDK(new Config({ apiKey: () => "ak_1_arrow" }));
+        expect("Bearer ak_1_arrow").toEqual(sdk.config.apiKey);
+
+        const user = sdk.foundation().userRepository();
+
+        expect("Bearer ak_1_arrow").toEqual(user.config.apiKey);
+    });
+
+    test("config with incrementing callback for key", () => {
+        let count = 0;
+        const sdk = new SDK(new Config({ apiKey: () => `ak_1_arrow_${count++}` }));
+        expect("Bearer ak_1_arrow_0").toEqual(sdk.config.apiKey);
+        expect("Bearer ak_1_arrow_1").toEqual(sdk.config.apiKey);
+
+        const user = sdk.foundation().userRepository();
+
+        expect("Bearer ak_1_arrow_2").toEqual(user.config.apiKey);
+        expect("Bearer ak_1_arrow_3").toEqual(user.config.apiKey);
+        expect("Bearer ak_1_arrow_4").toEqual(user.config.apiKey);
+    });
+
+    test("config with incrementing callback for key with interface", () => {
+        let count = 0;
+        const sdk = new SDK({ apiKey: () => `ak_1_arrow_${count++}` });
+        expect("Bearer ak_1_arrow_0").toEqual(sdk.config.apiKey);
+        expect("Bearer ak_1_arrow_1").toEqual(sdk.config.apiKey);
+
+        const user = sdk.foundation().userRepository();
+
+        expect("Bearer ak_1_arrow_2").toEqual(user.config.apiKey);
+        expect("Bearer ak_1_arrow_3").toEqual(user.config.apiKey);
+        expect("Bearer ak_1_arrow_4").toEqual(user.config.apiKey);
+    });
+
+
     test("multiple sdk instances", () => {
         const sdk1 = new SDK(new Config({ apiKey: "ak_1" }));
         expect("Bearer ak_1").toEqual(sdk1.config.apiKey);

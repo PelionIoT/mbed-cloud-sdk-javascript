@@ -10,6 +10,11 @@ export const activeSessionSchema = (): Schema => {
                 type: "string",
             },
             {
+                name: "createdAt",
+                apiName: "created_at",
+                type: "Date",
+            },
+            {
                 name: "ipAddress",
                 apiName: "ip_address",
                 type: "string",

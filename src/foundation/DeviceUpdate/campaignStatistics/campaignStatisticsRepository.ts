@@ -12,8 +12,8 @@ import { ListOptions } from "../../../common";
 export class CampaignStatisticsRepository extends Repository {
     /**
      * events
-     * @param campaignId - The campaign ID
-     * @param id - The summary status. For example, fail
+     * @param campaignId - The campaign ID.
+     * @param id - The summary status. For example, fail.
      * @param options - options
      */
     public events(
@@ -27,7 +27,7 @@ export class CampaignStatisticsRepository extends Repository {
                 resultsFn => {
                     this.client._CallApi(
                         {
-                            url: "/v3/update-campaigns/{campaign_id}/statistics/{summary_status_id}/event_types/",
+                            url: "/v3/update-campaigns/{campaign_id}/statistics/{summary_status_id}/event_types",
                             method: "GET",
                             pathParams: {
                                 campaign_id: campaignId,
@@ -47,7 +47,7 @@ export class CampaignStatisticsRepository extends Repository {
     }
     /**
      * list
-     * @param campaignId - The campaign ID
+     * @param campaignId - The campaign ID.
      * @param options - options
      */
     public list(campaignId: string, options?: ListOptions): Paginator<CampaignStatistics, ListOptions> {
@@ -57,7 +57,7 @@ export class CampaignStatisticsRepository extends Repository {
                 resultsFn => {
                     this.client._CallApi(
                         {
-                            url: "/v3/update-campaigns/{campaign_id}/statistics/",
+                            url: "/v3/update-campaigns/{campaign_id}/statistics",
                             method: "GET",
                             pathParams: {
                                 campaign_id: campaignId,
@@ -77,7 +77,7 @@ export class CampaignStatisticsRepository extends Repository {
     /**
      * read
      * @param campaignId - ID of the associated campaign.
-     * @param id - ID of the event type description
+     * @param id - ID of the event type description.
      */
     public read(campaignId: string, id: string): Promise<CampaignStatistics> {
         return apiWrapper(
