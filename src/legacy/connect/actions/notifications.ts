@@ -30,7 +30,7 @@ export const notify = (
             if (fn) {
                 if (response.status >= 400) {
                     const message = AsyncResponseStatus[response.status || 400];
-                    const error = new SDKError(message, null, response.error, response.status);
+                    const error = new SDKError(message, null, null, null, response.error, response.status);
                     fn(error, null);
                 } else {
                     const body = response.payload

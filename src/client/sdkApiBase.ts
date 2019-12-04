@@ -239,13 +239,18 @@ export class SdkApiBase {
         }
 
         request.end((error, response) => {
-            this.complete(error, response, requestOptions.acceptHeader, callback);
+            this.complete(error, response, requestOptions, callback);
         });
 
         return request;
     }
 
-    protected complete(error: any, response: any, acceptHeader: string, callback?: (sdkError: SDKError, data) => any) {
+    protected complete(
+        error: any,
+        response: superagent.Response,
+        requestOptions: { [key: string]: any },
+        callback?: (sdkError: SDKError, data) => any
+    ) {
         let sdkError = null;
 
         if (error) {
@@ -267,7 +272,7 @@ export class SdkApiBase {
                 details = response.body || response.text;
             }
 
-            sdkError = new SDKError(message, innerError, details, error.status);
+            sdkError = new SDKError(message, response, requestOptions.url, innerError, details, error.status);
         }
 
         if (callback) {
@@ -278,7 +283,7 @@ export class SdkApiBase {
             }
 
             // If an object has been returned and we expected json
-            if (data && data.constructor === {}.constructor && JSON_REGEX.test(acceptHeader)) {
+            if (data && data.constructor === {}.constructor && JSON_REGEX.test(requestOptions.acceptHeader)) {
                 data = JSON.parse(JSON.stringify(data), (_key, value) => {
                     // revive a date object
                     if (DATE_REGEX.test(value)) {
