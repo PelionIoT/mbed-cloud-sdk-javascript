@@ -74,7 +74,7 @@ def post_to_slack(version):
         "channel": "#isg-dm-sdk",
         "username": "SDK Release Announcement",
         "icon_emoji": ":javascript:",
-        "text": ":checkered_flag: New version of :javascript: SDK released: {}".format(version),
+        "text": ":checkered_flag: New top secret internal version of :javascript: SDK released: {}".format(version),
     }
     myurl = os.getenv('SLACK_NOTIFICATION_WEBHOOK')
     req = urllib.request.Request(myurl)

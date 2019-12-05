@@ -1,3 +1,5 @@
+import { Response } from "superagent";
+
 /*
  * Pelion Device Management JavaScript SDK
  * Copyright Arm Limited 2017
@@ -19,7 +21,14 @@
  * Defines an error raised in the SDK
  */
 export class SDKError extends Error {
-    constructor(message: string, public innerError?: Error, public details?: string, public code?: number) {
+    constructor(
+        public message: string,
+        public response: Response = {} as Response,
+        public url: string = "",
+        public innerError?: Error,
+        public details?: string,
+        public code?: number
+    ) {
         super(message);
     }
 }

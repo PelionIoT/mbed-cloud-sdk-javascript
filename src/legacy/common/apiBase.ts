@@ -290,7 +290,7 @@ export class ApiBase {
                 details = response.body || response.text;
             }
 
-            sdkError = new SDKError(message, innerError, details, error.status);
+            sdkError = new SDKError(message, null, null, innerError, details, error.status);
         }
 
         if (this.responseHandler) {
