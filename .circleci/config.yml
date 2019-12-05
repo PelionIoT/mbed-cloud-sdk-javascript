@@ -176,7 +176,7 @@ jobs:
       - run:
           name: Set version
           # set the version (dev)
-          command: pipenv run auto_version --config=scripts/auto_version.toml --news
+          command: pipenv run auto_version --config=scripts/auto_version.toml --news --bump=patch
       - run:
           name: Build the SDK
           command: npm run build
@@ -208,7 +208,7 @@ jobs:
       - run:
           name: Set version
           # set the version as if this was a production release
-          command: pipenv run auto_version --config=scripts/auto_version.toml --news --release
+          command: pipenv run auto_version --config=scripts/auto_version.toml --news --release --bump=patch
       - run:
           name: Generate changelog
           command: pipenv run towncrier --yes --name="" --version=$(cd ../../ && pipenv run auto_version --config=scripts/auto_version.toml --release)
