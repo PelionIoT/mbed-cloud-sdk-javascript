@@ -1,6 +1,6 @@
 {
   "name": "mbed-cloud-sdk",
-  "version": "2.6.0",
+  "version": "2.6.1",
   "is_published": true,
   "is_locked": false,
   "description": "Pelion Device Management SDK for JavaScript",
