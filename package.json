@@ -111,7 +111,7 @@
     "tslint-eslint-rules": "^5.4.0",
     "tslint-plugin-prettier": "^2.0.1",
     "typedoc": "^0.15.3",
-    "typescript": "^3.7.2",
+    "typescript": "^3.7.3",
     "winston": "^3.2.1"
   },
   "dependencies": {
