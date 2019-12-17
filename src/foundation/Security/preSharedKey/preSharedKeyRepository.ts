@@ -1,10 +1,10 @@
-import { ListOptions } from "../../../common";
 import { Repository } from "../../../common/repository";
-import { Page, Paginator } from "../../../index";
 import { apiWrapper } from "../../../legacy/common/functions";
-import { PreSharedKeyAdapter } from "../../index";
 import { PreSharedKey } from "./preSharedKey";
+import { PreSharedKeyAdapter } from "../../index";
 import { PreSharedKeyCreateRequest } from "./types";
+import { Paginator, Page } from "../../../index";
+import { ListOptions } from "../../../common";
 /**
  *PreSharedKey repository
  */

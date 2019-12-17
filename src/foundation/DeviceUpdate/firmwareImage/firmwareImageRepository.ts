@@ -1,19 +1,19 @@
-import { ReadStream } from "fs";
-import { ListOptions } from "../../../common";
-import { extractFilter } from "../../../common/filters";
 import { Repository } from "../../../common/repository";
-import { Page, Paginator } from "../../../index";
 import { apiWrapper } from "../../../legacy/common/functions";
-import { FirmwareImageAdapter } from "../../index";
 import { FirmwareImage } from "./firmwareImage";
+import { FirmwareImageAdapter } from "../../index";
+import { extractFilter } from "../../../common/filters";
 import { FirmwareImageListOptions } from "./types";
+import { ReadStream } from "fs";
+import { Paginator, Page } from "../../../index";
+import { ListOptions } from "../../../common";
 /**
  *FirmwareImage repository
  */
 export class FirmwareImageRepository extends Repository {
     /**
      * create
-     * @param firmwareImageFile - The firmware image file to upload.
+     * @param firmwareImageFile - The firmware image file to upload. File name must not exceed 100 characters.
      */
     public create(
         firmwareImageFile: ReadStream | Buffer | File | Blob,

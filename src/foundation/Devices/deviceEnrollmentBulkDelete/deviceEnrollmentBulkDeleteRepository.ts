@@ -1,10 +1,10 @@
-import { ReadStream } from "fs";
-import { downloadErrorsReportFile } from "../../../common/privateFunctions";
-import { downloadFullReportFile } from "../../../common/privateFunctions";
 import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../legacy/common/functions";
-import { DeviceEnrollmentBulkDeleteAdapter } from "../../index";
 import { DeviceEnrollmentBulkDelete } from "./deviceEnrollmentBulkDelete";
+import { DeviceEnrollmentBulkDeleteAdapter } from "../../index";
+import { downloadErrorsReportFile } from "../../../common/privateFunctions";
+import { downloadFullReportFile } from "../../../common/privateFunctions";
+import { ReadStream } from "fs";
 /**
  *DeviceEnrollmentBulkDelete repository
  */
@@ -59,7 +59,7 @@ export class DeviceEnrollmentBulkDeleteRepository extends Repository {
                         url: "/v3/device-enrollments-bulk-deletes/{id}",
                         method: "GET",
                         pathParams: {
-                            id,
+                            id: id,
                         },
                     },
                     resultsFn

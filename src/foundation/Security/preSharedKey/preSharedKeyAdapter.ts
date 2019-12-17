@@ -1,6 +1,6 @@
 import { Adapter } from "../../../common/adapter";
-import { preSharedKeyIdSetter } from "../../../common/privateFunctions";
 import { PreSharedKey } from "./preSharedKey";
+import { preSharedKeyIdSetter } from "../../../common/privateFunctions";
 /**
  *PreSharedKey adapter
  */
