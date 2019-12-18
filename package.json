@@ -110,7 +110,7 @@
     "tslint": "^5.20.1",
     "tslint-eslint-rules": "^5.4.0",
     "tslint-plugin-prettier": "^2.0.1",
-    "typedoc": "^0.15.3",
+    "typedoc": "^0.15.5",
     "typescript": "^3.7.3",
     "winston": "^3.2.1"
   },
