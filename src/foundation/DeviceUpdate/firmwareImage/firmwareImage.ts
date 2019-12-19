@@ -21,7 +21,7 @@ export interface FirmwareImage extends Entity {
     readonly datafileSize?: number;
 
     /**
-     *The firmware image file URL
+     *The firmware image file URL.
      *@example http://example.com/00000000000000000000000000000000
      */
     readonly datafileUrl?: string;
