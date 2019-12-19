@@ -11,7 +11,7 @@ export interface FirmwareImage extends Entity {
 
     /**
      *The checksum (sha256) generated for the datafile.
-     *@example 0000000000000000000000000000000000000000000000000000000000000000
+     *@example e979fe432d6a19b0e70a93b33ac29094cd5fe35a8fd5fbedfd383d8d107d6a7e
      */
     readonly datafileChecksum?: string;
 
@@ -22,7 +22,7 @@ export interface FirmwareImage extends Entity {
 
     /**
      *The firmware image file URL.
-     *@example http://example.com/00000000000000000000000000000000
+     *@example http://bucket.com/myimage.elf
      */
     readonly datafileUrl?: string;
 

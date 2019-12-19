@@ -6,7 +6,7 @@ import { CampaignStatisticsSummaryStatus } from "./types";
 export interface CampaignStatistics extends Entity {
     /**
      *ID of the associated campaign.
-     *@example 00000000000000000000000000000000
+     *@example 016e652be6710000000000010010013d
      */
     campaignId: string;
 

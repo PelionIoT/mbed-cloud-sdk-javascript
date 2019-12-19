@@ -45,7 +45,7 @@ export interface UpdateCampaignCreateRequest {
 
     /**
      *The filter for the devices the campaign is targeting at.
-     *@example id__eq=00000000000000000000000000000000
+     *@example state__eq=registered
      */
     readonly deviceFilter?: string;
 
@@ -57,7 +57,7 @@ export interface UpdateCampaignCreateRequest {
 
     /**
      *The ID of the manifest that will be sent to the device as part of the campaign.
-     *@example 00000000000000000000000000000000
+     *@example 016e83dce36a00000000000100100102
      */
     readonly rootManifestId?: string;
 }
@@ -91,7 +91,7 @@ export interface UpdateCampaignUpdateRequest {
 
     /**
      *The filter for the devices the campaign is targeting at.
-     *@example id__eq=00000000000000000000000000000000
+     *@example state__eq=registered
      */
     readonly deviceFilter?: string;
 
@@ -103,7 +103,7 @@ export interface UpdateCampaignUpdateRequest {
 
     /**
      *The ID of the manifest that will be sent to the device as part of the campaign.
-     *@example 00000000000000000000000000000000
+     *@example 016e83dce36a00000000000100100102
      */
     readonly rootManifestId?: string;
 }
