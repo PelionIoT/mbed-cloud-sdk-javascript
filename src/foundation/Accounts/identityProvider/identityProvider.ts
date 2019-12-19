@@ -1,5 +1,5 @@
 import { Entity } from "../../../common/entity";
-import { IdentityProviderStatus, IdentityProviderType } from "./types";
+import { IdentityProviderType, IdentityProviderStatus } from "./types";
 /**
  *IdentityProvider
  */

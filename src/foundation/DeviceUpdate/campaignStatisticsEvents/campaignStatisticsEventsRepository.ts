@@ -1,7 +1,7 @@
 import { Repository } from "../../../common/repository";
 import { apiWrapper } from "../../../legacy/common/functions";
-import { CampaignStatisticsEventsAdapter } from "../../index";
 import { CampaignStatisticsEvents } from "./campaignStatisticsEvents";
+import { CampaignStatisticsEventsAdapter } from "../../index";
 /**
  *CampaignStatisticsEvents repository
  */

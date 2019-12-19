@@ -1,4 +1,6 @@
 import { ListOptions } from "../../../common";
+export type FirmwareManifestDeliveredPayloadType = "full" | "delta";
+export type FirmwareManifestSchemaVersion = "1" | "3";
 /**
  *FirmwareManifestCreatedAtFilter
  */

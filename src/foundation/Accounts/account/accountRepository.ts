@@ -1,33 +1,33 @@
-import { ListOptions } from "../../../common";
-import { extractFilter } from "../../../common/filters";
 import { Repository } from "../../../common/repository";
-import { Page, Paginator } from "../../../index";
 import { apiWrapper } from "../../../legacy/common/functions";
-import { SubtenantLightThemeImageAdapter } from "../../index";
-import { SubtenantUserAdapter } from "../../index";
+import { Account } from "./account";
+import { SubtenantApiKey } from "../../index";
+import { SubtenantApiKeyAdapter } from "../../index";
+import { extractFilter } from "../../../common/filters";
+import { AccountSubtenantApiKeyListOptions } from "./types";
 import { AccountAdapter } from "../../index";
-import { SubtenantUser } from "../../index";
+import { AccountCreateRequest } from "./types";
 import { SubtenantDarkThemeColor } from "../../index";
 import { SubtenantDarkThemeColorAdapter } from "../../index";
 import { SubtenantDarkThemeImage } from "../../index";
 import { SubtenantDarkThemeImageAdapter } from "../../index";
 import { SubtenantLightThemeColor } from "../../index";
 import { SubtenantLightThemeColorAdapter } from "../../index";
-import { SubtenantApiKey } from "../../index";
-import { SubtenantApiKeyAdapter } from "../../index";
-import { SubtenantUserInvitationAdapter } from "../../index";
+import { SubtenantLightThemeImage } from "../../index";
+import { SubtenantLightThemeImageAdapter } from "../../index";
+import { AccountListOptions } from "./types";
 import { SubtenantTrustedCertificate } from "../../index";
 import { SubtenantTrustedCertificateAdapter } from "../../index";
-import { SubtenantUserInvitation } from "../../index";
-import { SubtenantLightThemeImage } from "../../index";
-import { Account } from "./account";
-import { AccountUpdateRequest } from "./types";
 import { AccountSubtenantTrustedCertificateListOptions } from "./types";
-import { AccountListOptions } from "./types";
+import { AccountUpdateRequest } from "./types";
+import { SubtenantUserInvitation } from "../../index";
+import { SubtenantUserInvitationAdapter } from "../../index";
 import { AccountSubtenantUserInvitationListOptions } from "./types";
-import { AccountCreateRequest } from "./types";
-import { AccountSubtenantApiKeyListOptions } from "./types";
+import { SubtenantUser } from "../../index";
+import { SubtenantUserAdapter } from "../../index";
 import { AccountSubtenantUserListOptions } from "./types";
+import { Paginator, Page } from "../../../index";
+import { ListOptions } from "../../../common";
 /**
  *Account repository
  */
@@ -85,7 +85,7 @@ export class AccountRepository extends Repository {
                         url: "/v3/accounts",
                         method: "POST",
                         query: {
-                            action,
+                            action: action,
                         },
                         body: {
                             address_line1: request.addressLine1,
