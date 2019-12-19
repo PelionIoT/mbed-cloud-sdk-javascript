@@ -1,11 +1,11 @@
-import { ListOptions } from "../../../common";
-import { extractFilter } from "../../../common/filters";
 import { Repository } from "../../../common/repository";
-import { Page, Paginator } from "../../../index";
 import { apiWrapper } from "../../../legacy/common/functions";
-import { DeviceEventsAdapter } from "../../index";
 import { DeviceEvents } from "./deviceEvents";
+import { extractFilter } from "../../../common/filters";
 import { DeviceEventsListOptions } from "./types";
+import { DeviceEventsAdapter } from "../../index";
+import { Paginator, Page } from "../../../index";
+import { ListOptions } from "../../../common";
 /**
  *DeviceEvents repository
  */

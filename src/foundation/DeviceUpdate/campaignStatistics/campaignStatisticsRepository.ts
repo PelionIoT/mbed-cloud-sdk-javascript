@@ -1,11 +1,11 @@
-import { ListOptions } from "../../../common";
 import { Repository } from "../../../common/repository";
-import { Page, Paginator } from "../../../index";
 import { apiWrapper } from "../../../legacy/common/functions";
+import { CampaignStatistics } from "./campaignStatistics";
 import { CampaignStatisticsEvents } from "../../index";
 import { CampaignStatisticsEventsAdapter } from "../../index";
 import { CampaignStatisticsAdapter } from "../../index";
-import { CampaignStatistics } from "./campaignStatistics";
+import { Paginator, Page } from "../../../index";
+import { ListOptions } from "../../../common";
 /**
  *CampaignStatistics repository
  */

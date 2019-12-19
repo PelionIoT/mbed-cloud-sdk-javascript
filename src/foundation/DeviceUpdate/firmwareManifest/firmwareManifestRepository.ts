@@ -1,19 +1,19 @@
-import { ReadStream } from "fs";
-import { ListOptions } from "../../../common";
-import { extractFilter } from "../../../common/filters";
 import { Repository } from "../../../common/repository";
-import { Page, Paginator } from "../../../index";
 import { apiWrapper } from "../../../legacy/common/functions";
-import { FirmwareManifestAdapter } from "../../index";
 import { FirmwareManifest } from "./firmwareManifest";
+import { FirmwareManifestAdapter } from "../../index";
+import { extractFilter } from "../../../common/filters";
 import { FirmwareManifestListOptions } from "./types";
+import { ReadStream } from "fs";
+import { Paginator, Page } from "../../../index";
+import { ListOptions } from "../../../common";
 /**
  *FirmwareManifest repository
  */
 export class FirmwareManifestRepository extends Repository {
     /**
      * create
-     * @param firmwareManifestFile - The manifest file to create. The API gateway enforces the account-specific file size.
+     * @param firmwareManifestFile - The manifest file to create. The API gateway enforces the account-specific file size. File name must not exceed 100 characters.
      */
     public create(
         firmwareManifestFile: ReadStream | Buffer | File | Blob,

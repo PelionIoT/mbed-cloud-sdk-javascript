@@ -20,6 +20,26 @@ export const firmwareManifestSchema = (): Schema => {
                 type: "string",
             },
             {
+                name: "deliveredPayloadDigest",
+                apiName: "delivered_payload_digest",
+                type: "string",
+            },
+            {
+                name: "deliveredPayloadSize",
+                apiName: "delivered_payload_size",
+                type: "number",
+            },
+            {
+                name: "deliveredPayloadType",
+                apiName: "delivered_payload_type",
+                type: "FirmwareManifestDeliveredPayloadType",
+            },
+            {
+                name: "deliveredPayloadUrl",
+                apiName: "delivered_payload_url",
+                type: "string",
+            },
+            {
                 name: "description",
                 apiName: "description",
                 type: "string",
@@ -30,9 +50,19 @@ export const firmwareManifestSchema = (): Schema => {
                 type: "string",
             },
             {
+                name: "deviceVendor",
+                apiName: "device_vendor",
+                type: "string",
+            },
+            {
                 name: "keyTableUrl",
                 apiName: "key_table",
                 type: "string",
+            },
+            {
+                name: "manifestSchemaVersion",
+                apiName: "manifest_schema_version",
+                type: "FirmwareManifestSchemaVersion",
             },
             {
                 name: "name",
@@ -40,9 +70,24 @@ export const firmwareManifestSchema = (): Schema => {
                 type: "string",
             },
             {
+                name: "parsedRawManifest",
+                apiName: "parsed_raw_manifest",
+                type: "any",
+            },
+            {
+                name: "precursorPayloadDigest",
+                apiName: "precursor_payload_digest",
+                type: "string",
+            },
+            {
                 name: "timestamp",
                 apiName: "timestamp",
                 type: "Date",
+            },
+            {
+                name: "updatePriority",
+                apiName: "update_priority",
+                type: "number",
             },
             {
                 name: "updatedAt",

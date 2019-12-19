@@ -1,15 +1,15 @@
-import { ListOptions } from "../../../common";
-import { extractFilter } from "../../../common/filters";
 import { Repository } from "../../../common/repository";
-import { Page, Paginator } from "../../../index";
 import { apiWrapper } from "../../../legacy/common/functions";
+import { User } from "./user";
 import { UserAdapter } from "../../index";
+import { UserCreateRequest } from "./types";
+import { extractFilter } from "../../../common/filters";
+import { UserListOptions } from "./types";
 import { PolicyGroup } from "../../index";
 import { PolicyGroupAdapter } from "../../index";
-import { UserCreateRequest } from "./types";
 import { UserUpdateRequest } from "./types";
-import { UserListOptions } from "./types";
-import { User } from "./user";
+import { Paginator, Page } from "../../../index";
+import { ListOptions } from "../../../common";
 /**
  *User repository
  */
@@ -27,7 +27,7 @@ export class UserRepository extends Repository {
                         url: "/v3/users",
                         method: "POST",
                         query: {
-                            action,
+                            action: action,
                         },
                         body: {
                             address: request.address,
