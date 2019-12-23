@@ -1225,26 +1225,33 @@ definitions:
         description: "\nStates whether sending a command to the device succeeded or\
           \ failed.\n\n<table>\n  <thead>\n    <tr>\n      <th>Code</th>\n      <th>Description</th>\n\
           \    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td><b>200</b></td>\n\
-          \      <td>Operation succeeded. The playload contains result of the operation\
-          \ from the device.</td>\n    </tr>\n    <tr>\n      <td><b>404</b></td>\n\
-          \      <td>Endpoint does not have requested resource.</td>\n    </tr>\n\
-          \    <tr>\n      <td><b>412</b></td>\n      <td>Precondition failed and\
-          \ operation was not executed. Device responded with 4.12 CoAP response code.</td>\n\
-          \    </tr>\n    <tr>\n      <td><b>413</b></td>\n      <td>Request entity\
-          \ is too large and could not be delivered to the device.</td>\n    </tr>\n\
-          \    <tr>\n      <td><b>415</b></td>\n      <td>Endpoint does not support\
-          \ media type.</td>\n    </tr>\n    <tr>\n      <td><b>429</b></td>\n   \
-          \   <td>Expired request was removed from queue (REQUEST_EXPIRED), device\
-          \ requested deregistration (DEVICE_REMOVED_REGISTRATION), or device was\
-          \ suspended (DEVICE_BLOCKED).</td>\n    </tr>\n    <tr>\n      <td><b>502</b></td>\n\
-          \      <td>Request to the device failed and retry count exceeded. Last retry\
-          \ failed to establish TCP or TLS connection to endpoint.</td>\n    </tr>\n\
-          \    <tr>\n      <td><b>503</b></td>\n      <td>Request to the device failed\
-          \ and retry count exceeded. Last retry failed because endpoint is currently\
-          \ unavailable (NOT_CONNECTED).</td>\n    </tr>\n    <tr>\n      <td><b>504</b></td>\n\
-          \      <td>Request to the device failed and retry count exceeded. Last retry\
-          \ failed, as device did not respond in the time of protocol-specific retransmission\
-          \ logic (TIMEOUT).</td>\n    </tr>\n  </tbody>\n</table>\n"
+          \      <td>Operation succeeded. The payload contains result of the operation\
+          \ from the device.</td>\n    </tr>\n    <tr>\n      <td><b>400</b></td>\n\
+          \      <td>The device rejected the request, possibly because it does not\
+          \ support the request method.\n      See how the supported methods are\n\
+          \      [configured for the device resources](../connecting/collecting-resources.html#setting-the-operation-mode).</td>\n\
+          \    </tr>\n    <tr>\n      <td><b>404</b></td>\n      <td>The device replied\
+          \ that it does not have the requested resource.</td>\n    </tr>\n    <tr>\n\
+          \      <td><b>412</b></td>\n      <td>Precondition failed and the operation\
+          \ was not executed. The device responded with 4.12 CoAP\n      response\
+          \ code. The device may reject a subscription request with this response\
+          \ code.</td>\n    </tr>\n    <tr>\n      <td><b>413</b></td>\n      <td>Request\
+          \ entity is too large and could not be delivered to the device.</td>\n \
+          \   </tr>\n    <tr>\n      <td><b>415</b></td>\n      <td>The device does\
+          \ not support the media type in the request.</td>\n    </tr>\n    <tr>\n\
+          \      <td><b>429</b></td>\n      <td>An expired request was removed from\
+          \ queue (REQUEST_EXPIRED),\n      the device requested deregistration (DEVICE_REMOVED_REGISTRATION),\n\
+          \      or the device was suspended (DEVICE_BLOCKED). The request was never\
+          \ delivered to the device.</td>\n    </tr>\n    <tr>\n      <td><b>502</b></td>\n\
+          \      <td>The request to the device failed and the retry count was exceeded.\n\
+          \      The last retry failed to establish TCP or TLS connection to the device.</td>\n\
+          \    </tr>\n    <tr>\n      <td><b>503</b></td>\n      <td>The request to\
+          \ the device failed and the retry count was exceeded.\n      The last retry\
+          \ failed, because the device is currently unavailable (NOT_CONNECTED).</td>\n\
+          \    </tr>\n    <tr>\n      <td><b>504</b></td>\n      <td>The request to\
+          \ the device failed and the retry count was exceeded.\n      The last retry\
+          \ failed, because the device did not respond in time according to the protocol-specific\n\
+          \      retransmission logic (TIMEOUT).</td>\n    </tr>\n  </tbody>\n</table>\n"
         example: 200
         type: integer
     type: object
@@ -3694,7 +3701,7 @@ definitions:
     properties:
       campaign_id:
         description: ID of the associated campaign.
-        example: '00000000000000000000000000000000'
+        example: 016e652be671000000000001001001e5
         type: string
       count:
         example: 10
@@ -3763,7 +3770,7 @@ definitions:
     properties:
       campaign_id:
         description: ID of the associated campaign.
-        example: '00000000000000000000000000000000'
+        example: 016e652be6710000000000010010013d
         type: string
       count:
         example: 10
@@ -3899,11 +3906,11 @@ definitions:
       created_at: *id013
       datafile:
         description: The firmware image file URL.
-        example: http://example.com/00000000000000000000000000000000
+        example: http://bucket.com/myimage.elf
         type: string
       datafile_checksum:
         description: The checksum (sha256) generated for the datafile.
-        example: '0000000000000000000000000000000000000000000000000000000000000000'
+        example: e979fe432d6a19b0e70a93b33ac29094cd5fe35a8fd5fbedfd383d8d107d6a7e
         type: string
       datafile_size:
         description: The size of the datafile in bytes.
@@ -3917,7 +3924,7 @@ definitions:
       etag: *id014
       id:
         description: The firmware image ID.
-        example: '00000000000000000000000000000000'
+        example: 016e652be671000000000001001001e5
         type: string
       name:
         description: The firmware image name.
@@ -4026,7 +4033,7 @@ definitions:
       created_at: *id013
       datafile:
         description: The URL of the ASN.1 DER-encoded firmware manifest binary.
-        example: http://example.com/12345678901234567890123456789012
+        example: http://bucket.com/mymanifest.manifest
         format: uri
         type: string
       datafile_size:
@@ -4051,7 +4058,7 @@ definitions:
         type: string
       delivered_payload_url:
         description: The URL of the payload to deliver to the device.
-        example: http://example.com/abcdefghijklmnopqrstuvwxyz
+        example: http://bucket.com/myimage.elf
         format: uri
         type: string
       description:
@@ -4061,12 +4068,12 @@ definitions:
         type: string
       device_class:
         description: The device class ID.
-        example: 00000000-0000-0000-0000-000000000000
+        example: 42c4d8de-704d-546e-b9d3-1ce1eb316167
         format: uuid
         type: string
       device_vendor:
         description: The device vendor ID.
-        example: 00000000-0000-0000-0000-000000000000
+        example: 5d645eae-c231-5a89-9764-2e655cd94fa8
         format: uuid
         type: string
       etag: *id014
@@ -6386,7 +6393,7 @@ definitions:
         type: string
       device_filter:
         description: The filter for the devices the campaign is targeting at.
-        example: id__eq=00000000000000000000000000000000
+        example: state__eq=registered
         type: string
       etag: *id014
       finished:
@@ -6396,7 +6403,7 @@ definitions:
         type: string
       id:
         description: The campaign ID.
-        example: '00000000000000000000000000000000'
+        example: 016e83ddc648000000000001001000f5
         type: string
       name:
         description: The campaign name.
@@ -6422,12 +6429,12 @@ definitions:
       root_manifest_id:
         description: The ID of the manifest that will be sent to the device as part
           of the campaign.
-        example: '00000000000000000000000000000000'
+        example: 016e83dce36a00000000000100100102
         type: string
       root_manifest_url:
         description: The URL for the manifest that will be sent to the device as part
           of the campaign.
-        example: http://example.com/00000000000000000000000000000000
+        example: https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/016e83dce36a00000000000100100102
         type: string
       started_at:
         description: The time the campaign was started.
@@ -6633,7 +6640,7 @@ definitions:
         type: string
       device_filter:
         description: The filter for the devices the campaign is targeted at.
-        example: id__eq=00000000000000000000000000000000
+        example: state__eq=registered
         type: string
       name:
         default: default_object_name
@@ -6641,7 +6648,7 @@ definitions:
         maxLength: 128
         type: string
       root_manifest_id:
-        example: '12345678901234567890123456789012'
+        example: 016e83b46477000000000001001001f3
         maxLength: 32
         minLength: 32
         type: string
@@ -6665,7 +6672,7 @@ definitions:
         type: string
       device_filter:
         description: The filter for the devices the campaign is targeting at.
-        example: id__eq=00000000000000000000000000000000
+        example: state__eq=registered
         type: string
       name:
         description: The campaign's name.
@@ -6673,7 +6680,7 @@ definitions:
         maxLength: 128
         type: string
       root_manifest_id:
-        example: '00000000000000000000000000000000'
+        example: 016e83dce36a00000000000100100201
         maxLength: 32
         type: string
   UploadChunkInfo:
@@ -6745,11 +6752,11 @@ definitions:
       etag: *id014
       firmware_image_id:
         description: ID of the firmware image - empty until the upload job is complete.
-        example: '00000000000000000000000000000000'
+        example: 016e652be671000000000001001001a8
         type: string
       id:
         description: The upload job ID.
-        example: '00000000000000000000000000000000'
+        example: 016e652be671000000000001001001e5
         type: string
       name: &id029
         description: Human-readable name.
@@ -7532,51 +7539,58 @@ paths:
         on a device.
 
 
-        The `async-id` is provided by the client, enabling the client to track the
-        end-to-end flow with an identifier
+        The `async-id` is provided by the REST client, enabling the REST client to
+        track the end-to-end flow with an
 
-        that is relevant to the end application. For example, a web application''s
-        session ID along with the device ID
+        identifier relevant to the end application. It can be, for example, a UUID
+        or the web application''s session ID
 
-        and the resource path could be used as the `async-id`. This also avoids any
-        race conditions with
+        along with the device ID and the resource. This also prevents any race conditions
+        with
 
-        [the notification channel](/docs/current/integrate-web-app/event-notification.html).
+        [the notification channel](../integrate-web-app/event-notification.html).
         All responses are sent through the
 
-        currently configured notification channel as an **AsyncIDResponse**.
+        currently configured notification channel as an
+
+        [AsyncIDResponse](../service-api-references/device-management-connect.html#AsyncIDResponse).
 
 
         For `GET` methods, values may be fetched from an internal cache, instead of
         contacting the device.
 
 
-        The server queues requests if it cannot reach the device at the time of the
-        request. The queue is limited to 20
+        The server puts the requests in a queue if it cannot reach the device at the
+        time of the request. The queue
 
-        requests. The queueing behaviour is affected by the `retry` and the `expiry-seconds`
+        is limited to 20 requests.
+
+        The queueing behaviour is affected by the `retry` and the `expiry-seconds`
         parameters. If the device
 
         is not reached, or the device fails to respond when the request is made, the
         server queues the request
 
-        and retries within the given expiry period the next time the device contacts
-        the server. The requests from
+        and retries the delivery within the given expiry period the next time the
+        device contacts the server.
 
-        the queue are delivered in the order of insertion, one at a time, and not
-        concurrently.
+        The requests from the queue are delivered in the order of insertion, one at
+        a time, and not concurrently.
 
 
-        One delivery attempt consist from protocol specific retrasmission logic, where
-        is multiple trasmissions. In case
+        A delivery attempt follows the protocol-specific retransmission logic. Depending
+        on the protocol, there
 
-        of CoAP, the retrasmissions exponential backoff 2, 4, 8, 16 to 64 seconds,
-        taking total over 2 minutes.
+        can be multiple transmissions. For CoAP, the retransmissions have an exponential
+        backoff
 
-        If the device does not respond within this two-minute period, delivery fails,
-        and the request is put back
+        of 2, 4, 8, 16, and up to 64 seconds, taking in total over 2 minutes.
 
-        in the queue so long as the retry count is less than its maximum.
+        If the device does not respond within this two-minute period, the delivery
+        fails, one `retry` is used, and
+
+        the request is put back into the queue so long as the retry count is less
+        than its maximum.
 
 
         For a queue-mode device, the request delivery is not attempted immediately,
@@ -7588,17 +7602,25 @@ paths:
         If retries are exhausted or the expiry time has passed, then the server discards
         the request and sends an error
 
-        in **AsyncIDResponse**. The retries could be exhausted, for example, if the
-        device periodically contacts
+        in [AsyncIDResponse](../service-api-references/device-management-connect.html#AsyncIDResponse).
+        The retries
+
+        could be exhausted, for example, if the device periodically contacts
 
         the server and receives the request from the queue, but then fails to respond
         back to the server.
 
 
-        On the other hand, the device might lose its network connectivity, and the
-        requests in the queue might expire
+        On the other hand, the device may lose its network connectivity, and the requests
+        in the queue may expire
 
-        and get discarded before the device regains the connectivity.
+        and get discarded before the device regains connectivity. If the request was
+        delivered to the device,
+
+        the status code in `AsyncIDResponse` is *2xx* or *4xx*, as responded by the
+        device. If the request could not be
+
+        delivered, the status code generated by the server is *429* or *5xx*.
 
 
         You can write [Notification Rules](../connecting/resource-change-webapp.html#notification-rules)
@@ -7691,11 +7713,11 @@ paths:
         pattern: ^[\w\-]{1,40}$
         required: true
         type: string
-      - description: The count of retry transmissions of the request to the device,
-          after initial transmission. For example, retry of two means three delivery
-          attempts in total. If retries are exhausted, the request is discarded and
-          an error is delivered in the AsyncIDResponse. Default value of retry is
-          0 for a non-queue-mode device and 2 for a queue-mode device.
+      - description: The number of attempts to deliver the request to the device after
+          the first delivery attempt. For example, two retries sums up to the total
+          of three delivery attempts. If retries are exhausted, the request is discarded
+          and an error is delivered in the AsyncIDResponse. The default value of retries
+          for a non-queue mode device is 0 and 2 for for a queue-mode device.
         in: query
         maximum: 10
         minimum: 0
@@ -7704,8 +7726,9 @@ paths:
         type: integer
       - description: The time period during which the delivery is attempted, in seconds.
           If the device is not reachable within this period, the request is discarded
-          and an error is delivered in the AsyncIDResponse. Default value of expiry-seconds
-          is 2 hours for a non-queue-mode device and 3 days for a queue-mode device.
+          and an error is delivered in the AsyncIDResponse. The default value of expiry
+          seconds for a non-queue mode device is two hours and three days for a queue-mode
+          device.
         in: query
         maximum: 2592000
         minimum: 60
@@ -7724,8 +7747,10 @@ paths:
         202:
           description: Accepted.
         400:
-          description: Bad request. Contains one of the errors RESOURCE_NOT_FOUND,
-            DEVICE_NOT_CONNECTED, MALFORMED_JSON_CONTENT, MALFORMED_ASYNC_ID and QUEUE_IS_FULL
+          description: 'Bad request. Contains one of the errors RESOURCE_NOT_FOUND,
+            DEVICE_NOT_CONNECTED, MALFORMED_JSON_CONTENT,
+
+            MALFORMED_ASYNC_ID and QUEUE_IS_FULL'
           schema:
             type: string
         401:
@@ -7734,8 +7759,8 @@ paths:
           description: "Contains one of the following errors:\n<table>\n  <thead>\n\
             \    <tr>\n      <th>Error message</th>\n      <th>Description</th>\n\
             \    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td><b>DEVICE_NOT_FOUND</b></td>\n\
-            \      <td>Device is not in Device reqistry. Either device has requestd\
-            \ register delete or device has not connected in time and expired.</td>\n\
+            \      <td>The device is not in the device registry. It has either requested\
+            \ for register delete\n      or it has not connected in time and is expired.</td>\n\
             \    </tr>\n    <tr>\n      <td><b>URI_PATH_DOES_NOT_EXISTS</b></td>\n\
             \      <td>The device does not have requested resource. Check the resource\
             \ path is correct.</td>\n    </tr>\n  </tbody>\n</table>"
@@ -8448,17 +8473,17 @@ paths:
         \ URL. The callback URLs and headers are API key-specific.\n\nOne possible\
         \ use for additional headers is checking the origin of a PUT request, as well\
         \ as distinguishing the application (API key) to which the notification belongs.\n\
-        \n**Note**: Only one callback URL per API key can be active. If you register\
+        \n**Note**: Only one callback URL for each API key can be active. If you register\
         \ a new URL while another one is active, it replaces the active one. There\
-        \ can be only one notification channel at a time. If another type of channel\
-        \ is already present, you need to delete it before setting the callback URL.\n\
-        \n**Expiration of a callback URL:**\n\nA callback can expire when Device Management\
-        \ cannot deliver a notification due to a connection timeout or an error response\
-        \ (4xx or 5xx). After each delivery failure, Device Management sets an exponential\
-        \ back off time and makes a retry attempt after that. The first retry delay\
-        \ is 1 second, then 2s, 4s, 8s, up to maximum delay of two minutes. The callback\
-        \ URL is removed if all retries fail within 24 hours. More about [notification\
-        \ sending logic](../integrate-web-app/event-notification.html#notification-sending-logic).\n\
+        \ can be only one notification channel at a time for each API key. If another\
+        \ type of channel is already present, you need to delete it before setting\
+        \ the callback URL.\n\n**Expiration of a callback URL:**\n\nA callback can\
+        \ expire when Device Management cannot deliver a notification due to a connection\
+        \ timeout or an error response (4xx or 5xx). After each delivery failure,\
+        \ Device Management sets an exponential back off time and makes a retry attempt\
+        \ after that. The first retry delay is 1 second, then 2s, 4s, 8s, up to maximum\
+        \ delay of two minutes. The callback URL is removed if all retries fail within\
+        \ 24 hours. More about [notification sending logic](../integrate-web-app/event-notification.html#notification-sending-logic).\n\
         \n**Supported callback URL protocols:**\n\nCurrently, only HTTP and HTTPS\
         \ protocols are supported.\n\n**HTTPS callback URLs:**\n\nWhen delivering\
         \ a notification to an HTTPS based callback URL, Device Management Connect\
@@ -8701,15 +8726,19 @@ paths:
         \ channel can have only one active websocket connection at a time. If a websocket\
         \ connection for a channel exists and a new connection to the same channel\
         \ is made, the connection is accepted and the older connection is closed.\n\
-        \n**Expiration of a websocket:**\n\nA websocket channel is expired if the\
-        \ channel does not have an opened websocket connection for a 24-hour period.\
-        \ Channel expiration means the channel is deleted and any undelivered notifications\
-        \ stored in its internal queue is removed. As long as the channel has an opened\
-        \ websocket connection or time between successive websocket connections is\
-        \ less than 24 hours,\nthe channel is considered active, notifications are\
-        \ stored in its internal queue and delivered when a websocket connection is\
-        \ active. A channel can be also deleted explicitly with a DELETE call.\n\n\
-        More about [notification sending logic](../integrate-web-app/event-notification.html#notification-sending-logic).\n\
+        \n**Note**: Only one websocket channel for each API key can be active. If\
+        \ you register a new websocket channel while another one is active, it replaces\
+        \ the active one. There can be only one notification channel at a time for\
+        \ each API key. If another type of channel is already present, you need to\
+        \ delete it before registering a websocket channel.\n\n**Expiration of a websocket:**\n\
+        \nA websocket channel is expired if the channel does not have an opened websocket\
+        \ connection for a 24-hour period. Channel expiration means the channel is\
+        \ deleted and any undelivered notifications stored in its internal queue is\
+        \ removed. As long as the channel has an opened websocket connection or time\
+        \ between successive websocket connections is less than 24 hours,\nthe channel\
+        \ is considered active, notifications are stored in its internal queue and\
+        \ delivered when a websocket connection is active. A channel can be also deleted\
+        \ explicitly with a DELETE call.\n\nMore about [notification sending logic](../integrate-web-app/event-notification.html#notification-sending-logic).\n\
         \n**Configuration options:**\n\nThe event notification channel provides configurations\
         \ options defined in [Serialization config](#SerializationConfigObjectV2)\n\
         \n**Example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v2/notification/websocket\
@@ -26780,7 +26809,7 @@ paths:
 
         ```
 
-        curl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/archive
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/016e83ddc649000000000001001000b8/archive
         \
 
         -H ''Authorization: <valid access token>''
@@ -26881,7 +26910,7 @@ paths:
 
         ```
 
-        curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/campaign-device-metadata/12345678901234567890123456789012
+        curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/5d645eaec2315a8997642e655cd94fa8/campaign-device-metadata/016e83ddc645000000000001001000f6
         \
 
         -H ''Authorization: <valid access token>''
@@ -26976,7 +27005,7 @@ paths:
 
         ```
 
-        curl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/start
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/5d645eaec2315a8997642e655cd94fa8/start
         \
 
         -H ''Authorization: <valid access token>''
@@ -27205,7 +27234,7 @@ paths:
 
         ```
 
-        curl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/stop
+        curl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/016e83ddc645000000000001001000b5/stop
         \
 
         -H ''Authorization: <valid access token>''

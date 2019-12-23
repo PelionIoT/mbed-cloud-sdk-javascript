@@ -5,7 +5,7 @@ import { Entity } from "../../../common/entity";
 export interface CampaignStatisticsEvents extends Entity {
     /**
      *ID of the associated campaign.
-     *@example 00000000000000000000000000000000
+     *@example 016e652be671000000000001001001e5
      */
     campaignId: string;
 
