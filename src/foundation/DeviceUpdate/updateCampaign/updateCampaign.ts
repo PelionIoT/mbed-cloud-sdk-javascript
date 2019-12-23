@@ -59,7 +59,7 @@ export interface UpdateCampaign extends Entity {
 
     /**
      *The filter for the devices the campaign is targeting at.
-     *@example id__eq=00000000000000000000000000000000
+     *@example state__eq=registered
      */
     deviceFilter: string;
 
@@ -87,13 +87,13 @@ export interface UpdateCampaign extends Entity {
 
     /**
      *The ID of the manifest that will be sent to the device as part of the campaign.
-     *@example 00000000000000000000000000000000
+     *@example 016e83dce36a00000000000100100102
      */
     rootManifestId?: string;
 
     /**
      *The URL for the manifest that will be sent to the device as part of the campaign.
-     *@example http://example.com/00000000000000000000000000000000
+     *@example https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/016e83dce36a00000000000100100102
      */
     readonly rootManifestUrl?: string;
 

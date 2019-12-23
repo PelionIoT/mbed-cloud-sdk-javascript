@@ -17,7 +17,7 @@ export interface FirmwareManifest extends Entity {
 
     /**
      *The URL of the ASN.1 DER-encoded firmware manifest binary.
-     *@example http://example.com/12345678901234567890123456789012
+     *@example http://bucket.com/mymanifest.manifest
      */
     readonly datafileUrl?: string;
 
@@ -39,7 +39,7 @@ export interface FirmwareManifest extends Entity {
 
     /**
      *The URL of the payload to deliver to the device.
-     *@example http://example.com/abcdefghijklmnopqrstuvwxyz
+     *@example http://bucket.com/myimage.elf
      */
     readonly deliveredPayloadUrl?: string;
 
@@ -50,13 +50,13 @@ export interface FirmwareManifest extends Entity {
 
     /**
      *The device class ID.
-     *@example 00000000-0000-0000-0000-000000000000
+     *@example 42c4d8de-704d-546e-b9d3-1ce1eb316167
      */
     readonly deviceClass?: string;
 
     /**
      *The device vendor ID.
-     *@example 00000000-0000-0000-0000-000000000000
+     *@example 5d645eae-c231-5a89-9764-2e655cd94fa8
      */
     readonly deviceVendor?: string;
 
