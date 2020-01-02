@@ -58,7 +58,7 @@ export interface UpdateCampaign extends Entity {
     description?: string;
 
     /**
-     *The filter for the devices the campaign is targeting at.
+     *The filter for the devices the campaign targets. Refer to this using the filter ID.
      *@example state__eq=registered
      */
     deviceFilter: string;
