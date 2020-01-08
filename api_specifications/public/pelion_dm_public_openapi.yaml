@@ -6578,7 +6578,8 @@ definitions:
         maxLength: 2000
         type: string
       device_filter:
-        description: The filter for the devices the campaign is targeting at.
+        description: The filter for the devices the campaign targets. Refer to this
+          using the filter ID.
         example: state__eq=registered
         type: string
       etag: *id014
@@ -6825,7 +6826,8 @@ definitions:
         maxLength: 2000
         type: string
       device_filter:
-        description: The filter for the devices the campaign is targeted at.
+        description: The filter for the devices the campaign targets. Refer to this
+          using the filter ID.
         example: state__eq=registered
         type: string
       name:
@@ -6857,7 +6859,8 @@ definitions:
         maxLength: 2000
         type: string
       device_filter:
-        description: The filter for the devices the campaign is targeting at.
+        description: The filter for the devices the campaign targets. Refer to this
+          using the filter ID.
         example: state__eq=registered
         type: string
       name:
@@ -7796,6 +7799,7 @@ paths:
             '
           schema:
             $ref: '#/definitions/ErrorResponse'
+      summary: Get an access token to use with a device.
       tags:
       - Security and identity - secure device access
       x-origin: /home/circleci/project/sda-service/public/sda.yaml
@@ -7874,6 +7878,7 @@ paths:
             '
           schema:
             $ref: '#/definitions/ErrorResponse'
+      summary: Get the account's trust anchor used to sign the access token.
       tags:
       - Security and identity - secure device access
       x-origin: /home/circleci/project/sda-service/public/sda.yaml
@@ -7925,6 +7930,7 @@ paths:
             '
           schema:
             $ref: '#/definitions/ErrorResponse'
+      summary: Create a new trust anchor for the account.
       tags:
       - Security and identity - secure device access
       x-origin: /home/circleci/project/sda-service/public/sda.yaml
@@ -7982,6 +7988,7 @@ paths:
           description: The trust anchor to be deleted was not found.
           schema:
             $ref: '#/definitions/ErrorResponse'
+      summary: Delete a trust anchor.
       tags:
       - Security and identity - secure device access
       x-origin: /home/circleci/project/sda-service/public/sda.yaml
@@ -8032,6 +8039,7 @@ paths:
           description: The trust anchor to be updated was not found.
           schema:
             $ref: '#/definitions/ErrorResponse'
+      summary: Update trust anchor attributes (description).
       tags:
       - Security and identity - secure device access
       x-origin: /home/circleci/project/sda-service/public/sda.yaml
@@ -27137,12 +27145,13 @@ paths:
         - gte
       x-origin: /home/circleci/project/update-service/public/swagger.yml
     post:
-      description: "Create an update campaign.\n<br>\n**Usage example:**\n```\ncurl\
-        \ -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns \\\n-H 'Authorization:\
-        \ <valid access token>' \\\n-H 'content-type: application/json;charset=UTF-8'\
+      description: "Create an update campaign.\n\nTo include a filter for targeted\
+        \ devices, refer to the filter using `<filter_id>` in the message body.\n\
+        <br>\n**Usage example:**\n```\ncurl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns\
+        \ \\\n-H 'Authorization: <valid access token>' \\\n-H 'content-type: application/json;charset=UTF-8'\
         \ \\\n-d '{\n  \"campaign_strategy\": \"one-shot\",\n  \"description\": \"\
-        Campaign is for ...\",\n  \"device_filter\": \"id__eq=123400000000000000000000000ae45\"\
-        ,\n  \"name\": \"campaign\",\n  \"root_manifest_id\": \"5678000000000000000000000000bd98\"\
+        Campaign is for ...\",\n  \"device_filter\": \"<filter_id>\",\n  \"name\"\
+        : \"campaign\",\n  \"root_manifest_id\": \"5678000000000000000000000000bd98\"\
         ,\n}'\n```\n"
       operationId: Update_Campaign_create
       parameters:
@@ -27264,7 +27273,7 @@ paths:
       description: "Modify an update campaign.\n<br>\n**Usage example:**\n```\ncurl\
         \ -X PUT https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012\
         \ \\\n-H 'Authorization: <valid access token>' \\\nd '{\n  \"description\"\
-        : \"Campaign is for ...\",\n  \"device_filter\": \"id__eq=123400000000000000000000000ae45\"\
+        : \"Campaign is for ...\",\n  \"device_filter\": \"123400000000000000000000000ae45\"\
         ,\n  \"name\": \"campaign\",\n  \"root_manifest_id\": \"5678000000000000000000000000bd98\"\
         ,\n}'\n```\n"
       operationId: Update_Campaign_update
