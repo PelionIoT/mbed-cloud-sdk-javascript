@@ -1,6 +1,6 @@
 {
   "name": "mbed-cloud-sdk",
-  "version": "2.6.1",
+  "version": "2.6.2",
   "is_published": true,
   "is_locked": false,
   "description": "Pelion Device Management SDK for JavaScript",
@@ -75,7 +75,6 @@
     "@types/jest": "^24.0.24",
     "@types/memory-cache": "^0.2.0",
     "@types/prettier": "^1.19.0",
-    "@types/superagent": "^3.8.7",
     "@types/supertest": "^2.0.8",
     "body-parser": "^1.19.0",
     "browserify": "^16.5.0",
@@ -116,6 +115,7 @@
   },
   "dependencies": {
     "@types/node": "^11.11.5",
+    "@types/superagent": "^3.8.7",
     "dotenv": "^8.2.0",
     "superagent": "^3.4.1",
     "typescript-logging": "^0.6.4"
