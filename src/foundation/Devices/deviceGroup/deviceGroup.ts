@@ -4,7 +4,7 @@ import { Entity } from "../../../common/entity";
  */
 export interface DeviceGroup extends Entity {
     /**
-     *The time the campaign was created.
+     *The time the group was created.
      *@example 2017-05-22T12:37:55.576563Z
      */
     readonly createdAt?: Date;
@@ -34,7 +34,7 @@ export interface DeviceGroup extends Entity {
     name?: string;
 
     /**
-     *The time the object was updated.
+     *The time this object was updated.
      *@example 2017-05-22T12:37:55.576563Z
      */
     readonly updatedAt?: Date;

@@ -61,7 +61,7 @@ export interface Device extends Entity {
 
     /**
      *The description of the device.
-     *@example description
+     *@example Temperature measuring device
      */
     description?: string;
 
@@ -86,7 +86,7 @@ Permitted values:
     deviceKey?: string;
 
     /**
-     *The endpoint name given to the device.
+     *The endpoint name given to the device. The endpoint_name is from the device certificate and is set by factory tool.
      *@example 00000000-0000-0000-0000-000000000000
      */
     readonly endpointName?: string;
@@ -114,7 +114,7 @@ Permitted values:
     readonly groups?: Array<string>;
 
     /**
-     *The ID of the host gateway, if appropriate.
+     *The ID of the host gateway, if appropriate. A device behind Edge has this host_gateway set.
      */
     hostGateway?: string;
 
@@ -162,6 +162,8 @@ Permitted values:
 
     /**
      *The lifecycle status of the device.
+     * Enabled: The device is allowed to connect to Pelion Device Management.
+     * Blocked: The device is prevented from connecting to Pelion Device Management. Device can be, for example, 'suspended'.
      *@example enabled
      */
     readonly lifecycleStatus?: DeviceLifecycleStatus;
@@ -178,34 +180,39 @@ Permitted values:
     readonly manifestTimestamp?: Date;
 
     /**
-     *The ID of the channel used to communicate with the device.
+     *NOT USED: The ID of the channel used to communicate with the device.
      */
     mechanism?: DeviceMechanism;
 
     /**
-     *The address of the connector to use.
+     *NOT USED: The address of the connector to use.
      */
     mechanismUrl?: string;
 
     /**
-     *The name of the device.
+     *The name given by the web application for the device. Device itself provides only the endpoint_name.
      *@example 00000000-0000-0000-0000-000000000000
      */
     name?: string;
 
     /**
-     *Is the device suspended by the operator?
+     *Device has been suspended by operator.
      */
     readonly operatorSuspended?: boolean;
 
     /**
-     *The serial number of the device.
+     *The [serial number](../provisioning-process/provisioning-information.html#serial-number) of the device. The serial number is injected by the factory tool during manufacturing.
      *@example 00000000-0000-0000-0000-000000000000
      */
     serialNumber?: string;
 
     /**
      *The current state of the device.
+     * Unenrolled: The device has been created, but has not yet bootstrapped or connected to Device Management.
+     * Cloud_enrolling: The device is bootstrapping for the first time. This state is set only while bootstrapping is in progress. For example, an external CA gives an error, and the device tries to bootstrap again after few seconds.
+     * Bootstrapped: The device has bootstrapped, and has credentials to connect to Device Management.
+     * Registered: The device has registered with Pelion Device Management. [Device commands](../service-api-references/device-management-connect.html#createAsyncRequest) can be queued. The device sends events for [subscribed](../connecting/resource-change-webapp.html) resources.
+     * Deregistered: The device has requested deregistration, or its registration has expired.
      */
     state?: DeviceState;
 
@@ -215,7 +222,7 @@ Permitted values:
     readonly systemSuspended?: boolean;
 
     /**
-     *The time the object was updated.
+     *The time this data object was updated.
      *@example 2017-05-22T12:37:55.576563Z
      */
     readonly updatedAt?: Date;

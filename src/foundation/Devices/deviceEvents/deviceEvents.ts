@@ -46,7 +46,7 @@ export interface DeviceEvents extends Entity {
     readonly eventType?: string;
 
     /**
-     *Category code which groups the event type by a summary category.
+     *Category code that groups the event type by a summary category.
      *@example FAIL_MANIFEST_REJECTED
      */
     readonly eventTypeCategory?: string;
