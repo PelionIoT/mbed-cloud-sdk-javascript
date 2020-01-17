@@ -52,7 +52,7 @@ export interface DeviceCreateRequest {
 
     /**
      *The description of the device.
-     *@example description
+     *@example Temperature measuring device
      */
     readonly description?: string;
 
@@ -77,7 +77,7 @@ Permitted values:
     readonly deviceKey?: string;
 
     /**
-     *The endpoint name given to the device.
+     *The endpoint name given to the device. The endpoint_name is from the device certificate and is set by factory tool.
      *@example 00000000-0000-0000-0000-000000000000
      */
     readonly endpointName?: string;
@@ -88,7 +88,7 @@ Permitted values:
     readonly endpointType?: string;
 
     /**
-     *The ID of the host gateway, if appropriate.
+     *The ID of the host gateway, if appropriate. A device behind Edge has this host_gateway set.
      */
     readonly hostGateway?: string;
 
@@ -104,29 +104,34 @@ Permitted values:
     readonly manifest?: string;
 
     /**
-     *The ID of the channel used to communicate with the device.
+     *NOT USED: The ID of the channel used to communicate with the device.
      */
     readonly mechanism?: DeviceMechanism;
 
     /**
-     *The address of the connector to use.
+     *NOT USED: The address of the connector to use.
      */
     readonly mechanismUrl?: string;
 
     /**
-     *The name of the device.
+     *The name given by the web application for the device. Device itself provides only the endpoint_name.
      *@example 00000000-0000-0000-0000-000000000000
      */
     readonly name?: string;
 
     /**
-     *The serial number of the device.
+     *The [serial number](../provisioning-process/provisioning-information.html#serial-number) of the device. The serial number is injected by the factory tool during manufacturing.
      *@example 00000000-0000-0000-0000-000000000000
      */
     readonly serialNumber?: string;
 
     /**
      *The current state of the device.
+     * Unenrolled: The device has been created, but has not yet bootstrapped or connected to Device Management.
+     * Cloud_enrolling: The device is bootstrapping for the first time. This state is set only while bootstrapping is in progress. For example, an external CA gives an error, and the device tries to bootstrap again after few seconds.
+     * Bootstrapped: The device has bootstrapped, and has credentials to connect to Device Management.
+     * Registered: The device has registered with Pelion Device Management. [Device commands](../service-api-references/device-management-connect.html#createAsyncRequest) can be queued. The device sends events for [subscribed](../connecting/resource-change-webapp.html) resources.
+     * Deregistered: The device has requested deregistration, or its registration has expired.
      */
     readonly state?: DeviceState;
 
@@ -169,7 +174,7 @@ export interface DeviceUpdateRequest {
 
     /**
      *The description of the device.
-     *@example description
+     *@example Temperature measuring device
      */
     readonly description?: string;
 
@@ -180,7 +185,7 @@ export interface DeviceUpdateRequest {
     readonly deviceKey?: string;
 
     /**
-     *The endpoint name given to the device.
+     *The endpoint name given to the device. The endpoint_name is from the device certificate and is set by factory tool.
      *@example 00000000-0000-0000-0000-000000000000
      */
     readonly endpointName?: string;
@@ -191,12 +196,12 @@ export interface DeviceUpdateRequest {
     readonly endpointType?: string;
 
     /**
-     *The ID of the host gateway, if appropriate.
+     *The ID of the host gateway, if appropriate. A device behind Edge has this host_gateway set.
      */
     readonly hostGateway?: string;
 
     /**
-     *The name of the device.
+     *The name given by the web application for the device. Device itself provides only the endpoint_name.
      *@example 00000000-0000-0000-0000-000000000000
      */
     readonly name?: string;

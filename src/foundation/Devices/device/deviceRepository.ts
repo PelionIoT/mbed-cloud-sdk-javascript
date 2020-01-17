@@ -88,7 +88,7 @@ export class DeviceRepository extends Repository {
     }
     /**
      * delete
-     * @param id - The ID of the device.
+     * @param id - The [Device ID](../connecting/device-identity.html) created by Device Management.
      */
     public delete(id: string): Promise<void> {
         return apiWrapper(
