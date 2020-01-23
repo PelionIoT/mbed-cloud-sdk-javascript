@@ -254,6 +254,11 @@ export interface Account extends Entity {
     readonly tier?: string;
 
     /**
+     *tierHistory
+     */
+    readonly tierHistory?: Array<any>;
+
+    /**
      *Last update UTC time RFC3339.
      *@example 2018-02-14T15:24:14Z
      */

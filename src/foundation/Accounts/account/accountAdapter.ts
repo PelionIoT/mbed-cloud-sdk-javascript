@@ -66,6 +66,7 @@ export class AccountAdapter extends Adapter {
             status: data.status,
             templateId: data.template_id,
             tier: data.tier,
+            tierHistory: data.tier_history,
             updatedAt: data.updated_at,
             upgradedAt: data.upgraded_at,
         });
