@@ -5,6 +5,11 @@ export const loginProfileSchema = (): Schema => {
         name: "LoginProfile",
         fields: [
             {
+                name: "foreignId",
+                apiName: "foreign_id",
+                type: "string",
+            },
+            {
                 name: "loginProfileType",
                 apiName: "type",
                 type: "LoginProfileType",
