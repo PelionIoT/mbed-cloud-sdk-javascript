@@ -5,6 +5,11 @@ import { LoginProfileType } from "./types";
  */
 export interface LoginProfile extends Entity {
     /**
+     *The ID of the user in the identity provider's service.
+     */
+    readonly foreignId?: string;
+
+    /**
      *Identity provider type.
      */
     readonly loginProfileType?: LoginProfileType;

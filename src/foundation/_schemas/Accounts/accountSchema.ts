@@ -220,6 +220,11 @@ export const accountSchema = (): Schema => {
                 type: "string",
             },
             {
+                name: "tierHistory",
+                apiName: "tier_history",
+                type: "Array<any>",
+            },
+            {
                 name: "updatedAt",
                 apiName: "updated_at",
                 type: "Date",

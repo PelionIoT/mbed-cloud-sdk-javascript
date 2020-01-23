@@ -15,6 +15,7 @@ export class LoginProfileAdapter extends Adapter {
         }
         const mappedEntity = LoginProfileAdapter.assignDefined(instance || {}, {
             _discriminator: "LOGIN_PROFILE",
+            foreignId: data.foreign_id,
             id: data.id,
             loginProfileType: data.type,
             name: data.name,
