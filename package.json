@@ -91,7 +91,7 @@
     "gulp-tap": "^2.0.0",
     "gulp-uglify": "^2.0.1",
     "istanbul-lib-coverage": "^2.0.5",
-    "istanbul-lib-hook": "^2.0.7",
+    "istanbul-lib-hook": "^3.0.0",
     "istanbul-lib-instrument": "^4.0.0",
     "istanbul-lib-source-maps": "^4.0.0",
     "jest": "^23.6.0",
