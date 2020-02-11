@@ -1,5 +1,6 @@
 import { Adapter } from "../../../common/adapter";
 import { SubtenantIdentityProvider } from "./subtenantIdentityProvider";
+import { OidcRequestAdapter } from "../..";
 /**
  *SubtenantIdentityProvider adapter
  */
@@ -21,6 +22,7 @@ export class SubtenantIdentityProviderAdapter extends Adapter {
             id: data.id,
             isDefault: data.is_default,
             name: data.name,
+            oidcAttributes: OidcRequestAdapter.fromApi(data.oidc_attributes),
             saml2Attributes: data.saml2_attributes,
             status: data.status,
             updatedAt: data.updated_at,

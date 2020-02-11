@@ -1,4 +1,5 @@
 import { Entity } from "../../../common/entity";
+import { OidcRequest } from "../oidcRequest/oidcRequest";
 import { SubtenantIdentityProviderStatus } from "./types";
 /**
  *SubtenantIdentityProvider
@@ -30,6 +31,11 @@ export interface SubtenantIdentityProvider extends Entity {
      *Name of the identity provider.
      */
     name: string;
+
+    /**
+     *Represents OIDC specific attributes.
+     */
+    oidcAttributes?: OidcRequest;
 
     /**
      *Represents SAML2 specific attributes in responses.

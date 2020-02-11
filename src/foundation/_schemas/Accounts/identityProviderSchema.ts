@@ -35,6 +35,11 @@ export const identityProviderSchema = (): Schema => {
                 type: "string",
             },
             {
+                name: "oidcAttributes",
+                apiName: "oidc_attributes",
+                type: "OidcRequest",
+            },
+            {
                 name: "saml2Attributes",
                 apiName: "saml2_attributes",
                 type: "any",
