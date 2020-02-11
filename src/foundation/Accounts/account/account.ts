@@ -159,7 +159,7 @@ export interface Account extends Entity {
     readonly limitations?: Array<any>;
 
     /**
-     *List of limits as key-value pairs if requested.
+     *DEPRECATED: Replaced by the limitations parameter.
      */
     readonly limits?: { [key: string]: string };
 

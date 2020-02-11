@@ -1,4 +1,5 @@
 import { Entity } from "../../../common/entity";
+import { OidcRequest } from "../oidcRequest/oidcRequest";
 import { IdentityProviderType, IdentityProviderStatus } from "./types";
 /**
  *IdentityProvider
@@ -35,6 +36,11 @@ export interface IdentityProvider extends Entity {
      *Name of the identity provider.
      */
     name: string;
+
+    /**
+     *Represents OIDC specific attributes.
+     */
+    oidcAttributes?: OidcRequest;
 
     /**
      *Represents SAML2 specific attributes in responses.

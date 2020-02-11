@@ -1,5 +1,6 @@
 import { Adapter } from "../../../common/adapter";
 import { IdentityProvider } from "./identityProvider";
+import { OidcRequestAdapter } from "../..";
 /**
  *IdentityProvider adapter
  */
@@ -22,6 +23,7 @@ export class IdentityProviderAdapter extends Adapter {
             identityProviderType: data.type,
             isDefault: data.is_default,
             name: data.name,
+            oidcAttributes: OidcRequestAdapter.fromApi(data.oidc_attributes),
             saml2Attributes: data.saml2_attributes,
             status: data.status,
             updatedAt: data.updated_at,

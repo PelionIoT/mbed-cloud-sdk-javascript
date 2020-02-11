@@ -293,11 +293,10 @@ definitions:
       limits:
         additionalProperties:
           type: string
-        deprecated: true
-        description: List of limits as key-value pairs if requested.
+        description: 'DEPRECATED: Replaced by the limitations parameter.'
         type: object
         x-deprecation:
-          comment: Superseded by the limitations parameter.
+          comment: Replaced by the limitations parameter.
           end_of_life_at: '2020-08-27T12:03:58+00:00'
           issued_at: '2019-08-27T12:03:58+00:00'
         x-nullable: true
@@ -4623,6 +4622,7 @@ definitions:
         description: Identity provider type.
         enum:
         - SAML2
+        - OIDC
         type: string
     required:
     - name
@@ -4666,6 +4666,9 @@ definitions:
         enum:
         - identity-provider
         type: string
+      oidc_attributes:
+        $ref: '#/definitions/OIDCInfo'
+        description: OIDC specific attributes.
       saml2_attributes:
         $ref: '#/definitions/SAML2Info'
         description: SAML2 specific attributes.
@@ -4767,6 +4770,7 @@ definitions:
         description: Identity provider type.
         enum:
         - SAML2
+        - OIDC
         type: string
     required:
     - name
@@ -9093,8 +9097,8 @@ paths:
           description: Callback URL does not exist.
       summary: Delete callback URL.
       tags:
-      - Notifications
-      x-origin: /home/circleci/project/device-server/public/swagger.yaml
+      - Device data - notifications
+      x-origin: /home/circleci/project/notification-service/public/swagger.yaml
     get:
       description: 'Shows the current callback URL if it exists.
 
@@ -9122,8 +9126,8 @@ paths:
           description: The callback URL does not exist.
       summary: Check callback URL.
       tags:
-      - Notifications
-      x-origin: /home/circleci/project/device-server/public/swagger.yaml
+      - Device data - notifications
+      x-origin: /home/circleci/project/notification-service/public/swagger.yaml
     put:
       consumes:
       - application/json
@@ -9197,8 +9201,8 @@ paths:
           description: Unsupported Media Type.
       summary: Register a callback URL.
       tags:
-      - Notifications
-      x-origin: /home/circleci/project/device-server/public/swagger.yaml
+      - Device data - notifications
+      x-origin: /home/circleci/project/notification-service/public/swagger.yaml
   /v2/notification/channel:
     get:
       description: "Get channel delivery mechanism.\n\n**Example:**\n\n    curl -X\
@@ -9214,8 +9218,8 @@ paths:
           description: Channel was not found.
       summary: Get channel metadata.
       tags:
-      - Notifications
-      x-origin: /home/circleci/project/device-server/public/swagger.yaml
+      - Device data - notifications
+      x-origin: /home/circleci/project/notification-service/public/swagger.yaml
   /v2/notification/pull:
     delete:
       deprecated: true
@@ -9245,7 +9249,7 @@ paths:
         401: *id021
       summary: Delete notification Long Poll channel.
       tags:
-      - Notifications
+      - Device data - notifications
       x-deprecation:
         comment: Long polling is deprecated and should be used for development purposes
           only.
@@ -9253,7 +9257,7 @@ paths:
         issued_at: '2017-02-10T15:23:00+00:00'
         links:
         - https://www.pelion.com/docs/device-management/current/integrate-web-app/event-notification.html
-      x-origin: /home/circleci/project/device-server/public/swagger.yaml
+      x-origin: /home/circleci/project/notification-service/public/swagger.yaml
     get:
       deprecated: true
       description: 'In this case, notifications are delivered through HTTP long poll
@@ -9319,7 +9323,7 @@ paths:
             "channel exists" state.
       summary: Get notifications using Long Poll
       tags:
-      - Notifications
+      - Device data - notifications
       x-deprecation:
         comment: Long polling is deprecated and should be used for development purposes
           only.
@@ -9327,12 +9331,11 @@ paths:
         issued_at: '2017-02-10T15:23:00+00:00'
         links:
         - https://www.pelion.com/docs/device-management/current/integrate-web-app/event-notification.html
-      x-origin: /home/circleci/project/device-server/public/swagger.yaml
+      x-origin: /home/circleci/project/notification-service/public/swagger.yaml
   /v2/notification/websocket:
     delete:
-      description: '(PREVIEW) Delete a notification websocket channel bound to the
-        API key. This is required to change the channel from websocket to another
-        type.
+      description: 'Delete a notification websocket channel bound to the API key.
+        This is required to change the channel from websocket to another type.
 
 
         Deleting the websocket channel also removes the channel''s notification queue.
@@ -9356,13 +9359,13 @@ paths:
         403: *id022
         404:
           description: Websocket channel doesn't exist.
-      summary: (PREVIEW) Delete websocket channel.
+      summary: Delete websocket channel.
       tags:
-      - Notifications
-      x-origin: /home/circleci/project/device-server/public/swagger.yaml
+      - Device data - notifications
+      x-origin: /home/circleci/project/notification-service/public/swagger.yaml
     get:
-      description: '(PREVIEW) Returns 200 with websocket connection status, if websocket
-        channel exists.
+      description: 'Returns 200 with websocket connection status, if websocket channel
+        exists.
 
 
         **Example:**
@@ -9388,34 +9391,33 @@ paths:
         403: *id022
         404:
           description: No channel has been registered.
-      summary: (PREVIEW) Get websocket channel information.
+      summary: Get websocket channel information.
       tags:
-      - Notifications
-      x-origin: /home/circleci/project/device-server/public/swagger.yaml
+      - Device data - notifications
+      x-origin: /home/circleci/project/notification-service/public/swagger.yaml
     put:
       consumes:
       - application/json
-      description: "(PREVIEW) Register (or update) a channel using websocket connection\
-        \ to deliver notifications. The websocket channel should be opened by client\
-        \ using `/v2/notification/websocket-connect` endpoint. To get notifications\
-        \ pushed, you must place subscriptions. For more information on notification\
-        \ messages, see [NotificationMessage](#NotificationMessage).\n\nA websocket\
-        \ channel can have only one active websocket connection at a time. If a websocket\
-        \ connection for a channel exists and a new connection to the same channel\
-        \ is made, the connection is accepted and the older connection is closed.\n\
-        \n**Note**: Only one websocket channel for each API key can be active at a\
-        \ time. If you register a new websocket channel while another one is active,\
-        \ it replaces the previously active one. If another type of channel is already\
-        \ present, you need to delete it before registering a websocket channel. \
-        \  \n\n**Expiration of a websocket:**\n\nA websocket channel is expired if\
-        \ the channel does not have an opened websocket connection for a 24-hour period.\
-        \ Channel expiration means the channel is deleted and any undelivered notifications\
-        \ stored in its internal queue is removed. As long as the channel has an opened\
-        \ websocket connection or time between successive websocket connections is\
-        \ less than 24 hours,\nthe channel is considered active, notifications are\
-        \ stored in its internal queue and delivered when a websocket connection is\
-        \ active. A channel can be also deleted explicitly with a DELETE call.\n\n\
-        More about [notification sending logic](../integrate-web-app/event-notification.html#notification-sending-logic).\n\
+      description: "Register (or update) a channel using websocket connection to deliver\
+        \ notifications. The websocket channel should be opened by client using `/v2/notification/websocket-connect`\
+        \ endpoint. To get notifications pushed, you must place subscriptions. For\
+        \ more information on notification messages, see [NotificationMessage](#NotificationMessage).\n\
+        \nA websocket channel can have only one active websocket connection at a time.\
+        \ If a websocket connection for a channel exists and a new connection to the\
+        \ same channel is made, the connection is accepted and the older connection\
+        \ is closed.\n\n**Note**: Only one websocket channel for each API key can\
+        \ be active at a time. If you register a new websocket channel while another\
+        \ one is active, it replaces the previously active one. If another type of\
+        \ channel is already present, you need to delete it before registering a websocket\
+        \ channel.   \n\n**Expiration of a websocket:**\n\nA websocket channel is\
+        \ expired if the channel does not have an opened websocket connection for\
+        \ a 24-hour period. Channel expiration means the channel is deleted and any\
+        \ undelivered notifications stored in its internal queue is removed. As long\
+        \ as the channel has an opened websocket connection or time between successive\
+        \ websocket connections is less than 24 hours,\nthe channel is considered\
+        \ active, notifications are stored in its internal queue and delivered when\
+        \ a websocket connection is active. A channel can be also deleted explicitly\
+        \ with a DELETE call.\n\nMore about [notification sending logic](../integrate-web-app/event-notification.html#notification-sending-logic).\n\
         \n**Configuration options:**\n\nThe event notification channel provides configurations\
         \ options defined in [Serialization config](#SerializationConfigObjectV2)\n\
         \n**Example:**\n```\ncurl -X PUT https://api.us-east-1.mbedcloud.com/v2/notification/websocket\
@@ -9439,14 +9441,14 @@ paths:
           description: Other type of channel already exists.
         401: *id021
         403: *id022
-      summary: (PREVIEW) Register a websocket channel.
+      summary: Register a websocket channel.
       tags:
-      - Notifications
-      x-origin: /home/circleci/project/device-server/public/swagger.yaml
+      - Device data - notifications
+      x-origin: /home/circleci/project/notification-service/public/swagger.yaml
   /v2/notification/websocket-connect:
     get:
-      description: "\n(PREVIEW) A websocket channel can have only one active connection\
-        \ at a time. If a websocket connection for a channel exists and a new connection\
+      description: "\nA websocket channel can have only one active connection at a\
+        \ time. If a websocket connection for a channel exists and a new connection\
         \ to the same channel is made, the connection is accepted and the older connection\
         \ is closed.\n\nA websocket client library should be used when connecting\
         \ to this endpoint.\n\nOnce the socket has been opened, the server may close\
@@ -9526,10 +9528,10 @@ paths:
         429:
           description: While a WebSocket handshake is still in progress, no new WebSocket
             requests with the same authorization token will be accepted.
-      summary: (PREVIEW) Open the websocket.
+      summary: Open the websocket.
       tags:
-      - Notifications
-      x-origin: /home/circleci/project/device-server/public/swagger.yaml
+      - Device data - notifications
+      x-origin: /home/circleci/project/notification-service/public/swagger.yaml
   /v2/subscriptions:
     delete:
       description: 'Removes pre-subscriptions.
@@ -28489,105 +28491,6 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Create a new user.
-      tags:
-      - Account - users
-      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
-  /v3/users/me:
-    get:
-      description: Retrieve the details of the logged-in user.
-      operationId: getMyUser
-      parameters:
-      - description: Request to regenerate new emergency scratch codes.
-        in: query
-        name: scratch_codes
-        required: false
-        type: string
-      - description: Request to return account-specific user property values according
-          to the given property name.
-        in: query
-        name: properties
-        required: false
-        type: string
-      - description: 'Comma-separated additional data to return. Currently supported:
-          active_sessions.'
-        in: query
-        name: include
-        required: false
-        type: string
-      produces:
-      - application/json
-      responses:
-        '200':
-          description: Successful operation.
-          schema:
-            $ref: '#/definitions/UserInfoResp'
-        '401':
-          description: Authentication failure.
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        '403':
-          description: Forbidden.
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-      summary: Details of the current user.
-      tags:
-      - Account - users
-      x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
-    put:
-      consumes:
-      - application/json
-      description: 'Update user details.
-
-
-        **Example:**
-
-        ```
-
-        curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me \
-
-        -H ''Authorization: Bearer <token>'' \
-
-        -H ''content-type: application/json'' \
-
-        -d ''{"full_name": "fullname"}''
-
-        ```'
-      operationId: updateMyUser
-      parameters:
-      - description: A user object with attributes.
-        in: body
-        name: body
-        required: true
-        schema:
-          $ref: '#/definitions/UserUpdateReq'
-      produces:
-      - application/json
-      responses:
-        '200':
-          description: Successful operation.
-          schema:
-            $ref: '#/definitions/UserInfoResp'
-        '400':
-          description: Error in input data, for example, an invalid email address.
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        '401':
-          description: Authentication failure.
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        '403':
-          description: Forbidden.
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        '404':
-          description: A user with the given ID does not exist.
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        '409':
-          description: A user with the given username or email already exists.
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-      summary: Update user details.
       tags:
       - Account - users
       x-origin: /home/circleci/project/auth/public/iam-identity-swagger.yaml
