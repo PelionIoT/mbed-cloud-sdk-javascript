@@ -82,7 +82,7 @@
     "csv-write-stream": "2.0.0",
     "ejs": "2.6.2",
     "express": "^4.17.1",
-    "express-winston": "^4.0.2",
+    "express-winston": "^4.0.3",
     "fs-extra": "^8.1.0",
     "glob": "^7.1.6",
     "gulp": "^3.9.1",
