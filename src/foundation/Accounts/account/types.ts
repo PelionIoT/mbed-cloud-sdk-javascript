@@ -61,7 +61,7 @@ export interface AccountCreateRequest {
     readonly city?: string;
 
     /**
-     *The name of the company.
+     *The name of the company used in billing.
      *@example ARM Holdings Plc
      */
     readonly company?: string;
@@ -91,7 +91,7 @@ export interface AccountCreateRequest {
     readonly customerNumber?: string;
 
     /**
-     *The display name for the account.
+     *The display name for the tenant account.
      *@example ARM
      */
     readonly displayName?: string;
@@ -160,7 +160,7 @@ export interface AccountUpdateRequest {
     readonly city?: string;
 
     /**
-     *The name of the company.
+     *The name of the company used in billing.
      *@example ARM Holdings Plc
      */
     readonly company?: string;
@@ -195,7 +195,7 @@ export interface AccountUpdateRequest {
     readonly customerNumber?: string;
 
     /**
-     *The display name for the account.
+     *The display name for the tenant account.
      *@example ARM
      */
     readonly displayName?: string;

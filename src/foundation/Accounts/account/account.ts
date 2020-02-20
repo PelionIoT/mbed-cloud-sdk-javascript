@@ -78,7 +78,7 @@ export interface Account extends Entity {
     city?: string;
 
     /**
-     *The name of the company.
+     *The name of the company used in billing.
      *@example ARM Holdings Plc
      */
     company?: string;
@@ -119,7 +119,7 @@ export interface Account extends Entity {
     customerNumber?: string;
 
     /**
-     *The display name for the account.
+     *The display name for the tenant account.
      *@example ARM
      */
     displayName?: string;
