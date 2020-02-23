@@ -13,7 +13,7 @@ import { ListOptions } from "../../../common";
 export class FirmwareImageRepository extends Repository {
     /**
      * create
-     * @param firmwareImageFile - The firmware image file to upload. File name must not exceed 100 characters.
+     * @param firmwareImageFile - The firmware image file to upload. File name must not exceed 166 characters.
      */
     public create(
         firmwareImageFile: ReadStream | Buffer | File | Blob,
