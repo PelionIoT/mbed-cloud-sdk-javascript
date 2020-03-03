@@ -11,14 +11,15 @@ The Pelion Device Management SDK provides a simplified interface to the Pelion D
 
 ## Prerequisites
 
-[Node.js > v10.16.0 (lts)](https://nodejs.org), which includes `npm`.
+[Node.js > v10.16.0 (lts)](https://nodejs.org)
+[yarn](https://yarnpkg.com/)
 
 ## Installation
 
 The SDK is distributed using npm. To install the package in your project:
 
 ```bash
-$ npm install mbed-cloud-sdk
+$ yarn add mbed-cloud-sdk
 ```
 
 `/node_modules/mbed-cloud-sdk` now contains:
