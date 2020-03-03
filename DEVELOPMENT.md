@@ -7,14 +7,15 @@
 
 ## Prerequisites
 
-[Node.js > v6.0.0](https://nodejs.org), which includes `npm`.
+[Node.js > v10.18.1](https://nodejs.org)
+[yarn](https://yarnpkg.com/)
 
 ## Installing
 
-After cloning this repository, install the npm dependencies:
+After cloning this repository, install the dependencies:
 
 ```bash
-$ npm install
+$ yarn install --frozen-lockfile
 ```
 
 ## Building
@@ -22,17 +23,17 @@ $ npm install
 To build and bundle the SDK:
 
 ```bash
-$ npm run build
+$ yarn build
 ```
 
 ## Watching (Unit Tests)
 
 ```bash
-$ npm run watch
+$ yarn watch
 ```
 
 ## Watching (Integration Tests)
 
 ```bash
-$ npm run watch:integration
+$ yarn watch:integration
 ```

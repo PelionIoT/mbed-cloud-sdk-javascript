@@ -1,9 +1,9 @@
 # Changelog
 
-The SDK is hosted on GitHub at https://github.com/ARMmbed/mbed-cloud-sdk-javascript and can be installed using npm:
+The SDK is hosted on GitHub at https://github.com/ARMmbed/mbed-cloud-sdk-javascript and can be installed using yarn:
 
 ```
-$ npm install mbed-cloud-sdk
+$ yarn add mbed-cloud-sdk
 ```
 
 This news file contains a log of notable changes to the SDK. Please see [npm history for mbed-cloud-sdk](https://www.npmjs.com/package/mbed-cloud-sdk?activeTab=versions) for

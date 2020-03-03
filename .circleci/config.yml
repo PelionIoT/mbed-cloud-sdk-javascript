@@ -99,10 +99,10 @@ jobs:
           key: v0-package-cache-{{ checksum "package.json" }}
       - run:
           name: Install SDK dependencies
-          command: npm install
+          command: yarn install --frozen-lockfile
       - run:
           name: Generate documentation
-          command: npm run docs
+          command: yarn docs
       - store_artifacts:
           path: docs/docs
       - persist_to_workspace:
@@ -140,10 +140,10 @@ jobs:
           key: v0-package-cache-{{ checksum "package.json" }}
       - run:
           name: Install SDK dependencies
-          command: npm install
+          command: yarn install --frozen-lockfile
       - run:
           name: Build the Third Party Intellectual Property file
-          command: npm run tpip
+          command: yarn tpip
       - store_artifacts:
           path: tpip.csv
   #############################################################################################
@@ -167,7 +167,7 @@ jobs:
           command: pipenv run pip install -r scripts/requirements.txt
       - run:
           name: Install SDK dependencies
-          command: npm install
+          command: yarn install --frozen-lockfile
       - save_cache:
           key: v1-package-cache-{{ checksum "package.json" }}
           paths:
@@ -179,7 +179,7 @@ jobs:
           command: pipenv run auto_version --config=scripts/auto_version.toml --news --bump=patch
       - run:
           name: Build the SDK
-          command: npm run build
+          command: yarn build
       - store_artifacts:
           path: package.json
       - persist_to_workspace:
@@ -296,7 +296,7 @@ jobs:
           key: v0-package-cache-{{ checksum "package.json" }}
       - run:
           name: Install SDK dependencies
-          command: npm install
+          command: yarn install --frozen-lockfile
       - run:
           name: Install extra dependencies (node)
           command: sudo npm install -g codecov ansi-html-stream --unsafe-perm
@@ -305,13 +305,13 @@ jobs:
           command: mkdir -p ~/build/unit-test-results/results && mkdir -p ~/build/unit-test-results/coverage
       - run:
           name: Run browser tests
-          command: npm run test:browser
+          command: yarn test:browser
       - run:
           name: Run generator self tests
-          command: npm run test:generator
+          command: yarn test:generator
       - run:
           name: Run the tests
-          command: set -o pipefail && npm run test:node 2>&1 | tee /dev/tty | grep -v '^Tunnel d' | ansi-html >> ~/build/unit-test-results/results/unit_tests.html
+          command: set -o pipefail && yarn test:node 2>&1 | tee /dev/tty | grep -v '^Tunnel d' | ansi-html >> ~/build/unit-test-results/results/unit_tests.html
       - store_artifacts:
           path: unit-test-results
       - persist_to_workspace:
@@ -554,19 +554,19 @@ jobs:
       - checkout
       - run:
           name: Install dependencies
-          command: npm install
+          command: yarn install --frozen-lockfile
       - run:
           name: Run generator self tests
-          command: npm run test:generator
+          command: yarn test:generator
       - run:
           name: Run generator
-          command: npm run generate
+          command: yarn generate
       - run:
           name: Build
-          command: npm run build
+          command: yarn build
       - run:
           name: Test
-          command: npm test
+          command: yarn test
       - run:
           name: commit changes
           command: |

@@ -5,8 +5,8 @@ export DEBUG=superagent
 export DEBUG_COLORS=true
 
 # have to run these individualy and node command needs to be run as deamon
-npm run clean:integration
-npm run compile:integration
+yarn clean:integration
+yarn compile:integration
 node build/test/integration/codeCoverage.js &
 pid=$!
 

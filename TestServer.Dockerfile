@@ -4,15 +4,15 @@ WORKDIR /testserver
 
 COPY package*.json ./
 
-RUN npm install
+RUN yarn install --frozen-lockfile
 
 COPY ./src ./src
 COPY ./test/integration ./test/integration
 COPY ./tsconfig.json ./tsconfig.json
 COPY ./integration.tsconfig.json ./integration.tsconfig.json
 
-RUN npm run clean:integration
-RUN npm run compile:integration
+RUN yarn clean:integration
+RUN yarn compile:integration
 
 EXPOSE 5000
 
