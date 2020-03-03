@@ -8,7 +8,7 @@ sdk_test_server:
       - ./integration-results/reports:/testserver/reports
       - ./test_fixtures:/testserver/test_fixtures
 testrunner:
-    image: test_runner_new
+    image: 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner
     environment:
       - TEST_SERVER_URL=http://sdk_test_server:5000
       #folder on test server to get test files from

@@ -47,7 +47,7 @@ export class AccountAdapter extends Adapter {
             expiration: data.expiration,
             expirationWarningThreshold: data.expiration_warning_threshold || 1,
             id: data.id,
-            idleTimeout: data.idle_timeout || null,
+            idleTimeout: data.idle_timeout || 1,
             limitations: data.limitations,
             limits: data.limits,
             mfaStatus: data.mfa_status,
