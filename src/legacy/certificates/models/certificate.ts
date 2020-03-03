@@ -142,4 +142,4 @@ export class Certificate {
         }, callback);
     }
 }
-export interface Certificate extends AddDeveloperCertificateObject {}
+export type Certificate = AddDeveloperCertificateObject;

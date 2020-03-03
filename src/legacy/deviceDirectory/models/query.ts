@@ -77,4 +77,4 @@ export class Query {
         }, callback);
     }
 }
-export interface Query extends AddQueryObject {}
+export type Query = AddQueryObject;

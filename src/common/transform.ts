@@ -26,8 +26,8 @@ import { camelToSnake } from "../legacy/common/functions";
  */
 export function objectKeysToSnakeCase(input: object) {
     // tslint:disable-next-line:one-variable-per-declaration
-    let idx, key, keys, last, output, self, value;
-    self = objectKeysToSnakeCase;
+    let idx, key, value;
+    const self = objectKeysToSnakeCase;
 
     let deep: any = Infinity;
 
@@ -36,9 +36,9 @@ export function objectKeysToSnakeCase(input: object) {
         return {};
     }
 
-    keys = Object.keys(input); // Get own keys from object
-    last = keys.length - 1;
-    output = {}; // new object
+    const keys = Object.keys(input); // Get own keys from object
+    const last = keys.length - 1;
+    const output = {}; // new object
 
     // Create special object to be used during deep copy
     deep = Object.seal(

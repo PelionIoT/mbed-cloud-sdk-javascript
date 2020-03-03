@@ -54,6 +54,7 @@ export class SdkApiBase {
         const newParams = {};
         if (params) {
             for (const key in params) {
+                // eslint-disable-next-line no-prototype-builtins
                 if (params.hasOwnProperty(key) && params[key] !== undefined && params[key] !== null) {
                     const value = params[key];
                     if (this.isFileParam(value) || Array.isArray(value)) {
@@ -209,6 +210,7 @@ export class SdkApiBase {
         if (Object.keys(requestOptions.formParams).length > 0) {
             const formParams = SdkApiBase.normalizeParams(requestOptions.formParams);
             for (const key in formParams) {
+                // eslint-disable-next-line no-prototype-builtins
                 if (formParams.hasOwnProperty(key)) {
                     if (SdkApiBase.isFileParam(formParams[key])) {
                         // file field

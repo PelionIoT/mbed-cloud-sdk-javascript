@@ -38,7 +38,7 @@ export class Page<T> implements IterableIterator<T> {
      *  Entity id for fetch after it
      */
     public readonly continuationMarker?: string;
-    private currentIndex: number = 0;
+    private currentIndex = 0;
 
     private listOptions: ListOptions;
 

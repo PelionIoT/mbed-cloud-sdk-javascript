@@ -89,4 +89,4 @@ export class Device {
         }, callback);
     }
 }
-export interface Device extends AddDeviceObject {}
+export type Device = AddDeviceObject;

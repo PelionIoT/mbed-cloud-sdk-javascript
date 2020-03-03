@@ -140,7 +140,7 @@ export class CertificatesApi {
 
         return apiWrapper(
             resultsFn => {
-                const { limit, after, order, include, filter } = options as CertificateListOptions;
+                const { limit, after, order, include, filter } = options;
                 const type = extractFilter(filter, "type");
                 const serviceEq = type === "developer" ? "bootstrap" : type;
                 const executionMode = type === "developer" ? 1 : null;

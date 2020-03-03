@@ -234,7 +234,7 @@ export class AccountApi extends ApiBase {
         }
 
         // tslint:disable-next-line:prefer-const
-        let useFormData = false;
+        const useFormData = false;
         const formParams: any = {};
 
         // Determine the Content-Type header
@@ -331,7 +331,7 @@ export class StatisticsApi extends ApiBase {
         }
 
         // tslint:disable-next-line:prefer-const
-        let useFormData = false;
+        const useFormData = false;
         const formParams: any = {};
 
         // Determine the Content-Type header

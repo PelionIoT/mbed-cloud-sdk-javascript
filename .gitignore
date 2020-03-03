@@ -20,3 +20,4 @@ lcov-report
 lcov.info
 integration-results
 test_fixtures
+.eslintcache

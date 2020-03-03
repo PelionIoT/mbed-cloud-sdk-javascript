@@ -199,7 +199,7 @@ export function encodeInclude(include) {
  * @ignore
  */
 export function snakeToCamel(snake) {
-    return snake.replace(/(\_\w)/g, match => {
+    return snake.replace(/(_\w)/g, match => {
         return match[1].toUpperCase();
     });
 }
@@ -286,7 +286,7 @@ export function encodeFilter(
         return "";
     }
 
-    function encode(name, operator, value, prefix: string = "") {
+    function encode(name, operator, value, prefix = "") {
         if (value instanceof Date) {
             value = value.toISOString();
         }
@@ -326,7 +326,7 @@ export function encodeFilter(
 
             return Object.keys(filter[key])
                 .map(operator => {
-                    if (nested.indexOf(key) > -1) {
+                    if (nested.includes(key)) {
                         // Support bare { key: value }
                         if (filter[key][operator].constructor !== {}.constructor) {
                             return encode(operator, "", filter[key][operator], key);
@@ -384,7 +384,7 @@ export function decodeFilter(
                 filter[name] = {};
             }
 
-            if (nested.indexOf(name) > -1) {
+            if (nested.includes(name)) {
                 const nestedName = bits[1]; // Don't decode nested names
                 if (!filter[name][nestedName]) {
                     filter[name][nestedName] = {};

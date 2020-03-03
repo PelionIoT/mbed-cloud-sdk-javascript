@@ -36,7 +36,7 @@ export class StringBuilder {
         return this.buffer.join("");
     }
 
-    public clear(initialValue: string = "") {
+    public clear(initialValue = "") {
         const value = this.toString();
 
         if (initialValue) {

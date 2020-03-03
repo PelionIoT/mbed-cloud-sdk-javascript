@@ -119,7 +119,7 @@ export const deleteDeviceSubscriptions = (
         },
         (data, done) => {
             Object.keys(notifyFns).forEach(key => {
-                if (key.indexOf(`${deviceId}/`) === 0) {
+                if (key.startsWith(`${deviceId}/`)) {
                     delete notifyFns[key];
                 }
             });
@@ -151,7 +151,7 @@ export const listResources = (
 };
 
 const normalizePath = (path?: string): string => {
-    if (path && path.charAt(0) === "/") {
+    if (path && path.startsWith("/")) {
         return path.substr(1);
     }
 

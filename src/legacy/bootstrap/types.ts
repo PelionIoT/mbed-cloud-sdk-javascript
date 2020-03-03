@@ -40,4 +40,4 @@ export interface AddPreSharedKey {
 /**
  * Options to use when listing psks
  */
-export interface PskListOptions extends ListOptions {}
+export type PskListOptions = ListOptions;

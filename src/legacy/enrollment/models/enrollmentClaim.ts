@@ -69,4 +69,4 @@ export class EnrollmentClaim {
     }
 }
 
-export interface EnrollmentClaim extends AddEnrollmentClaim {}
+export type EnrollmentClaim = AddEnrollmentClaim;
