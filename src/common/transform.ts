@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 import { camelToSnake } from "../legacy/common/functions";
 
 /** @summary objectKeysToLowerCase( input, deep, filter )
@@ -26,8 +27,8 @@ import { camelToSnake } from "../legacy/common/functions";
  */
 export function objectKeysToSnakeCase(input: object) {
     // tslint:disable-next-line:one-variable-per-declaration
-    let idx, key, value;
-    const self = objectKeysToSnakeCase;
+    let idx, key, keys, last, output, self, value;
+    self = objectKeysToSnakeCase;
 
     let deep: any = Infinity;
 
@@ -36,9 +37,9 @@ export function objectKeysToSnakeCase(input: object) {
         return {};
     }
 
-    const keys = Object.keys(input); // Get own keys from object
-    const last = keys.length - 1;
-    const output = {}; // new object
+    keys = Object.keys(input); // Get own keys from object
+    last = keys.length - 1;
+    output = {}; // new object
 
     // Create special object to be used during deep copy
     deep = Object.seal(
@@ -60,7 +61,7 @@ export function objectKeysToSnakeCase(input: object) {
         value = input[key];
         if (!Array.isArray(value) && typeof value === "object" && value && deep.level < deep.max) {
             if (value.constructor === Object) {
-                value = self(value);
+                value = self(value, deep);
             }
         }
         if (value !== null && value !== undefined) {
