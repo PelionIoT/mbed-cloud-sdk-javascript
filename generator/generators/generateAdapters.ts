@@ -143,7 +143,7 @@ const getDefaultValue = field => {
     }
 
     if (field.type === "integer") {
-        return field.minimum || field.default || 0;
+        return field.default || undefined;
     }
 
     return null;

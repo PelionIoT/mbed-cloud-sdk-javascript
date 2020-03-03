@@ -18,13 +18,13 @@ export class DeviceEnrollmentBulkDeleteAdapter extends Adapter {
             accountId: data.account_id,
             completedAt: data.completed_at,
             createdAt: data.created_at,
-            errorsCount: data.errors_count || 0,
+            errorsCount: data.errors_count || undefined,
             errorsReportFile: data.errors_report_file,
             fullReportFile: data.full_report_file,
             id: data.id,
-            processedCount: data.processed_count || 0,
+            processedCount: data.processed_count || undefined,
             status: data.status || "new",
-            totalCount: data.total_count || 0,
+            totalCount: data.total_count || undefined,
         });
         return mappedEntity;
     }

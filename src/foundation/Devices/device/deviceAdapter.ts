@@ -27,7 +27,7 @@ export class DeviceAdapter extends Adapter {
             deployment: data.deployment,
             description: data.description,
             deviceClass: data.device_class,
-            deviceExecutionMode: data.device_execution_mode || 0,
+            deviceExecutionMode: data.device_execution_mode || undefined,
             deviceKey: data.device_key,
             endpointName: data.endpoint_name,
             endpointType: data.endpoint_type,
