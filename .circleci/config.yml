@@ -154,9 +154,12 @@ jobs:
     environment:
       PIPENV_VENV_IN_PROJECT: TRUE
     docker:
-      - image: circleci/python:3.7.6-stretch-node
+      - image: circleci/python:3.7.3-stretch-node
     steps:
       - checkout
+      - run:
+          name: node version
+          command: node --version
       - run:
           name: Update Python Installers
           command: sudo python -m pip install -U setuptools pip pipenv
