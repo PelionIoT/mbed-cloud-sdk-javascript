@@ -49,7 +49,7 @@ export class ResourceValue {
      */
     public toString() {
         if (!this.stringValue) {
-            if (this.resource.contentType && this.resource.contentType.indexOf("tlv") > -1) {
+            if (this.resource.contentType && this.resource.contentType.includes("tlv")) {
                 this.stringValue = this.tlvParser
                     ? this.tlvParser.parseDataAndConvertToString(this.payload)
                     : TlvParser.parseDataAndConvertToString(this.payload);
@@ -69,7 +69,7 @@ export class ResourceValue {
             return this.jsonValue;
         }
 
-        if (this.resource.contentType && this.resource.contentType.indexOf("tlv") > -1) {
+        if (this.resource.contentType && this.resource.contentType.includes("tlv")) {
             this.jsonValue = this.tlvParser
                 ? this.tlvParser.parseDataAndConvertToJson(this.payload)
                 : TlvParser.parseDataAndConvertToJson(this.payload);
@@ -92,7 +92,7 @@ export class ResourceValue {
     }
 
     private getTlvValue(resource: Resource) {
-        if (resource.contentType && resource.contentType.indexOf("tlv") > -1) {
+        if (resource.contentType && resource.contentType.includes("tlv")) {
             return new TlvParser(this.payload).parse();
         }
 

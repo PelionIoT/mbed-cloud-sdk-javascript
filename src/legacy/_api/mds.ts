@@ -162,7 +162,7 @@ export interface Presubscription {
     "resource-path"?: Array<string>;
 }
 
-export interface PresubscriptionArray extends Array<Presubscription> {}
+export type PresubscriptionArray = Array<Presubscription>
 
 export interface Resource {
     /**
@@ -293,7 +293,7 @@ export class DeviceRequestsApi extends ApiBase {
         }
 
         // tslint:disable-next-line:prefer-const
-        let useFormData = false;
+        const useFormData = false;
         const formParams: any = {};
 
         // Determine the Content-Type header
@@ -341,7 +341,7 @@ export class EndpointsApi extends ApiBase {
         }
 
         // tslint:disable-next-line:prefer-const
-        let useFormData = false;
+        const useFormData = false;
         const formParams: any = {};
 
         // Determine the Content-Type header
@@ -388,7 +388,7 @@ export class EndpointsApi extends ApiBase {
         const queryParameters: any = {};
 
         // tslint:disable-next-line:prefer-const
-        let useFormData = false;
+        const useFormData = false;
         const formParams: any = {};
 
         // Determine the Content-Type header
@@ -467,7 +467,7 @@ export class NotificationsApi extends ApiBase {
         const queryParameters: any = {};
 
         // tslint:disable-next-line:prefer-const
-        let useFormData = false;
+        const useFormData = false;
         const formParams: any = {};
 
         // Determine the Content-Type header
@@ -504,7 +504,7 @@ export class NotificationsApi extends ApiBase {
         const queryParameters: any = {};
 
         // tslint:disable-next-line:prefer-const
-        let useFormData = false;
+        const useFormData = false;
         const formParams: any = {};
 
         // Determine the Content-Type header
@@ -541,7 +541,7 @@ export class NotificationsApi extends ApiBase {
         const queryParameters: any = {};
 
         // tslint:disable-next-line:prefer-const
-        let useFormData = false;
+        const useFormData = false;
         const formParams: any = {};
 
         // Determine the Content-Type header
@@ -578,7 +578,7 @@ export class NotificationsApi extends ApiBase {
         const queryParameters: any = {};
 
         // tslint:disable-next-line:prefer-const
-        let useFormData = false;
+        const useFormData = false;
         const formParams: any = {};
 
         // Determine the Content-Type header
@@ -615,7 +615,7 @@ export class NotificationsApi extends ApiBase {
         const queryParameters: any = {};
 
         // tslint:disable-next-line:prefer-const
-        let useFormData = false;
+        const useFormData = false;
         const formParams: any = {};
 
         // Determine the Content-Type header
@@ -652,7 +652,7 @@ export class NotificationsApi extends ApiBase {
         const queryParameters: any = {};
 
         // tslint:disable-next-line:prefer-const
-        let useFormData = false;
+        const useFormData = false;
         const formParams: any = {};
 
         // Determine the Content-Type header
@@ -689,7 +689,7 @@ export class NotificationsApi extends ApiBase {
         const queryParameters: any = {};
 
         // tslint:disable-next-line:prefer-const
-        let useFormData = false;
+        const useFormData = false;
         const formParams: any = {};
 
         // Determine the Content-Type header
@@ -736,7 +736,7 @@ export class NotificationsApi extends ApiBase {
         const queryParameters: any = {};
 
         // tslint:disable-next-line:prefer-const
-        let useFormData = false;
+        const useFormData = false;
         const formParams: any = {};
 
         // Determine the Content-Type header
@@ -774,7 +774,7 @@ export class NotificationsApi extends ApiBase {
         const queryParameters: any = {};
 
         // tslint:disable-next-line:prefer-const
-        let useFormData = false;
+        const useFormData = false;
         const formParams: any = {};
 
         // Determine the Content-Type header
@@ -840,7 +840,7 @@ export class ResourcesApi extends ApiBase {
         }
 
         // tslint:disable-next-line:prefer-const
-        let useFormData = false;
+        const useFormData = false;
         const formParams: any = {};
 
         // Determine the Content-Type header
@@ -905,7 +905,7 @@ export class ResourcesApi extends ApiBase {
         }
 
         // tslint:disable-next-line:prefer-const
-        let useFormData = false;
+        const useFormData = false;
         const formParams: any = {};
 
         // Determine the Content-Type header
@@ -987,7 +987,7 @@ export class ResourcesApi extends ApiBase {
         }
 
         // tslint:disable-next-line:prefer-const
-        let useFormData = false;
+        const useFormData = false;
         const formParams: any = {};
 
         // Determine the Content-Type header
@@ -1059,7 +1059,7 @@ export class ResourcesApi extends ApiBase {
         }
 
         // tslint:disable-next-line:prefer-const
-        let useFormData = false;
+        const useFormData = false;
         const formParams: any = {};
 
         // Determine the Content-Type header
@@ -1136,7 +1136,7 @@ export class SubscriptionsApi extends ApiBase {
         const queryParameters: any = {};
 
         // tslint:disable-next-line:prefer-const
-        let useFormData = false;
+        const useFormData = false;
         const formParams: any = {};
 
         // Determine the Content-Type header
@@ -1193,7 +1193,7 @@ export class SubscriptionsApi extends ApiBase {
         const queryParameters: any = {};
 
         // tslint:disable-next-line:prefer-const
-        let useFormData = false;
+        const useFormData = false;
         const formParams: any = {};
 
         // Determine the Content-Type header
@@ -1242,7 +1242,7 @@ export class SubscriptionsApi extends ApiBase {
         const queryParameters: any = {};
 
         // tslint:disable-next-line:prefer-const
-        let useFormData = false;
+        const useFormData = false;
         const formParams: any = {};
 
         // Determine the Content-Type header
@@ -1279,7 +1279,7 @@ export class SubscriptionsApi extends ApiBase {
         const queryParameters: any = {};
 
         // tslint:disable-next-line:prefer-const
-        let useFormData = false;
+        const useFormData = false;
         const formParams: any = {};
 
         // Determine the Content-Type header
@@ -1335,7 +1335,7 @@ export class SubscriptionsApi extends ApiBase {
         const queryParameters: any = {};
 
         // tslint:disable-next-line:prefer-const
-        let useFormData = false;
+        const useFormData = false;
         const formParams: any = {};
 
         // Determine the Content-Type header
@@ -1384,7 +1384,7 @@ export class SubscriptionsApi extends ApiBase {
         const queryParameters: any = {};
 
         // tslint:disable-next-line:prefer-const
-        let useFormData = false;
+        const useFormData = false;
         const formParams: any = {};
 
         // Determine the Content-Type header
@@ -1421,7 +1421,7 @@ export class SubscriptionsApi extends ApiBase {
         const queryParameters: any = {};
 
         // tslint:disable-next-line:prefer-const
-        let useFormData = false;
+        const useFormData = false;
         const formParams: any = {};
 
         // Determine the Content-Type header
@@ -1468,7 +1468,7 @@ export class SubscriptionsApi extends ApiBase {
         const queryParameters: any = {};
 
         // tslint:disable-next-line:prefer-const
-        let useFormData = false;
+        const useFormData = false;
         const formParams: any = {};
 
         // Determine the Content-Type header

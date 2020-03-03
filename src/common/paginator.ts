@@ -121,27 +121,23 @@ export class Paginator<T extends Entity, U extends ListOptions> implements Async
      */
     public async nextPage(): Promise<Page<T>> {
         if (this.hasNextPage()) {
-            try {
-                const page = await this.fetchPageFunction(this.listOptions);
-                if (page) {
-                    this._currentPage = page;
-                    this._totalCount = page.totalCount;
-                    if (this._totalCount && this._totalCount < this.maxResults) {
-                        this._totalPages = this.getTotalPages(this._totalCount, this.pageSize);
-                    }
-                    this._currentPageAfter = page.after;
-                    this._currentPageHasMore = page.hasMore;
-                    this._afters.push(this._currentPageAfter);
-                    this.listOptions.after = this._currentPageAfter;
-                    if (this.currentPageIndex === -1) {
-                        this._firstItem = page.first();
-                    }
-                    this._currentPageIndex++;
-
-                    return page;
+            const page = await this.fetchPageFunction(this.listOptions);
+            if (page) {
+                this._currentPage = page;
+                this._totalCount = page.totalCount;
+                if (this._totalCount && this._totalCount < this.maxResults) {
+                    this._totalPages = this.getTotalPages(this._totalCount, this.pageSize);
                 }
-            } catch (e) {
-                throw e;
+                this._currentPageAfter = page.after;
+                this._currentPageHasMore = page.hasMore;
+                this._afters.push(this._currentPageAfter);
+                this.listOptions.after = this._currentPageAfter;
+                if (this.currentPageIndex === -1) {
+                    this._firstItem = page.first();
+                }
+                this._currentPageIndex++;
+
+                return page;
             }
         }
     }

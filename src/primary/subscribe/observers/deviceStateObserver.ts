@@ -53,7 +53,7 @@ export class DeviceStateObserver extends Observer<DeviceEvent<Resource>> {
     private filterFunc(data: DeviceEvent<Resource>): boolean {
         if (this.filter) {
             for (const key in this.filter) {
-                if (ensureArray(this.filter[key]).indexOf(data[key]) === -1) {
+                if (!ensureArray(this.filter[key]).includes(data[key])) {
                     return false;
                 }
             }

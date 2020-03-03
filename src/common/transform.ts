@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 import { camelToSnake } from "../legacy/common/functions";
 
 /** @summary objectKeysToLowerCase( input, deep, filter )

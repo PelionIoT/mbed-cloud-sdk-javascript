@@ -885,7 +885,7 @@ export class AccountManagementApi {
 
         return apiWrapper(
             resultsFn => {
-                const { limit, after, order, include, filter } = options as GroupListOptions;
+                const { limit, after, order, include, filter } = options;
                 this._endpoints.admin.getUsersOfGroup(
                     groupId,
                     limit,
@@ -960,7 +960,7 @@ export class AccountManagementApi {
 
         return apiWrapper(
             resultsFn => {
-                const { limit, after, order, include } = options as ListOptions;
+                const { limit, after, order, include } = options;
                 this._endpoints.developer.getApiKeysOfGroup(
                     groupId,
                     limit,

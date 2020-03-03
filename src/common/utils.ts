@@ -7,7 +7,7 @@ export const isObject = val => {
 };
 
 export const isJwt = (token: string) => {
-    if (token && token.indexOf("rt_") > -1) {
+    if (token && token.includes("rt_")) {
         return true;
     }
 
@@ -37,7 +37,7 @@ export const arraysEqual = (array1: Array<any>, array2: Array<any>) => {
     }
 
     for (let i = 0, l = array1.length; i < l; i++) {
-        if (array1.indexOf(array2[i]) === -1) {
+        if (!array1.includes(array2[i])) {
             return false;
         }
     }

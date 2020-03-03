@@ -167,7 +167,7 @@ export class TlvValue {
             return null;
         }
 
-        const numericId = typeof id[0] === "string" ? parseInt(id[0] as string, 10) : id[0];
+        const numericId = typeof id[0] === "string" ? parseInt(id[0], 10) : id[0];
         const resource = this.children.find(x => x.id === numericId);
 
         if (resource === undefined) {
@@ -602,9 +602,9 @@ class TlvParserImpl {
             if (state === ParserState.Next) {
                 yield new TlvValue(
                     this.info,
-                    this.currentTlvValue.type!,
-                    this.currentTlvValue.identifier!,
-                    this.currentTlvValue.valueField!
+                    this.currentTlvValue.type,
+                    this.currentTlvValue.identifier,
+                    this.currentTlvValue.valueField
                 );
 
                 state = ParserState.Type;
@@ -647,13 +647,13 @@ class TlvParserImpl {
     }
 
     private consumeIdentifierField(value: number) {
-        this.currentTlvValue.identifierField!.push(value);
+        this.currentTlvValue.identifierField.push(value);
 
         // 6.4.3/21: 8-bit or 16-bit unsigned  as indicated by the Type field.
-        if (this.currentTlvValue.identifierField!.length === this.currentTlvValue!.identifierFieldLength) {
-            this.currentTlvValue.identifier = Serialization.bytesToUInt(this.currentTlvValue.identifierField!);
+        if (this.currentTlvValue.identifierField.length === this.currentTlvValue.identifierFieldLength) {
+            this.currentTlvValue.identifier = Serialization.bytesToUInt(this.currentTlvValue.identifierField);
 
-            if (this.currentTlvValue.lengthFieldLength! > 0) {
+            if (this.currentTlvValue.lengthFieldLength > 0) {
                 return ParserState.Length;
             }
 
@@ -670,11 +670,11 @@ class TlvParserImpl {
     }
 
     private consumeLengthField(value: number) {
-        this.currentTlvValue.lengthField!.push(value);
+        this.currentTlvValue.lengthField.push(value);
 
         // 6.4.3/21: 0-24-bit unsigned integer as indicated by the Type field.
-        if (this.currentTlvValue.lengthField!.length === this.currentTlvValue!.lengthFieldLength) {
-            this.currentTlvValue.valueFieldLength = Serialization.bytesToUInt(this.currentTlvValue.lengthField!);
+        if (this.currentTlvValue.lengthField.length === this.currentTlvValue.lengthFieldLength) {
+            this.currentTlvValue.valueFieldLength = Serialization.bytesToUInt(this.currentTlvValue.lengthField);
 
             // Special case: the Value is empty. Note tht an empty node is always
             // an error but an empty leaf is an error only for certain data types.
@@ -690,9 +690,9 @@ class TlvParserImpl {
 
     private consumeValueField(value: number) {
         // TODO: because of performance we may want to use a fixed size UInt8Array for the Value field.
-        this.currentTlvValue.valueField!.push(value);
+        this.currentTlvValue.valueField.push(value);
 
-        if (this.currentTlvValue.valueField!.length === this.currentTlvValue.valueFieldLength) {
+        if (this.currentTlvValue.valueField.length === this.currentTlvValue.valueFieldLength) {
             return ParserState.Next;
         }
 
