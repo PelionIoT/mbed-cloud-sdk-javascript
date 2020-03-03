@@ -60,7 +60,7 @@ export function objectKeysToSnakeCase(input: object) {
         value = input[key];
         if (!Array.isArray(value) && typeof value === "object" && value && deep.level < deep.max) {
             if (value.constructor === Object) {
-                value = self(value, deep);
+                value = self(value);
             }
         }
         if (value !== null && value !== undefined) {

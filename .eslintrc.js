@@ -30,6 +30,7 @@ module.exports = {
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-use-before-define": "off",
     "@typescript-eslint/prefer-regexp-exec": "off",
+    "@typescript-eslint/no-empty-interface": "off",
     "no-dupe-class-members": "off",
     "no-prototype-builtins": "off",
   }

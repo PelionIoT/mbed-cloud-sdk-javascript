@@ -49,4 +49,4 @@ export class PreSharedKey {
     }
 }
 
-export type PreSharedKey = AddPreSharedKey;
+export interface PreSharedKey extends AddPreSharedKey {}

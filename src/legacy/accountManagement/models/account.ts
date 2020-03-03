@@ -106,4 +106,4 @@ export class Account {
         }, callback);
     }
 }
-export type Account = UpdateAccountObject;
+export interface Account extends UpdateAccountObject {}

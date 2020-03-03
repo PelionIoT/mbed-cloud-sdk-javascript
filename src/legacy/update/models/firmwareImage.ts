@@ -73,4 +73,4 @@ export class FirmwareImage {
         }, callback);
     }
 }
-export type FirmwareImage = FirmwareImageObject;
+export interface FirmwareImage extends FirmwareImageObject {}

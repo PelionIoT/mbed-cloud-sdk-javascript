@@ -154,4 +154,4 @@ export class Campaign {
         }, callback);
     }
 }
-export type Campaign = UpdateCampaignObject;
+export interface Campaign extends UpdateCampaignObject {}

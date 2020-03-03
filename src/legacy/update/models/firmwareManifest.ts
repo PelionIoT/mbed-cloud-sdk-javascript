@@ -81,4 +81,4 @@ export class FirmwareManifest {
         }, callback);
     }
 }
-export type FirmwareManifest = FirmwareManifestObject;
+export interface FirmwareManifest extends FirmwareManifestObject {}

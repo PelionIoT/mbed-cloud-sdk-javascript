@@ -135,4 +135,4 @@ export class ApiKey {
         }, callback);
     }
 }
-export type ApiKey = AddApiKeyObject;
+export interface ApiKey extends AddApiKeyObject {}

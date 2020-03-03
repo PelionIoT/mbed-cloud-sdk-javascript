@@ -164,4 +164,4 @@ export class User {
         }, callback);
     }
 }
-export type User = UpdateUserObject;
+export interface User extends UpdateUserObject {}
