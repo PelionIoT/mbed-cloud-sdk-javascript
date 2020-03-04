@@ -143,7 +143,7 @@ const getDefaultValue = field => {
     }
 
     if (field.type === "integer") {
-        return field.default || undefined;
+        return field.default || null;
     }
 
     return null;

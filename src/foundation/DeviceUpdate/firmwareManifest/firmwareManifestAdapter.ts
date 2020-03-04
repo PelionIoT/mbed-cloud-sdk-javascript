@@ -16,10 +16,10 @@ export class FirmwareManifestAdapter extends Adapter {
         const mappedEntity = FirmwareManifestAdapter.assignDefined(instance || {}, {
             _discriminator: "FIRMWARE_MANIFEST",
             createdAt: data.created_at,
-            datafileSize: data.datafile_size || undefined,
+            datafileSize: data.datafile_size,
             datafileUrl: data.datafile,
             deliveredPayloadDigest: data.delivered_payload_digest,
-            deliveredPayloadSize: data.delivered_payload_size || undefined,
+            deliveredPayloadSize: data.delivered_payload_size,
             deliveredPayloadType: data.delivered_payload_type,
             deliveredPayloadUrl: data.delivered_payload_url,
             description: data.description,
@@ -32,7 +32,7 @@ export class FirmwareManifestAdapter extends Adapter {
             parsedRawManifest: data.parsed_raw_manifest,
             precursorPayloadDigest: data.precursor_payload_digest,
             timestamp: data.timestamp,
-            updatePriority: data.update_priority || undefined,
+            updatePriority: data.update_priority,
             updatedAt: data.updated_at,
         });
         return mappedEntity;
