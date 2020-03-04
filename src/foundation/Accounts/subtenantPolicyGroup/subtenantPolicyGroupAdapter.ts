@@ -16,12 +16,12 @@ export class SubtenantPolicyGroupAdapter extends Adapter {
         const mappedEntity = SubtenantPolicyGroupAdapter.assignDefined(instance || {}, {
             _discriminator: "SUBTENANT_POLICY_GROUP",
             accountId: data.account_id,
-            apikeyCount: data.apikey_count || undefined,
+            apikeyCount: data.apikey_count,
             createdAt: data.created_at,
             id: data.id,
             name: data.name,
             updatedAt: data.updated_at,
-            userCount: data.user_count || undefined,
+            userCount: data.user_count,
         });
         return mappedEntity;
     }

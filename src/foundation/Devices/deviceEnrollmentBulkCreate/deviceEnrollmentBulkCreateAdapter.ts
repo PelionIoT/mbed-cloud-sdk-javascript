@@ -18,13 +18,13 @@ export class DeviceEnrollmentBulkCreateAdapter extends Adapter {
             accountId: data.account_id,
             completedAt: data.completed_at,
             createdAt: data.created_at,
-            errorsCount: data.errors_count || undefined,
+            errorsCount: data.errors_count,
             errorsReportFile: data.errors_report_file,
             fullReportFile: data.full_report_file,
             id: data.id,
-            processedCount: data.processed_count || undefined,
+            processedCount: data.processed_count,
             status: data.status || "new",
-            totalCount: data.total_count || undefined,
+            totalCount: data.total_count,
         });
         return mappedEntity;
     }

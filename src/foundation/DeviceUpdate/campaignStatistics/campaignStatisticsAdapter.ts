@@ -16,7 +16,7 @@ export class CampaignStatisticsAdapter extends Adapter {
         const mappedEntity = CampaignStatisticsAdapter.assignDefined(instance || {}, {
             _discriminator: "CAMPAIGN_STATISTICS",
             campaignId: data.campaign_id,
-            count: data.count || undefined,
+            count: data.count,
             createdAt: data.created_at,
             id: data.id,
             summaryStatus: data.summary_status,
