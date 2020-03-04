@@ -26,6 +26,7 @@ references:
       branches:
         only:
         - /api-contract.*/
+        - bugfix/generation-commit-back
 
 jobs:
   #############################################################################################
@@ -552,7 +553,7 @@ jobs:
   #############################################################################################
   commit_back_generation:
     docker:
-      - image: circleci/node:jessie-browsers
+      - image: circleci/node:lts-jessie-browsers
     steps:
       - checkout
       - run:
