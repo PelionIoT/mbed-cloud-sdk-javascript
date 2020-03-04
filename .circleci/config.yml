@@ -26,7 +26,6 @@ references:
       branches:
         only:
         - /api-contract.*/
-        - bugfix/generation-commit-back
 
 jobs:
   #############################################################################################
@@ -341,7 +340,7 @@ jobs:
   #############################################################################################
   build_documentation:
     docker:
-      - image: circleci/node:jessie-browsers
+      - image: circleci/node:lts-jessie-browsers
     steps:
       - run:
           name: Trigger documentation build
@@ -516,7 +515,7 @@ jobs:
   #############################################################################################
   build_sync:
     docker:
-      - image: circleci/node:jessie-browsers
+      - image: circleci/node:lts-jessie-browsers
     steps:
       - checkout
       - attach_workspace:
@@ -533,7 +532,7 @@ jobs:
               git push -q https://${GITHUB_TOKEN}@github.com/ARMmbed/${CIRCLE_PROJECT_REPONAME}.git build/${CIRCLE_BRANCH}
   create_build_branch:
     docker:
-      - image: circleci/node:jessie-browsers
+      - image: circleci/node:lts-jessie-browsers
     steps:
       - checkout
       - attach_workspace:
