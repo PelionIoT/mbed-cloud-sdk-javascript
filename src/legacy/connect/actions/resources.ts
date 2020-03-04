@@ -42,6 +42,7 @@ export const getResourceValue = ({
     const asyncId = generateId();
 
     return apiWrapper<ResourceValue>(
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         async resultsFn => {
             if ((await connect.getWebhook()) && forceClear) {
                 return resultsFn(new SDKError("webhook in use"), null);
@@ -129,6 +130,7 @@ export const setResourceValue = (
     const payload = encodeBase64(value);
 
     return apiWrapper(
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         async resultsFn => {
             if ((await connect.getWebhook()) && !forceClear) {
                 return resultsFn(new SDKError("webhook in use"), null);
@@ -226,6 +228,7 @@ export const executeResource = (
     const asyncId = generateId();
 
     return apiWrapper(
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         async resultsFn => {
             if ((await connect.getWebhook()) && !forceClear) {
                 return resultsFn(new SDKError("webhook in use"), null);
@@ -318,7 +321,7 @@ export const getResource = (
 };
 
 const normalizePath = (path?: string): string => {
-    if (path && path.charAt(0) === "/") {
+    if (path && path.startsWith("/")) {
         return path.substr(1);
     }
 
@@ -326,7 +329,7 @@ const normalizePath = (path?: string): string => {
 };
 
 const reverseNormalizePath = (path?: string): string => {
-    if (path && path.charAt(0) !== "/") {
+    if (path && !path.startsWith("/")) {
         return `/${path}`;
     }
 

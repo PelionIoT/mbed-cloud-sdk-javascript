@@ -105,7 +105,7 @@ export class PreSharedKeysApi extends ApiBase {
         const queryParameters: any = {};
 
         // tslint:disable-next-line:prefer-const
-        let useFormData = false;
+        const useFormData = false;
         const formParams: any = {};
 
         // Determine the Content-Type header
@@ -155,7 +155,7 @@ export class PreSharedKeysApi extends ApiBase {
         const queryParameters: any = {};
 
         // tslint:disable-next-line:prefer-const
-        let useFormData = false;
+        const useFormData = false;
         const formParams: any = {};
 
         // Determine the Content-Type header
@@ -205,7 +205,7 @@ export class PreSharedKeysApi extends ApiBase {
         }
 
         // tslint:disable-next-line:prefer-const
-        let useFormData = false;
+        const useFormData = false;
         const formParams: any = {};
 
         // Determine the Content-Type header
@@ -252,7 +252,7 @@ export class PreSharedKeysApi extends ApiBase {
         const queryParameters: any = {};
 
         // tslint:disable-next-line:prefer-const
-        let useFormData = false;
+        const useFormData = false;
         const formParams: any = {};
 
         // Determine the Content-Type header

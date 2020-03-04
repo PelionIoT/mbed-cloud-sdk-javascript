@@ -21,7 +21,7 @@ export interface CertificateIssuer extends Entity {
 When the issuer_type is GLOBAL_SIGN, the value shall be empty.
 When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
 
-*@example
+*@example 
 */
     issuerAttributes?: { [key: string]: string };
 

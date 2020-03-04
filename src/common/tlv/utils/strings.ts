@@ -68,8 +68,9 @@ export function toString(value: unknown, ...functionArgs: Array<unknown>): strin
     }
 
     if (typeof value === "object") {
-        if (value!.hasOwnProperty("toString")) {
-            return value!.toString();
+        // eslint-disable-next-line no-prototype-builtins
+        if (value.hasOwnProperty("toString")) {
+            return value.toString();
         }
 
         return JSON.stringify(value);

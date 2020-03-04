@@ -14,7 +14,7 @@ export interface CertificateIssuerCreateRequest {
 When the issuer_type is GLOBAL_SIGN, the value shall be empty.
 When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
 
-*@example
+*@example 
 */
     readonly issuerAttributes?: { [key: string]: string };
 
@@ -23,7 +23,7 @@ When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
 When the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials.
 When the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials.
 
-*@example
+*@example 
 */
     readonly issuerCredentials: { [key: string]: string };
 
@@ -60,7 +60,7 @@ export interface CertificateIssuerUpdateRequest {
 When the issuer_type is GLOBAL_SIGN, the value shall be empty.
 When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
 
-*@example
+*@example 
 */
     readonly issuerAttributes?: { [key: string]: string };
 
@@ -69,7 +69,7 @@ When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
 When the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials.
 When the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials.
 
-*@example
+*@example 
 */
     readonly issuerCredentials?: { [key: string]: string };
 

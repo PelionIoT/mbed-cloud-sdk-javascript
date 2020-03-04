@@ -17,7 +17,7 @@ export class FirmwareImageAdapter extends Adapter {
             _discriminator: "FIRMWARE_IMAGE",
             createdAt: data.created_at,
             datafileChecksum: data.datafile_checksum,
-            datafileSize: data.datafile_size || 0,
+            datafileSize: data.datafile_size || undefined,
             datafileUrl: data.datafile,
             description: data.description,
             id: data.id,

@@ -132,6 +132,7 @@ export const startNotifications = (
         deliveryMethod = "CLIENT_INITIATED";
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     return asyncStyle(async done => {
         // cannot call start notifications if using webhooks
         if (deliveryMethod === "SERVER_INITIATED") {
@@ -222,7 +223,8 @@ export const stopNotifications = (
     deliveryMethod: DeliveryMethod,
     callback?: CallbackFn<void>
 ): Promise<void> => {
-    return asyncStyle(async done => {
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+    return asyncStyle(done => {
         // cannot call stop notifications if using webhooks
         if (deliveryMethod === "SERVER_INITIATED") {
             log.warn("should not call stop notifications if delivery method is server initiated");

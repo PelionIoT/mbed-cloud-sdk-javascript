@@ -74,7 +74,7 @@ export class ApiKey {
                 let groups = [];
                 if (data.data && data.data.length) {
                     groups = data.data.filter(group => {
-                        return this.groups.indexOf(group.id) > -1;
+                        return this.groups.includes(group.id);
                     });
                 }
 

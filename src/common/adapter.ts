@@ -14,7 +14,7 @@ export abstract class Adapter {
             target = {};
         }
 
-        Object.keys(source).map((key, _index) => {
+        Object.keys(source).map(key => {
             if (source[key] !== undefined) {
                 target[key] = source[key];
             }
