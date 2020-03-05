@@ -25,13 +25,17 @@ import { Resource } from "./resource";
  */
 export class DeviceEventAdapter {
     public static mapResource(from: apiResourceEvent, deviceId: string): Resource {
-        return {
+        const returnObject = {
             contentType: from.rt,
             observable: from.obs,
-            type: TlvDataType[from.ct],
             path: from.path,
             deviceId,
+            type: undefined,
         };
+        if (TlvDataType && from.ct) {
+            returnObject.type = TlvDataType[from.ct];
+        }
+        return returnObject;
     }
 
     public static map(from: apiDeviceEvent, event: DeviceEventEnum): DeviceEvent<Resource> {
