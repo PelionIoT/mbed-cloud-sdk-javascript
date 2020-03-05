@@ -4,8 +4,6 @@ node_modules
 bundles
 coverage
 reports
-lib
-lib-es6
 types
 junit.xml
 package-lock.json
@@ -21,3 +19,4 @@ lcov.info
 integration-results
 test_fixtures
 .eslintcache
+.idea
