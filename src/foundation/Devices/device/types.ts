@@ -120,7 +120,7 @@ Permitted values:
     readonly name?: string;
 
     /**
-     *The [serial number](../provisioning-process/provisioning-information.html#serial-number) of the device. The serial number is injected by the factory tool during manufacturing.
+     *The [serial number](https://www.pelion.com/docs/device-management-provision/latest/provisioning-info/lwm2m-device-object.html#serial-number) of the device. The serial number is injected by the factory tool during manufacturing.
      *@example 00000000-0000-0000-0000-000000000000
      */
     readonly serialNumber?: string;

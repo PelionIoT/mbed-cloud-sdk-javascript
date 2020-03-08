@@ -4,9 +4,8 @@ import { ListOptions } from "../../../common";
  */
 export interface CertificateIssuerConfigCreateRequest {
     /**
-*The ID of the certificate issuer.
+*Certificate issuer ID.
 Null if Device Management internal HSM is used.
-
 *@example 01648415a2a30242ac18000500000000
 */
     readonly certificateIssuerId?: string;
@@ -22,9 +21,8 @@ Null if Device Management internal HSM is used.
  */
 export interface CertificateIssuerConfigUpdateRequest {
     /**
-*The ID of the certificate issuer.
+*Certificate issuer ID.
 Null if Device Management internal HSM is used.
-
 *@example 01648415a2a30242ac18000500000000
 */
     readonly certificateIssuerId?: string;

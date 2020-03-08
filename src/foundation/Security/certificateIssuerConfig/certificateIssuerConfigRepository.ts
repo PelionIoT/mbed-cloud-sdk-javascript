@@ -37,10 +37,9 @@ export class CertificateIssuerConfigRepository extends Repository {
         );
     }
     /**
-* delete
-* @param id - The ID of the certificate issuer configuration.
-
-*/
+     * delete
+     * @param id - Certificate issuer ID configuration.
+     */
     public delete(id: string): Promise<void> {
         return apiWrapper(
             resultsFn => {
@@ -112,10 +111,9 @@ export class CertificateIssuerConfigRepository extends Repository {
         return new Paginator(pageFunc, options);
     }
     /**
-* read
-* @param id - The ID of the certificate issuer configuration.
-
-*/
+     * read
+     * @param id - Certificate issuer ID. configuration.
+     */
     public read(id: string): Promise<CertificateIssuerConfig> {
         return apiWrapper(
             resultsFn => {
@@ -136,11 +134,10 @@ export class CertificateIssuerConfigRepository extends Repository {
         );
     }
     /**
-* update
-* @param request - The entity to perform action on.
-* @param id - The ID of the certificate issuer configuration.
-
-*/
+     * update
+     * @param request - The entity to perform action on.
+     * @param id - Certificate issuer ID. configuration.
+     */
     public update(request: CertificateIssuerConfigUpdateRequest, id: string): Promise<CertificateIssuerConfig> {
         return apiWrapper(
             resultsFn => {
