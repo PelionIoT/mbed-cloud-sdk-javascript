@@ -13,7 +13,7 @@ export interface ApiKeyCreateRequest {
      *The display name for the API key.
      *@example API key gorgon
      */
-    readonly name: string;
+    readonly name?: string;
 
     /**
      *The owner of this API key, who is the creator by default.
@@ -40,7 +40,7 @@ export interface ApiKeyUpdateRequest {
      *The display name for the API key.
      *@example API key gorgon
      */
-    readonly name: string;
+    readonly name?: string;
 
     /**
      *The owner of this API key, who is the creator by default.
