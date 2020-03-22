@@ -106,7 +106,7 @@ export interface AccountCreateRequest {
      *Account end market.
      *@example IT
      */
-    readonly endMarket?: string;
+    readonly endMarket: string;
 
     /**
      *The phone number of a company representative.
