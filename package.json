@@ -124,7 +124,7 @@
     "@types/node": "^13.9.0",
     "@types/superagent": "^3.8.7",
     "dotenv": "^8.2.0",
-    "superagent": "^3.4.1",
+    "superagent": "^5.2.2",
     "typescript-logging": "^0.6.4"
   }
 }
