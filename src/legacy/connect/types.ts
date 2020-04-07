@@ -175,7 +175,7 @@ export interface PresubscriptionObject {
 }
 
 export const presubscriptionsEqual = (a: PresubscriptionObject, b: PresubscriptionObject) => {
-    return a.deviceId === b.deviceId && arraysEqual(a.resourcePaths, b.resourcePaths);
+    return a.deviceId === b.deviceId && arraysEqual(a.resourcePaths ?? [], b.resourcePaths ?? []);
 };
 
 export type MetricsIncludeEnum =
