@@ -541,7 +541,7 @@ export class ConnectApi extends EventEmitter {
     public setResourceValue(
         deviceId: string,
         resourcePath: string,
-        value: string | number,
+        value: unknown,
         timeout?: number,
         mimeType?: string
     ): Promise<AsyncResponse>;
@@ -560,7 +560,7 @@ export class ConnectApi extends EventEmitter {
     public setResourceValue(
         deviceId: string,
         resourcePath: string,
-        value: string | number,
+        value: unknown,
         timeout?: number,
         mimeType?: string,
         callback?: CallbackFn<AsyncResponse>
@@ -568,7 +568,7 @@ export class ConnectApi extends EventEmitter {
     public setResourceValue(
         deviceId: string,
         resourcePath: string,
-        value: string | number,
+        value: unknown,
         timeout?: number,
         mimeType?: any,
         callback?: CallbackFn<AsyncResponse>
@@ -605,7 +605,7 @@ export class ConnectApi extends EventEmitter {
     public executeResource(
         deviceId: string,
         resourcePath: string,
-        payload?: any,
+        payload?: unknown,
         timeout?: number,
         mimeType?: string,
         accepts?: string
@@ -627,7 +627,7 @@ export class ConnectApi extends EventEmitter {
     public executeResource(
         deviceId: string,
         resourcePath: string,
-        payload?: any,
+        payload?: unknown,
         timeout?: number,
         mimeType?: string,
         accepts?: string,
@@ -636,7 +636,7 @@ export class ConnectApi extends EventEmitter {
     public executeResource(
         deviceId: string,
         resourcePath: string,
-        payload?: any,
+        payload?: unknown,
         timeout?: number,
         mimeType?: any,
         accepts?: string,

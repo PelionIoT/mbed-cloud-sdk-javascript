@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testPayloadEncoding should encode number 1`] = `"MTIz"`;
+
+exports[`testPayloadEncoding should encode string 1`] = `"YSBzdHJpbmc="`;
