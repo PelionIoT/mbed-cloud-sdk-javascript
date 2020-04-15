@@ -111,7 +111,7 @@ export const setResourceValue = (
     autostartNotifications: boolean,
     deviceId: string,
     resourcePath: string,
-    value: string | number,
+    value: unknown,
     timeout?: number,
     mimeType?: any,
     callback?: CallbackFn<AsyncResponse>

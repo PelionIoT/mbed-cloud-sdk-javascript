@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { matchWithWildcard, parseResourceValue, dateToBillingMonth } from "../../src/legacy/common/functions";
+import { matchWithWildcard, parseResourceValue, dateToBillingMonth, encodeBase64 } from "../../src/legacy/common/functions";
 import { TlvDataType } from "../../src";
 
 describe("testFunctions", () => {
@@ -82,6 +82,16 @@ describe("testPayloadDecoding", () => {
 `);
     });
 });
+
+describe("testPayloadEncoding", () => {
+    it("should encode string", () => {
+        expect(encodeBase64("a string")).toMatchSnapshot();
+    });
+
+    it("should encode number", () => {
+        expect(encodeBase64(123)).toMatchSnapshot();
+    });
+})
 
 describe("testBillingMonth", () => {
     test("singleDigitMonth", () => {

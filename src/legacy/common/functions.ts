@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { TlvDataType, TlvParser } from "../../common/tlv";
+import { TlvDataType, TlvParser, Strings } from "../../common/tlv";
 import { Resource } from "../connect/models/resource";
 import { ResourceValue } from "../connect/models/resourceValue";
 import { CallbackFn, ComparisonObject, operators } from "./interfaces";
@@ -140,13 +140,14 @@ export function apiWrapper<T>(
  * Internal function
  * @ignore
  */
-export function encodeBase64(payload): string {
+export function encodeBase64(payload: unknown): string {
     if (payload) {
+        const payloadString = Strings.toString(payload);
         if (typeof btoa === "function") {
-            return btoa(payload);
+            return btoa(payloadString);
         }
 
-        return Buffer.from(payload).toString("base64");
+        return Buffer.from(payloadString).toString("base64");
     }
 }
 
