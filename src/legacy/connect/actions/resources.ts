@@ -98,7 +98,7 @@ export const getResourceValue = ({
         },
         null,
         callback,
-        false,
+        true,
         timeout
     );
 };
@@ -188,7 +188,7 @@ export const setResourceValue = (
         },
         null,
         callback,
-        false,
+        true,
         timeout
     );
 };
@@ -288,7 +288,7 @@ export const executeResource = (
         },
         null,
         callback,
-        false,
+        true,
         timeout
     );
 };
