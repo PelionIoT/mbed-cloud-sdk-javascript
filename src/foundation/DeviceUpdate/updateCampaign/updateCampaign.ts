@@ -131,5 +131,5 @@ export interface UpdateCampaign extends Entity {
      *The scheduled start time for the campaign. The campaign will start within 1 minute when then start time has elapsed.
      *@example 2017-05-22T12:37:55.576563Z
      */
-    readonly when?: Date;
+    when?: Date;
 }
