@@ -57,6 +57,7 @@ export class UpdateCampaignRepository extends Repository {
                             device_filter: request.deviceFilter,
                             name: request.name,
                             root_manifest_id: request.rootManifestId,
+                            when: request.when,
                         },
                     },
                     resultsFn
@@ -292,6 +293,7 @@ export class UpdateCampaignRepository extends Repository {
                             device_filter: request.deviceFilter,
                             name: request.name,
                             root_manifest_id: request.rootManifestId,
+                            when: request.when,
                         },
                     },
                     resultsFn
