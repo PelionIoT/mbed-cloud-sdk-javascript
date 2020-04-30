@@ -10,7 +10,7 @@ import { AsyncResponseItem } from "../types";
 
 export const deleteSubscriptions = (connect: ConnectApi, callback?: CallbackFn<void>): Promise<void> => {
     return asyncStyle(done => {
-        executeForAll(connect.listConnectedDevices.bind(this), connect.deleteDeviceSubscriptions.bind(this)).then(
+        executeForAll(connect.listConnectedDevices.bind(connect), connect.deleteDeviceSubscriptions.bind(connect)).then(
             () => done(null),
             done
         );
@@ -73,7 +73,7 @@ export const addResourceSubscription = (
                 // Record the function at this path for notifications
                 notifyFns[`${deviceId}/${resourcePath}`] = { fn: notifyFn };
             }
-            handleAsync(data, done);
+            handleAsync.bind(connect)(data, done);
         },
         callback
     );

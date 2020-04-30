@@ -28,7 +28,7 @@ export class DeviceEventAdapter {
         return {
             contentType: from.rt,
             observable: from.obs,
-            type: TlvDataType[from.ct ?? "None"],
+            type: TlvDataType?.[from.ct ?? "None"],
             path: from.path,
             deviceId,
         };

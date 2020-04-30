@@ -15,7 +15,7 @@ describe("connect examples", () => {
         (async () => {
             const connect = new ConnectApi();
 
-            const observer = connect.subscribe.resourceValues({
+            const observer = await connect.subscribe.resourceValues({
                 deviceId: "*",
             });
 

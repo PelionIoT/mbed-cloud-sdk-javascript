@@ -69,11 +69,12 @@ export class Subscribe {
         return observer;
     }
 
-    public resourceValues(
+    public async resourceValues(
         filter?: ResourceValuesFilter,
         immediacy: FirstValueEnum = "OnValueUpdate"
-    ): ResourceValuesObserver {
+    ): Promise<ResourceValuesObserver> {
         const observer = new ResourceValuesObserver(filter, this.connect, immediacy);
+        await observer.syncPresubscriptions();
         this.resourceValueObservers.push(observer);
         this.startNotifications();
 
