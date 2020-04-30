@@ -23,6 +23,7 @@ import { ConfigOptions } from "../../common/config";
 import { Version } from "../../version";
 import { isThisNode } from "./functions";
 import { SDKError } from "./sdkError";
+import { isArray } from "util";
 
 const DATE_REGEX = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
 const JSON_REGEX = /^application\/json(;.*)?$/i;
@@ -301,7 +302,11 @@ export class ApiBase {
             let data = null;
 
             if (response && !sdkError) {
-                data = response.body || response.text;
+                data =
+                    (isArray(response.body) && response.body) || // body might be an array
+                    (Object.keys(response.body).length > 0 && response.body) || // when an api returns text, it will also return an empty body, which is truthy so check body has keys
+                    response.text ||
+                    response.body;
             }
 
             // If an object has been returned and we expected json

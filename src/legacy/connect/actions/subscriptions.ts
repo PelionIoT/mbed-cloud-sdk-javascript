@@ -73,7 +73,7 @@ export const addResourceSubscription = (
                 // Record the function at this path for notifications
                 notifyFns[`${deviceId}/${resourcePath}`] = { fn: notifyFn };
             }
-            handleAsync(data, done);
+            handleAsync.bind(connect)(data, done);
         },
         callback
     );
