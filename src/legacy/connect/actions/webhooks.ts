@@ -75,7 +75,7 @@ export const updateWebhook = (
         }
 
         if (connectForceClear || forceClear) {
-            connect.stopNotifications(update.bind(this));
+            connect.stopNotifications(update.bind(connect));
         } else {
             update.call(this);
         }
