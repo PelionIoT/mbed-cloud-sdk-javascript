@@ -21,24 +21,24 @@ import { ResourceValuesObserver } from "../../src/primary/subscribe/observers/re
 
 describe("resourceValues", () => {
 
-    test("presubscriptionConstruction", () => {
+    test("presubscriptionConstruction", async () => {
         const subscribe = new Subscribe();
-        const observer = subscribe.resourceValues({ deviceId: "2", resourcePaths: [ "3/0/*", "4/0/1" ] });
+        const observer = await subscribe.resourceValues({ deviceId: "2", resourcePaths: [ "3/0/*", "4/0/1" ] });
         const presub: PresubscriptionObject = { deviceId: "2", resourcePaths: [ "3/0/*", "4/0/1" ] };
         expect(presub).toEqual(observer.localPresubscriptions[0]);
     });
 
-    test("multiplePresubscriptionConstruction", () => {
+    test("multiplePresubscriptionConstruction", async () => {
         const subscribe = new Subscribe();
-        const observer = subscribe.resourceValues({ deviceId: [ "2", "3" ], resourcePaths: [ "3/0/*", "4/0/1" ] });
+        const observer = await subscribe.resourceValues({ deviceId: [ "2", "3" ], resourcePaths: [ "3/0/*", "4/0/1" ] });
         const presubs: Array<PresubscriptionObject> = [ { deviceId: "2", resourcePaths: [ "3/0/*", "4/0/1" ] }, { deviceId: "3", resourcePaths: [ "3/0/*", "4/0/1" ] } ];
         expect(presubs).toEqual(observer.localPresubscriptions);
     });
 
-    test("subscribingToOneDevice", () => {
+    test("subscribingToOneDevice", async () => {
         const subscribe = new Subscribe();
         const items: Array<NotificationData> = [];
-        const observer = subscribe.resourceValues({ deviceId: "1" });
+        const observer = await subscribe.resourceValues({ deviceId: "1" });
         observer.addListener( res => items.push(res));
         mockNotify(subscribe);
         expect(items).toHaveLength(3);
@@ -46,10 +46,10 @@ describe("resourceValues", () => {
         expect(items).toHaveLength(6);
     });
 
-    test("subscribingToMultipleDevices", () => {
+    test("subscribingToMultipleDevices", async () => {
         const subscribe = new Subscribe();
         const items: Array<NotificationData> = [];
-        const observer = subscribe.resourceValues({ deviceId: [ "1", "2" ] });
+        const observer = await subscribe.resourceValues({ deviceId: [ "1", "2" ] });
         observer.addListener( res => items.push(res));
         mockNotify(subscribe);
         expect(items).toHaveLength(6);
@@ -57,10 +57,10 @@ describe("resourceValues", () => {
         expect(items).toHaveLength(12);
     });
 
-    test("subscribingToResourcePath", () => {
+    test("subscribingToResourcePath", async () => {
         const subscribe = new Subscribe();
         const items: Array<NotificationData> = [];
-        const observer = subscribe.resourceValues({ resourcePaths: [ "/3/0/0" ] });
+        const observer = await subscribe.resourceValues({ resourcePaths: [ "/3/0/0" ] });
         observer.addListener( res => items.push(res));
         mockNotify(subscribe);
         expect(items).toHaveLength(5);
@@ -68,10 +68,10 @@ describe("resourceValues", () => {
         expect(items).toHaveLength(10);
     });
 
-    test("subscribingToOneDeviceAndResourcePath", () => {
+    test("subscribingToOneDeviceAndResourcePath", async () => {
         const subscribe = new Subscribe();
         const items: Array<NotificationData> = [];
-        const observer = subscribe.resourceValues({ deviceId: "2", resourcePaths: [ "/3/0/0" ] });
+        const observer = await subscribe.resourceValues({ deviceId: "2", resourcePaths: [ "/3/0/0" ] });
         observer.addListener( res => items.push(res));
         mockNotify(subscribe);
         expect(items).toHaveLength(1);
@@ -79,10 +79,10 @@ describe("resourceValues", () => {
         expect(items).toHaveLength(2);
     });
 
-    test("subscribingToOneDeviceAndResourcePaths", () => {
+    test("subscribingToOneDeviceAndResourcePaths", async () => {
         const subscribe = new Subscribe();
         const items: Array<NotificationData> = [];
-        const observer = subscribe.resourceValues({ deviceId: "2", resourcePaths: [ "/3/0/0", "/3/0/1" ] });
+        const observer = await subscribe.resourceValues({ deviceId: "2", resourcePaths: [ "/3/0/0", "/3/0/1" ] });
         observer.addListener( res => items.push(res));
         mockNotify(subscribe);
         expect(items).toHaveLength(2);
@@ -90,10 +90,10 @@ describe("resourceValues", () => {
         expect(items).toHaveLength(4);
     });
 
-    test("subscribingToMultipleDevicesAndResourcePath", () => {
+    test("subscribingToMultipleDevicesAndResourcePath", async () => {
         const subscribe = new Subscribe();
         const items: Array<NotificationData> = [];
-        const observer = subscribe.resourceValues({ deviceId: [ "2", "3" ], resourcePaths: [ "/3/0/0" ] });
+        const observer = await subscribe.resourceValues({ deviceId: [ "2", "3" ], resourcePaths: [ "/3/0/0" ] });
         observer.addListener( res => items.push(res));
         mockNotify(subscribe);
         expect(items).toHaveLength(2);
@@ -101,10 +101,10 @@ describe("resourceValues", () => {
         expect(items).toHaveLength(4);
     });
 
-    test("subscribingToMultipleDevicesAndResourcePaths", () => {
+    test("subscribingToMultipleDevicesAndResourcePaths", async () => {
         const subscribe = new Subscribe();
         const items: Array<NotificationData> = [];
-        const observer = subscribe.resourceValues({ deviceId: [ "2", "3" ], resourcePaths: [ "/3/0/0", "/3/0/1" ] });
+        const observer = await subscribe.resourceValues({ deviceId: [ "2", "3" ], resourcePaths: [ "/3/0/0", "/3/0/1" ] });
         observer.addListener( res => items.push(res));
         mockNotify(subscribe);
         expect(items).toHaveLength(4);
@@ -112,10 +112,10 @@ describe("resourceValues", () => {
         expect(items).toHaveLength(8);
     });
 
-    test("subscribingToOneDeviceWildcard", () => {
+    test("subscribingToOneDeviceWildcard", async () => {
         const subscribe = new Subscribe();
         const items: Array<NotificationData> = [];
-        const observer = subscribe.resourceValues({ deviceId: "*" });
+        const observer = await subscribe.resourceValues({ deviceId: "*" });
         observer.addListener( res => items.push(res));
         mockNotify(subscribe);
         expect(items).toHaveLength(15);
@@ -123,10 +123,10 @@ describe("resourceValues", () => {
         expect(items).toHaveLength(30);
     });
 
-    test("subscribingToOneDeviceAndResourcePathWildcard", () => {
+    test("subscribingToOneDeviceAndResourcePathWildcard", async () => {
         const subscribe = new Subscribe();
         const items: Array<NotificationData> = [];
-        const observer = subscribe.resourceValues({ deviceId: "2", resourcePaths: [ "/3/*" ] });
+        const observer = await subscribe.resourceValues({ deviceId: "2", resourcePaths: [ "/3/*" ] });
         observer.addListener( res => items.push(res));
         mockNotify(subscribe);
         expect(items).toHaveLength(3);

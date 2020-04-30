@@ -91,21 +91,22 @@ export class ResourceValuesObserver extends Observer<NotificationData> {
     public async syncPresubscriptions(): Promise<void> {
         const serverPresubscriptions = await this.connect?.listPresubscriptions();
 
-        await this.connect.updatePresubscriptions(
+        await this.connect?.updatePresubscriptions(
             this.unionOfPresubscriptions(serverPresubscriptions, this.localPresubscriptions)
         );
 
         if (this.firstValue === "OnValueUpdate") {
-            const connectedDevices = (await this.connect.listConnectedDevices())?.data;
+            const connectedDevices = (await this.connect?.listConnectedDevices())?.data;
 
             for (const p of this.localPresubscriptions) {
-                const matchingDevices = connectedDevices.filter(device => matchWithWildcard(device.id, p.deviceId));
+                const matchingDevices =
+                    connectedDevices?.filter(device => matchWithWildcard(device.id, p.deviceId)) ?? [];
                 for (const m of matchingDevices) {
                     const resources = await m.listResources();
                     for (const q of resources) {
                         if (p.resourcePaths.length === 0 || p.resourcePaths.some(w => matchWithWildcard(w, q.path))) {
                             if (q.observable) {
-                                await this.connect.addResourceSubscription(m.id, q.path);
+                                await this.connect?.addResourceSubscription(m.id, q.path);
                             }
                         }
                     }

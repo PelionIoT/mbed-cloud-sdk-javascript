@@ -304,7 +304,7 @@ export class ApiBase {
             if (response && !sdkError) {
                 data =
                     (isArray(response.body) && response.body) || // body might be an array
-                    (Object.keys(response.body).length > 0 && response.body) || // when an api returns text, it will also return an empty body, which is truthy so check body has keys
+                    (Object.keys(response.body ?? {}).length > 0 && response.body) || // when an api returns text, it will also return an empty body, which is truthy so check body has keys
                     response.text ||
                     response.body;
             }
