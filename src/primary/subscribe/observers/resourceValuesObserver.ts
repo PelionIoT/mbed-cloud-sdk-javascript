@@ -89,7 +89,7 @@ export class ResourceValuesObserver extends Observer<NotificationData> {
     }
 
     public async syncPresubscriptions(): Promise<void> {
-        this.connect._log.debug("syncing subscriptions...");
+        this.connect?._log?.debug("syncing subscriptions...");
         const serverPresubscriptions = await this.connect?.listPresubscriptions();
 
         await this.connect?.updatePresubscriptions(
