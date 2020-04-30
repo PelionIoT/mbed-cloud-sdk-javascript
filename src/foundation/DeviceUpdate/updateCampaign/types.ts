@@ -60,6 +60,12 @@ export interface UpdateCampaignCreateRequest {
      *@example 016e83dce36a00000000000100100102
      */
     readonly rootManifestId?: string;
+
+    /**
+     *The scheduled start time for the campaign. The campaign will start within 1 minute when then start time has elapsed.
+     *@example 2017-05-22T12:37:55.576563Z
+     */
+    readonly when?: Date;
 }
 /**
  *UpdateCampaignUpdateRequest
@@ -106,6 +112,12 @@ export interface UpdateCampaignUpdateRequest {
      *@example 016e83dce36a00000000000100100102
      */
     readonly rootManifestId?: string;
+
+    /**
+     *The scheduled start time for the campaign. The campaign will start within 1 minute when then start time has elapsed.
+     *@example 2017-05-22T12:37:55.576563Z
+     */
+    readonly when?: Date;
 }
 /**
  *UpdateCampaignCreatedAtFilter

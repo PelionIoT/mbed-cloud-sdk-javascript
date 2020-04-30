@@ -169,6 +169,10 @@ export const updateCampaignSchema = (): Schema => {
                                 name: "rootManifestId",
                                 type: "string",
                             },
+                            {
+                                name: "when",
+                                type: "Date",
+                            },
                         ],
                     },
                 ],
@@ -328,6 +332,10 @@ export const updateCampaignSchema = (): Schema => {
                             {
                                 name: "rootManifestId",
                                 type: "string",
+                            },
+                            {
+                                name: "when",
+                                type: "Date",
                             },
                         ],
                     },
