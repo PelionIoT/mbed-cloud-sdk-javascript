@@ -27,7 +27,7 @@ export class ResourceAdapter {
         return {
             contentType: from.rt,
             observable: from.obs,
-            type: TlvDataType[from.type],
+            type: TlvDataType?.[from.type ?? "None"] ?? "None",
             path: from.uri,
             deviceId,
         };

@@ -52,7 +52,6 @@ export class ResourceValuesObserver extends Observer<NotificationData> {
                     resourcePaths: this.filter.resourcePaths || new Array(),
                 });
             });
-            this.syncPresubscriptions();
         }
     }
 
@@ -89,37 +88,33 @@ export class ResourceValuesObserver extends Observer<NotificationData> {
         });
     }
 
-    private syncPresubscriptions(): void {
-        if (this.connect) {
-            this.connect
-                .listPresubscriptions()
-                .then(serverPresubscriptions =>
-                    this.connect.updatePresubscriptions(
-                        this.unionOfPresubscriptions(serverPresubscriptions, this.localPresubscriptions)
-                    )
-                );
+    public async syncPresubscriptions(): Promise<void> {
+        const serverPresubscriptions = await this.connect?.listPresubscriptions();
 
-            if (this.firstValue === "OnValueUpdate") {
-                this.localPresubscriptions.forEach(p => {
-                    this.connect.listConnectedDevices().then(devices => {
-                        devices.data
-                            .filter(device => matchWithWildcard(device.id, p.deviceId))
-                            .forEach(m => {
-                                m.listResources().then(r => {
-                                    r.forEach(q => {
-                                        if (
-                                            p.resourcePaths.length === 0 ||
-                                            p.resourcePaths.some(w => matchWithWildcard(w, q.path))
-                                        ) {
-                                            this.connect.addResourceSubscription(m.id, q.path);
-                                        }
-                                    });
-                                });
-                            });
-                    });
-                });
+        await this.connect?.updatePresubscriptions(
+            this.unionOfPresubscriptions(serverPresubscriptions, this.localPresubscriptions)
+        );
+
+        if (this.firstValue === "OnValueUpdate") {
+            const connectedDevices = (await this.connect?.listConnectedDevices())?.data;
+
+            for (const p of this.localPresubscriptions) {
+                const matchingDevices =
+                    connectedDevices?.filter(device => matchWithWildcard(device.id, p.deviceId)) ?? [];
+                for (const m of matchingDevices) {
+                    const resources = await m.listResources();
+                    for (const q of resources) {
+                        if (p.resourcePaths.length === 0 || p.resourcePaths.some(w => matchWithWildcard(w, q.path))) {
+                            if (q.observable) {
+                                await this.connect?.addResourceSubscription(m.id, q.path);
+                            }
+                        }
+                    }
+                }
             }
         }
+
+        return;
     }
 
     private unionOfPresubscriptions(server: Array<PresubscriptionObject>, local: Array<PresubscriptionObject>) {
