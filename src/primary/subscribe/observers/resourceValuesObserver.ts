@@ -89,6 +89,7 @@ export class ResourceValuesObserver extends Observer<NotificationData> {
     }
 
     public async syncPresubscriptions(): Promise<void> {
+        this.connect._log.debug("syncing subscriptions...");
         const serverPresubscriptions = await this.connect?.listPresubscriptions();
 
         await this.connect?.updatePresubscriptions(
@@ -106,7 +107,11 @@ export class ResourceValuesObserver extends Observer<NotificationData> {
                     for (const q of resources) {
                         if (p.resourcePaths.length === 0 || p.resourcePaths.some(w => matchWithWildcard(w, q.path))) {
                             if (q.observable) {
-                                await this.connect?.addResourceSubscription(m.id, q.path);
+                                try {
+                                    await this.connect?.addResourceSubscription(m.id, q.path);
+                                } catch (e) {
+                                    this.connect?._log?.error(`failed to create subscription for ${m.id} ${q.path}`);
+                                }
                             }
                         }
                     }

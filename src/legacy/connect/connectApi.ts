@@ -107,7 +107,7 @@ export class ConnectApi extends EventEmitter {
     private _deliveryMethod?: DeliveryMethod;
     // private _isClosing: boolean;
     // private _restartCount: number;
-    private _log: Logger;
+    public _log: Logger;
 
     public get deliveryMethod(): DeliveryMethod {
         return this._deliveryMethod;

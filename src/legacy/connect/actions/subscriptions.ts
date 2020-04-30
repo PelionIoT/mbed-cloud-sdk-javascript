@@ -75,7 +75,9 @@ export const addResourceSubscription = (
             }
             handleAsync.bind(connect)(data, done);
         },
-        callback
+        callback,
+        false,
+        5000
     );
 };
 
@@ -88,7 +90,6 @@ export const deleteResourceSubscription = (
     callback?: CallbackFn<void>
 ): Promise<void> => {
     resourcePath = normalizePath(resourcePath);
-
     return apiWrapper(
         resultsFn => {
             connect.startNotifications(null, error => {
