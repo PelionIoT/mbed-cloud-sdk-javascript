@@ -88,7 +88,7 @@ export class DeviceRepository extends Repository {
     }
     /**
      * delete
-     * @param id - The [Device ID](../connecting/device-identity.html) created by Device Management.
+     * @param id - The [Device ID](https://www.pelion.com/docs/device-management/current/connecting/device-identity.html) created by Device Management.
      */
     public delete(id: string): Promise<void> {
         return apiWrapper(

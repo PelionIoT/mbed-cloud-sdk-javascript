@@ -130,7 +130,7 @@ Permitted values:
      * Unenrolled: The device has been created, but has not yet bootstrapped or connected to Device Management.
      * Cloud_enrolling: The device is bootstrapping for the first time. This state is set only while bootstrapping is in progress. For example, an external CA gives an error, and the device tries to bootstrap again after few seconds.
      * Bootstrapped: The device has bootstrapped, and has credentials to connect to Device Management.
-     * Registered: The device has registered with Pelion Device Management. [Device commands](../service-api-references/device-management-connect.html#createAsyncRequest) can be queued. The device sends events for [subscribed](../connecting/resource-change-webapp.html) resources.
+     * Registered: The device has registered with Pelion Device Management. [Device commands](https://www.pelion.com/docs/device-management-api/connect/) can be queued. The device sends events for [subscribed](https://www.pelion.com/docs/device-management/current/resources/handle-resource-webapp.html) resources.
      * Deregistered: The device has requested deregistration, or its registration has expired.
      */
     readonly state?: DeviceState;
