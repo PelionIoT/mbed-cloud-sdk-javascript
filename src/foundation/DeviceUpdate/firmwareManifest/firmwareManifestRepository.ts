@@ -14,10 +14,12 @@ export class FirmwareManifestRepository extends Repository {
     /**
      * create
      * @param firmwareManifestFile - The manifest file to create. The API gateway enforces the account-specific file size. File name must not exceed 100 characters.
+     * @param name - The name of the manifest.
      */
     public create(
         firmwareManifestFile: ReadStream | Buffer | File | Blob,
-        options?: { description?: string; keyTableFile?: ReadStream | Buffer | File | Blob; name?: string }
+        name: string,
+        options?: { description?: string; keyTableFile?: ReadStream | Buffer | File | Blob }
     ): Promise<FirmwareManifest> {
         options = options || {};
         return apiWrapper(
@@ -30,7 +32,7 @@ export class FirmwareManifestRepository extends Repository {
                             description: options.description,
                             datafile: firmwareManifestFile,
                             key_table: options.keyTableFile,
-                            name: options.name,
+                            name: name,
                         },
                         contentTypes: ["multipart/form-data"],
                     },

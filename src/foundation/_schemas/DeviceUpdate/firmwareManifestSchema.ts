@@ -107,8 +107,13 @@ export const firmwareManifestSchema = (): Schema => {
                         type: "ReadStream | Buffer | File | Blob",
                     },
                     {
-                        name: "options",
+                        name: "name",
                         position: 1,
+                        type: "string",
+                    },
+                    {
+                        name: "options",
+                        position: 2,
                         type: "Object",
                         subParams: [
                             {
@@ -118,10 +123,6 @@ export const firmwareManifestSchema = (): Schema => {
                             {
                                 name: "keyTableFile",
                                 type: "ReadStream | Buffer | File | Blob",
-                            },
-                            {
-                                name: "name",
-                                type: "string",
                             },
                         ],
                     },
