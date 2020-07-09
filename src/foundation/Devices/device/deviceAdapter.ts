@@ -20,6 +20,7 @@ export class DeviceAdapter extends Adapter {
             bootstrapExpirationDate: data.bootstrap_expiration_date,
             bootstrappedTimestamp: data.bootstrapped_timestamp,
             caId: data.ca_id,
+            componentAttributes: data.component_attributes,
             connectorExpirationDate: data.connector_expiration_date,
             createdAt: data.created_at,
             customAttributes: data.custom_attributes,

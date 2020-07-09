@@ -56,6 +56,7 @@ export class DeviceGroupRepository extends Repository {
                         url: "/v3/device-groups/",
                         method: "POST",
                         body: {
+                            component_attributes: request.componentAttributes,
                             custom_attributes: request.customAttributes,
                             description: request.description,
                             name: request.name,
@@ -524,6 +525,7 @@ export class DeviceGroupRepository extends Repository {
                             "device-group-id": id,
                         },
                         body: {
+                            component_attributes: request.componentAttributes,
                             custom_attributes: request.customAttributes,
                             description: request.description,
                             name: request.name,

@@ -15,6 +15,7 @@ export class DeviceGroupAdapter extends Adapter {
         }
         const mappedEntity = DeviceGroupAdapter.assignDefined(instance || {}, {
             _discriminator: "DEVICE_GROUP",
+            componentAttributes: data.component_attributes,
             createdAt: data.created_at,
             customAttributes: data.custom_attributes,
             description: data.description,

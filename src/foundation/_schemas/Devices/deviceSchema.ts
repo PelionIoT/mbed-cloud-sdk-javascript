@@ -30,6 +30,11 @@ export const deviceSchema = (): Schema => {
                 type: "string",
             },
             {
+                name: "componentAttributes",
+                apiName: "component_attributes",
+                type: "{ [key: string]: string }",
+            },
+            {
                 name: "connectorExpirationDate",
                 apiName: "connector_expiration_date",
                 type: "Date",

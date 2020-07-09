@@ -14,6 +14,15 @@ export interface DeviceGroupAddDeviceRequest {
  */
 export interface DeviceGroupCreateRequest {
     /**
+*Up to ten component key-value attributes. The key represents the component name, while its value represents the corresponding component version.
+Keys cannot begin with a number. Both key and value are limited to 128 characters. Updating this field replaces existing contents.
+Component name must be the same as in device Component Name resource.
+Component version must comply to semantic versioning. Maximum 3 digits per sub number, therefore max version number will be 999.999.999
+*@example [object Object]
+*/
+    readonly componentAttributes?: { [key: string]: string };
+
+    /**
      *Up to ten custom key-value attributes. Keys cannot begin with a number. Both key and value are limited to 128 characters. Updating this field replaces existing contents.
      *@example [object Object]
      */
@@ -45,6 +54,15 @@ export interface DeviceGroupRemoveDeviceRequest {
  *DeviceGroupUpdateRequest
  */
 export interface DeviceGroupUpdateRequest {
+    /**
+*Up to ten component key-value attributes. The key represents the component name, while its value represents the corresponding component version.
+Keys cannot begin with a number. Both key and value are limited to 128 characters. Updating this field replaces existing contents.
+Component name must be the same as in device Component Name resource.
+Component version must comply to semantic versioning. Maximum 3 digits per sub number, therefore max version number will be 999.999.999
+*@example [object Object]
+*/
+    readonly componentAttributes?: { [key: string]: string };
+
     /**
      *Up to ten custom key-value attributes. Keys cannot begin with a number. Both key and value are limited to 128 characters. Updating this field replaces existing contents.
      *@example [object Object]

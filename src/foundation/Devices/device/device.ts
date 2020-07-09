@@ -33,6 +33,12 @@ export interface Device extends Entity {
     caId?: string;
 
     /**
+     *Up to ten custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.
+     *@example [object Object]
+     */
+    readonly componentAttributes?: { [key: string]: string };
+
+    /**
      *The expiration date of the certificate used to connect to LwM2M server.
      */
     connectorExpirationDate?: Date;
