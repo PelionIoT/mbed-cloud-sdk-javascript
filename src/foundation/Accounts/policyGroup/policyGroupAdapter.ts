@@ -17,6 +17,7 @@ export class PolicyGroupAdapter extends Adapter {
             _discriminator: "POLICY_GROUP",
             accountId: data.account_id,
             apikeyCount: data.apikey_count,
+            applicationCount: data.application_count,
             createdAt: data.created_at,
             id: data.id,
             name: data.name,
