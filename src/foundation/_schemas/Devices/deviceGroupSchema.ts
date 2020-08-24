@@ -5,11 +5,6 @@ export const deviceGroupSchema = (): Schema => {
         name: "DeviceGroup",
         fields: [
             {
-                name: "componentAttributes",
-                apiName: "component_attributes",
-                type: "{ [key: string]: string }",
-            },
-            {
                 name: "createdAt",
                 apiName: "created_at",
                 type: "Date",
@@ -73,10 +68,6 @@ export const deviceGroupSchema = (): Schema => {
                         position: 0,
                         type: "Object",
                         subParams: [
-                            {
-                                name: "componentAttributes",
-                                type: "{ [key: string]: string }",
-                            },
                             {
                                 name: "customAttributes",
                                 type: "{ [key: string]: string }",
@@ -225,10 +216,6 @@ export const deviceGroupSchema = (): Schema => {
                         position: 0,
                         type: "Object",
                         subParams: [
-                            {
-                                name: "componentAttributes",
-                                type: "{ [key: string]: string }",
-                            },
                             {
                                 name: "customAttributes",
                                 type: "{ [key: string]: string }",
