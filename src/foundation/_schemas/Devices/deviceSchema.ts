@@ -175,6 +175,11 @@ export const deviceSchema = (): Schema => {
                 type: "string",
             },
             {
+                name: "netId",
+                apiName: "net_id",
+                type: "string",
+            },
+            {
                 name: "operatorSuspended",
                 apiName: "operator_suspended",
                 type: "boolean",

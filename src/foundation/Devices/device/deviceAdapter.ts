@@ -50,6 +50,7 @@ export class DeviceAdapter extends Adapter {
             mechanism: data.mechanism,
             mechanismUrl: data.mechanism_url,
             name: data.name,
+            netId: data.net_id,
             operatorSuspended: data.operator_suspended,
             serialNumber: data.serial_number,
             state: data.state,

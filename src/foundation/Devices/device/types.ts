@@ -921,6 +921,30 @@ export interface DeviceNameFilter {
     nin?: Array<string>;
 }
 /**
+ *DeviceNetIdFilter
+ */
+export interface DeviceNetIdFilter {
+    /**
+     *netId equal to
+     */
+    eq?: string;
+
+    /**
+     *netId not equal to
+     */
+    neq?: string;
+
+    /**
+     *netId in
+     */
+    in?: Array<string>;
+
+    /**
+     *netId not in
+     */
+    nin?: Array<string>;
+}
+/**
  *DeviceSerialNumberFilter
  */
 export interface DeviceSerialNumberFilter {
@@ -1174,6 +1198,11 @@ export interface DeviceFilter {
      *Filter by name on Device
      */
     name?: string | DeviceNameFilter;
+
+    /**
+     *Filter by netId on Device
+     */
+    netId?: string | DeviceNetIdFilter;
 
     /**
      *Filter by serialNumber on Device

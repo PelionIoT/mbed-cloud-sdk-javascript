@@ -202,6 +202,12 @@ Permitted values:
     name?: string;
 
     /**
+     *Private network identifier. Used to group nodes connected to a specific border router.
+     *@example 0000:0000:0000:0000:0000:0000:0000:0000
+     */
+    readonly netId?: string;
+
+    /**
      *Device has been suspended by operator.
      */
     readonly operatorSuspended?: boolean;
