@@ -499,6 +499,15 @@ export interface AccountSubtenantTrustedCertificateSubjectFilter {
     like?: string;
 }
 /**
+ *AccountSubtenantTrustedCertificateCertificateFingerprintFilter
+ */
+export interface AccountSubtenantTrustedCertificateCertificateFingerprintFilter {
+    /**
+     *certificateFingerprint equal to
+     */
+    eq?: string;
+}
+/**
  *AccountSubtenantTrustedCertificateValidFilter
  */
 export interface AccountSubtenantTrustedCertificateValidFilter {
@@ -555,6 +564,11 @@ export interface AccountSubtenantTrustedCertificateFilter {
      *Filter by subject on SubtenantTrustedCertificate
      */
     subject?: AccountSubtenantTrustedCertificateSubjectFilter;
+
+    /**
+     *Filter by certificateFingerprint on SubtenantTrustedCertificate
+     */
+    certificateFingerprint?: string | AccountSubtenantTrustedCertificateCertificateFingerprintFilter;
 
     /**
      *Filter by valid on SubtenantTrustedCertificate

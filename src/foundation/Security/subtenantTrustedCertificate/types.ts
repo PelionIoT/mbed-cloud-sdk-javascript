@@ -17,7 +17,7 @@ export interface SubtenantTrustedCertificateCreateRequest {
     readonly description?: string;
 
     /**
-     *If true, signature is not required. Default value false.
+     *DEPRECATED: Certificate is used in enrollment mode. Default value is false.
      */
     readonly enrollmentMode?: boolean;
 
@@ -55,7 +55,7 @@ export interface SubtenantTrustedCertificateUpdateRequest {
     readonly description?: string;
 
     /**
-     *If true, signature is not required. Default value false.
+     *DEPRECATED: Certificate is used in enrollment mode. Default value is false.
      */
     readonly enrollmentMode?: boolean;
 
