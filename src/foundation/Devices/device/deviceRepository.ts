@@ -88,7 +88,7 @@ export class DeviceRepository extends Repository {
     }
     /**
      * delete
-     * @param id - The [Device ID](../connecting/device-identity.html) created by Device Management.
+     * @param id - The [Device ID](https://www.pelion.com/docs/device-management/current/connecting/device-identity.html) created by Device Management.
      */
     public delete(id: string): Promise<void> {
         return apiWrapper(
@@ -385,6 +385,10 @@ export class DeviceRepository extends Repository {
                                 name__neq: extractFilter(pageOptions.filter, "name", "neq"),
                                 name__in: extractFilter(pageOptions.filter, "name", "in"),
                                 name__nin: extractFilter(pageOptions.filter, "name", "nin"),
+                                net_id__eq: extractFilter(pageOptions.filter, "netId", "eq"),
+                                net_id__neq: extractFilter(pageOptions.filter, "netId", "neq"),
+                                net_id__in: extractFilter(pageOptions.filter, "netId", "in"),
+                                net_id__nin: extractFilter(pageOptions.filter, "netId", "nin"),
                                 serial_number__eq: extractFilter(pageOptions.filter, "serialNumber", "eq"),
                                 serial_number__neq: extractFilter(pageOptions.filter, "serialNumber", "neq"),
                                 serial_number__in: extractFilter(pageOptions.filter, "serialNumber", "in"),

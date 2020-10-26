@@ -120,6 +120,11 @@ export class TrustedCertificateRepository extends Repository {
                                 status__eq: extractFilter(pageOptions.filter, "status", "eq"),
                                 issuer__like: extractFilter(pageOptions.filter, "issuer", "like"),
                                 subject__like: extractFilter(pageOptions.filter, "subject", "like"),
+                                certificate_fingerprint__eq: extractFilter(
+                                    pageOptions.filter,
+                                    "certificateFingerprint",
+                                    "eq"
+                                ),
                                 valid__eq: extractFilter(pageOptions.filter, "valid", "eq"),
                                 after: pageOptions.after,
                                 include: pageOptions.include,

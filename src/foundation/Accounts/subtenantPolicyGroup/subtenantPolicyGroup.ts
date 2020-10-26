@@ -15,6 +15,11 @@ export interface SubtenantPolicyGroup extends Entity {
     readonly apikeyCount?: number;
 
     /**
+     *The number of applications in this group.
+     */
+    readonly applicationCount?: number;
+
+    /**
      *Creation UTC time RFC3339.
      *@example 2018-02-13T09:35:20Z
      */

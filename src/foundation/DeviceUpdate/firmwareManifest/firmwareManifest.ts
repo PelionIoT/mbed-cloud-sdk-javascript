@@ -75,7 +75,7 @@ export interface FirmwareManifest extends Entity {
      *The name of the manifest.
      *@example manifest_name
      */
-    name?: string;
+    name: string;
 
     /**
 *Raw manifest in JSON format, parsed from ASN.1 DER encoding.

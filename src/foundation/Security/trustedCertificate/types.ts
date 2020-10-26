@@ -18,7 +18,7 @@ export interface TrustedCertificateCreateRequest {
     readonly description?: string;
 
     /**
-     *If true, signature is not required. Default value false.
+     *DEPRECATED: Certificate is used in enrollment mode. Default value is false.
      */
     readonly enrollmentMode?: boolean;
 
@@ -56,7 +56,7 @@ export interface TrustedCertificateUpdateRequest {
     readonly description?: string;
 
     /**
-     *If true, signature is not required. Default value false.
+     *DEPRECATED: Certificate is used in enrollment mode. Default value is false.
      */
     readonly enrollmentMode?: boolean;
 
@@ -164,6 +164,15 @@ export interface TrustedCertificateSubjectFilter {
     like?: string;
 }
 /**
+ *TrustedCertificateCertificateFingerprintFilter
+ */
+export interface TrustedCertificateCertificateFingerprintFilter {
+    /**
+     *certificateFingerprint equal to
+     */
+    eq?: string;
+}
+/**
  *TrustedCertificateValidFilter
  */
 export interface TrustedCertificateValidFilter {
@@ -220,6 +229,11 @@ export interface TrustedCertificateFilter {
      *Filter by subject on TrustedCertificate
      */
     subject?: TrustedCertificateSubjectFilter;
+
+    /**
+     *Filter by certificateFingerprint on TrustedCertificate
+     */
+    certificateFingerprint?: string | TrustedCertificateCertificateFingerprintFilter;
 
     /**
      *Filter by valid on TrustedCertificate

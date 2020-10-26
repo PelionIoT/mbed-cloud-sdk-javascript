@@ -14,7 +14,6 @@ import { DeviceRepository } from ".";
 import { DeviceEnrollmentRepository } from ".";
 import { DeviceEnrollmentBulkCreateRepository } from ".";
 import { DeviceEnrollmentBulkDeleteRepository } from ".";
-import { DeviceEnrollmentDenialRepository } from ".";
 import { DeviceEventsRepository } from ".";
 import { DeviceGroupRepository } from ".";
 import { FirmwareImageRepository } from ".";
@@ -89,9 +88,6 @@ export class Factory {
     }
     public deviceEnrollmentBulkDeleteRepository(): DeviceEnrollmentBulkDeleteRepository {
         return new DeviceEnrollmentBulkDeleteRepository(this._config);
-    }
-    public deviceEnrollmentDenialRepository(): DeviceEnrollmentDenialRepository {
-        return new DeviceEnrollmentDenialRepository(this._config);
     }
     public deviceEventsRepository(): DeviceEventsRepository {
         return new DeviceEventsRepository(this._config);

@@ -41,7 +41,7 @@ export interface SubtenantTrustedCertificate extends Entity {
     readonly deviceExecutionMode?: number;
 
     /**
-     *If true, signature is not required. Default value false.
+     *DEPRECATED: Certificate is used in enrollment mode. Default value is false.
      */
     enrollmentMode?: boolean;
 

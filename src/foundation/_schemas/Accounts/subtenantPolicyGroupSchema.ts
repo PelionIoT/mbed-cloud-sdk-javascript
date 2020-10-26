@@ -15,6 +15,11 @@ export const subtenantPolicyGroupSchema = (): Schema => {
                 type: "number",
             },
             {
+                name: "applicationCount",
+                apiName: "application_count",
+                type: "number",
+            },
+            {
                 name: "createdAt",
                 apiName: "created_at",
                 type: "Date",

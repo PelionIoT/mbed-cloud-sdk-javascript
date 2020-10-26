@@ -11,36 +11,43 @@ export interface OidcRequestClaimMapping extends Entity {
 
     /**
      *Custom claim name for 'email_verified'.
+     *@example email_verified
      */
     readonly emailVerified?: string;
 
     /**
      *Custom claim name for 'family_name'.
+     *@example family_name
      */
     readonly familyName?: string;
 
     /**
      *Custom claim name for 'given_name'.
+     *@example given_name
      */
     readonly givenName?: string;
 
     /**
      *Custom claim name for 'name'.
+     *@example name
      */
     readonly name?: string;
 
     /**
      *Custom claim name for 'phone_number'.
+     *@example phone_number
      */
     readonly phoneNumber?: string;
 
     /**
      *Custom claim name for 'sub'.
+     *@example sub
      */
     readonly sub?: string;
 
     /**
      *Custom claim name for 'updated_at'.
+     *@example updated_at
      */
     readonly updatedAt?: string;
 

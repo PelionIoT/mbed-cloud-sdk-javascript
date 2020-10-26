@@ -17,6 +17,7 @@ export class SubtenantPolicyGroupAdapter extends Adapter {
             _discriminator: "SUBTENANT_POLICY_GROUP",
             accountId: data.account_id,
             apikeyCount: data.apikey_count,
+            applicationCount: data.application_count,
             createdAt: data.created_at,
             id: data.id,
             name: data.name,
